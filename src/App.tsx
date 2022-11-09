@@ -3,17 +3,16 @@ import React from "react";
 function App() {
   const insertIntoDB = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/submit", {
+      const res = await fetch("http://127.0.0.1:5000/users/register", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          fname: "Test First Name",
-          lname: "Test Last Name",
-          email: "Test Email",
+          username: "usernameTest",
+          password: "passwordTest",
         }),
       });
       const response = await res.json();
-      console.log(response + 1);
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -21,8 +20,8 @@ function App() {
 
   return (
     <div>
-      <h1>Post API Test</h1>
-      <button onClick={insertIntoDB}>Insert into DB</button>
+      <h1>Register</h1>
+      <button onClick={insertIntoDB}>Submit</button>
     </div>
   );
 }
