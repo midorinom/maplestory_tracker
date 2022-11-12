@@ -1,28 +1,22 @@
-import React from "react";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./pages/NavBar/NavBar";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Login from "./pages/Login/Login";
 
 function App() {
-  const insertIntoDB = async () => {
-    try {
-      const res = await fetch("http://127.0.0.1:5000/users/register", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          username: "usernameTest",
-          password: "passwordTest",
-        }),
-      });
-      const response = await res.json();
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const userData = useAppSelector((state) => state.user.userData);
 
   return (
-    <div>
-      <h1>Register</h1>
-      <button onClick={insertIntoDB}>Submit</button>
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={userData.username ? <Dashboard /> : <Login />}
+        />
+      </Routes>
+    </>
   );
 }
 
