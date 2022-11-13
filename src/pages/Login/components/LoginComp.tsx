@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../Login.module.css";
 import { useAppDispatch } from "../../../store/hooks";
 import { loginActions } from "../../../store/login";
 
@@ -29,8 +30,10 @@ const LoginComp = () => {
   return (
     <div>
       Login Comp
-      <p>Not registered?</p>
-      <button onClick={handlePage}>Create an account</button>
+      <div className={styles.btm_ctn}>
+        <p>Not registered?</p>
+        <button onClick={handlePage}>Create an account</button>
+      </div>
     </div>
   );
 };

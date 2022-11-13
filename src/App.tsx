@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { useAppSelector } from "./store/hooks";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./pages/NavBar/NavBar";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <NavBar />
+      {userData.username && <NavBar />}
       <Routes>
         <Route
           path="/"

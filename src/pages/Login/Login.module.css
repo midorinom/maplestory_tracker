@@ -1,0 +1,11 @@
+.parent_ctn {
+  flex: 1;
+  background-image: url("../../images/sellas.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+
+.btm_ctn {
+  display: flex;
+}
