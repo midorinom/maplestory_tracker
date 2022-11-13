@@ -21,7 +21,18 @@ function App() {
         main: "#9ac4f8",
         contrastText: "#1b512d",
       },
-      // error, warrning, success
+      // success, warning, error
+    },
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: "#def4c6",
+            color: "#1b512d",
+            fontSize: "1rem",
+          },
+        },
+      },
     },
   });
 
@@ -36,6 +47,13 @@ function App() {
             path="/"
             element={userData.username ? <Dashboard /> : <Login />}
           />
+          <Route path="/characters" />
+          <Route path="/dailies-weeklies" />
+          <Route path="/bossing" />
+          <Route path="/progression" />
+          <Route path="/legion" />
+          <Route path="/farming" />
+          <Route path="/events" />
         </Routes>
       </ThemeProvider>
     </>

@@ -1,4 +1,4 @@
-import harmonySpirit from "../../images/harmony_spirit.png";
+import harmonySpirit from "./images/harmony_spirit.png";
 import { useAppSelector } from "../../store/hooks";
 import LoginComp from "./components/LoginComp";
 import Register from "./components/Register";
