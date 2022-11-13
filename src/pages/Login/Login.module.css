@@ -1,11 +1,99 @@
 .parent_ctn {
   flex: 1;
-  background-image: url("../../images/sellas.png");
+  background-image: url("../../images/elodin.png");
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.6;
+  opacity: 1;
 }
 
-.btm_ctn {
+.main_ctn {
+  min-height: 40%;
+  min-width: 30%;
+  opacity: 0.9;
+  background-color: #387780;
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+  border-radius: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.main_ctn > * {
+  min-height: 100%;
+  width: 100%;
+}
+
+.main_top_ctn {
+  display: grid;
+  grid-template-rows: 5fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.main_top_ctn > * {
+  min-height: 100%;
+  width: 100%;
+}
+
+.input_field {
+  width: 60%;
+}
+
+.login_btn {
+  width: 40%;
+}
+
+.main_btm_ctn {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_btm_btn {
+  width: 20%;
+}
+
+.main_btm_text {
+  position: relative;
+  bottom: 0.1rem;
+}
+
+.regions_ctn {
+  width: 70%;
+  gap: 1rem;
+}
+
+/* ===================
+/* for Login Page only 
+/* ==================*/
+.login_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ======================
+/* for Register Page only 
+/* =====================*/
+.register_inputs {
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.register_inputs > * {
+  min-height: 100%;
+  width: 100%;
+}
+
+.register_user_pw {
+  position: relative;
+  top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }

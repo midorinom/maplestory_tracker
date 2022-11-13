@@ -8,7 +8,7 @@ const Login = () => {
   const page = useAppSelector((state) => state.login.page);
 
   return (
-    <div className={styles.parent_ctn}>
+    <div className={`${styles.parent_ctn} + centered`}>
       {page === "login" ? <LoginComp /> : <Register />}
     </div>
   );
