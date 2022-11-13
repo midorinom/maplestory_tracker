@@ -1,9 +1,8 @@
-import React from "react";
-import styles from "../Login.module.css";
-import windSpirit from "../../../images/wind_spirit.png";
 import { useAppDispatch } from "../../../store/hooks";
 import { loginActions } from "../../../store/login";
+import styles from "../Login.module.css";
 import { Button } from "@mui/material";
+import windSpirit from "../../../images/wind_spirit.png";
 
 const Registered = () => {
   const dispatch = useAppDispatch();

@@ -1,10 +1,9 @@
-import React from "react";
-import styles from "./Login.module.css";
-import { useAppSelector } from "../../store/hooks";
 import harmonySpirit from "../../images/harmony_spirit.png";
+import { useAppSelector } from "../../store/hooks";
 import LoginComp from "./components/LoginComp";
 import Register from "./components/Register";
 import Registered from "./components/Registered";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const page = useAppSelector((state) => state.login.page);

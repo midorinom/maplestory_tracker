@@ -35,7 +35,7 @@
   opacity: 0.9;
   background-color: #387780;
   display: grid;
-  grid-template-rows: 3fr 1fr;
+  grid-template-rows: 4fr 1fr;
   border-radius: 1rem;
   justify-items: center;
   align-items: center;
@@ -50,7 +50,7 @@
 
 .main_top_ctn {
   display: grid;
-  grid-template-rows: 5fr 1fr;
+  grid-template-rows: 6fr 1fr;
   justify-items: center;
   align-items: center;
 }
