@@ -1,6 +1,6 @@
 .parent_ctn {
   height: 7%;
-  background-color: #73e2a7;
+  background-color: #fbc3bc;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +27,8 @@
 }
 
 .left_ctn > p {
-  color: #def4c6;
+  color: white;
+  font-style: italic;
 }
 
 .right_ctn {
