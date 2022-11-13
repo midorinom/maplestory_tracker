@@ -6,6 +6,25 @@
   opacity: 1;
 }
 
+.header {
+  height: 20%;
+  width: 40%;
+  position: absolute;
+  top: 5%;
+  left: 27%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.header_text {
+  font-style: italic;
+  color: #def4c6;
+}
+
+.harmony_spirit {
+}
+
 .main_ctn {
   min-height: 40%;
   min-width: 30%;
