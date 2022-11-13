@@ -4,14 +4,16 @@
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 1;
+  flex-direction: column;
 }
 
 .header {
   height: 20%;
   width: 40%;
-  position: absolute;
-  top: 5%;
-  left: 27%;
+  position: relative;
+  right: 2%;
+  bottom: 14%;
+  justify-self: flex-start;
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -23,6 +25,8 @@
 }
 
 .harmony_spirit {
+  position: relative;
+  bottom: 12%;
 }
 
 .main_ctn {
@@ -35,6 +39,8 @@
   border-radius: 1rem;
   justify-items: center;
   align-items: center;
+  position: relative;
+  bottom: 8%;
 }
 
 .main_ctn > * {
@@ -83,8 +89,8 @@
 }
 
 /* ===================
-/* for Login Page only 
-/* ==================*/
+/  for Login Page only 
+/  ==================*/
 .login_inputs {
   display: flex;
   flex-direction: column;
@@ -94,8 +100,8 @@
 }
 
 /* ======================
-/* for Register Page only 
-/* =====================*/
+/  for Register Page only 
+/  =====================*/
 .register_inputs {
   display: grid;
   grid-template-rows: 1.5fr 1fr;
@@ -115,4 +121,22 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+/* ========================
+/  for Registered Page only 
+/  =======================*/
+.registered_main_ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.registered_text {
+  font-size: 1.5rem;
+}
+
+.registered_main_ctn > img {
+  max-height: 22vh;
 }

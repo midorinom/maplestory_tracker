@@ -5,7 +5,7 @@ interface loginState {
 }
 
 const initialState: loginState = {
-  page: "login",
+  page: "registered",
 };
 
 const loginSlice = createSlice({
