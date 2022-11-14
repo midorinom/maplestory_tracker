@@ -93,7 +93,7 @@ const Register = () => {
               label="Username"
               required
               error={duplicateError}
-              helperText={duplicateError && "username is already taken"}
+              helperText={duplicateError && "Username is already taken"}
               onChange={handleOnChange}
               color="info"
               className={styles.input_field}

@@ -25,10 +25,16 @@ form {
   width: 100%;
 }
 
+.main_top_ctn {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
 .back_btn {
+  height: 40%;
   width: 20%;
-  position: relative;
-  left: 5%;
+  margin-left: 1rem;
 }
 
 .form {

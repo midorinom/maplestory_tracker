@@ -93,7 +93,7 @@ const LoginComp = () => {
             label="Password"
             required
             error={loginError}
-            helperText={loginError && "incorrect username or password"}
+            helperText={loginError && "Incorrect username or password"}
             onChange={handleOnChange}
             color="info"
             className={styles.input_field}
