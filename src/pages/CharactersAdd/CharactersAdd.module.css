@@ -16,7 +16,6 @@
   display: grid;
   grid-template-rows: 1fr 4fr 1fr;
   border-radius: 1rem;
-  justify-items: center;
   align-items: center;
 }
 
@@ -27,8 +26,9 @@ form {
 }
 
 .back_btn {
-  justify-self: start;
-  margin-left: 2rem;
+  width: 20%;
+  position: relative;
+  left: 5%;
 }
 
 .form {

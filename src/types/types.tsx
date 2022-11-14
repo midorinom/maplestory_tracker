@@ -37,3 +37,8 @@ export interface Character {
   dojo?: number;
   ba?: number;
 }
+
+export interface GetClassesRes {
+  message: string;
+  classes: string[];
+}
