@@ -10,6 +10,7 @@ const initialState: userState = {
     username: "",
     role: "",
     characters: [],
+    main: null,
   },
 };
 

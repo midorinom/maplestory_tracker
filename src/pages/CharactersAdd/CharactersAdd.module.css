@@ -14,7 +14,7 @@
   min-width: 35%;
   background: rgba(245, 245, 245, 0.9);
   display: grid;
-  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-rows: 1fr 5fr;
   border-radius: 1rem;
   align-items: center;
 }
@@ -33,13 +33,20 @@ form {
 
 .form {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
 }
 
 .text_field {
   width: 60%;
+}
+
+.upload_ctn {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .btm_ctn {

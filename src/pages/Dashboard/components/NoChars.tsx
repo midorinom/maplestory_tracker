@@ -14,6 +14,7 @@ const NoChars = () => {
           className={styles.no_chars_btn}
           size="large"
           variant="contained"
+          color="info"
         >
           Add Characters
         </Button>

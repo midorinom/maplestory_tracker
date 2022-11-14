@@ -37,6 +37,7 @@ const Dashboard = () => {
       dispatch(
         userActions.setUserData({
           characters: response.characters,
+          main: response.main,
         })
       );
     } catch (err: any) {
