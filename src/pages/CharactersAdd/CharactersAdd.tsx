@@ -19,6 +19,14 @@ const CharactersAdd = () => {
   const [ignError, setIgnError] = useState<boolean>(false);
   const [levelError, setLevelError] = useState<boolean>(false);
 
+  function getImageTooltip() {
+    if (userData.role === "GMS") {
+      return "Search for your character either on maplestory.gg or the official website's rankings page. Alternatively, you can create your character on maples.im";
+    } else if (userData.role === "MSEA") {
+      return "Create your character on the maples.im website. Alternatively, you can use a snipping tool to crop out your character from ingame.";
+    }
+  }
+  const imageTooltip = getImageTooltip();
   // ==============
   // Event Handlers
   // ==============
@@ -71,8 +79,11 @@ const CharactersAdd = () => {
   const getClasses = async () => {
     try {
       const res = await fetch("http://127.0.0.1:5000/enums/classes/get", {
-        method: "GET",
+        method: "POST",
         headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          role: userData.role,
+        }),
       });
       const response: GetClassesRes = await res.json();
 
@@ -124,7 +135,7 @@ const CharactersAdd = () => {
             renderInput={(params) => <TextField {...params} label="Classes" />}
           />
           <div className={styles.upload_ctn}>
-            <Tooltip title="Search for your character either on maplestory.gg or the official website's rankings page. Alternatively, you can create your character on maples.im">
+            <Tooltip title={imageTooltip}>
               <p>Image: </p>
             </Tooltip>
             <Button variant="outlined" color="secondary" component="label">
