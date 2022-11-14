@@ -50,3 +50,8 @@ export interface Character {
   dojo?: number;
   ba?: number;
 }
+
+export interface CreateCharacterRes {
+  message: string;
+  character: Character;
+}

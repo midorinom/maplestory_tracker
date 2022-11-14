@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
-import { GetClassesRes, DefaultRes } from "../../types/types";
+import {
+  GetClassesRes,
+  DefaultRes,
+  CreateCharacterRes,
+  Character,
+} from "../../types/types";
 import styles from "./AddCharacters.module.css";
 import { Button, TextField, Autocomplete, Tooltip, Alert } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -21,6 +26,8 @@ const AddCharacters = () => {
   const [classError, setClassError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [duplicateError, setDuplicateError] = useState<boolean>(false);
+  const [file, setFile] = useState<File>();
+  const [createdChar, setCreatedChar] = useState<Character>();
 
   function getImageTooltip() {
     if (userData.role === "GMS") {
@@ -71,12 +78,6 @@ const AddCharacters = () => {
 
       // If there are no errors, perform the fetch to create a new character
       if (validation === 0) {
-        console.log("Object sent to fetch function!", {
-          username: userData.username,
-          ign: ignRef.current.value,
-          level: levelRef.current.value,
-          class_name: selectedClass,
-        });
         createCharacter();
       }
     }
@@ -126,12 +127,24 @@ const AddCharacters = () => {
     }
   }
 
+  const handleFileChange = (e: any) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   // ==========
   // useEffects
   // ==========
   useEffect(() => {
     getClasses();
   }, []);
+
+  useEffect(() => {
+    if (createdChar) {
+      uploadImage();
+    }
+  }, [createdChar]);
 
   // ===============
   // Fetch Functions
@@ -166,14 +179,35 @@ const AddCharacters = () => {
             class_name: selectedClass,
           }),
         });
-        const response: DefaultRes = await res.json();
+        const response: CreateCharacterRes = await res.json();
         // Handle duplicate IGN error
         if (response.message === "This character has already been created") {
           setDuplicateError(true);
           throw new Error(response.message);
         } else if (response.message === "Character is created") {
           setSuccess(true);
+          setCreatedChar(response.character);
         }
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const uploadImage = async () => {
+    try {
+      if (file && createdChar) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch(
+          `http://127.0.0.1:5000/characters/upload/${createdChar.uuid}`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const response: DefaultRes = await res.json();
       }
     } catch (err: any) {
       console.log(err);
@@ -250,7 +284,7 @@ const AddCharacters = () => {
             </Tooltip>
             <Button variant="outlined" color="secondary" component="label">
               Upload File
-              <input type="file" hidden />
+              <input type="file" onChange={handleFileChange} />
             </Button>
           </div>
           <div className={styles.btm_ctn}>
