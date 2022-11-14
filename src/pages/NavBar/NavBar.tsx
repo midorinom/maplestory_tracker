@@ -10,9 +10,19 @@ import progression from "./images/progression.png";
 import legion from "./images/legion.png";
 import farming from "./images/farming.png";
 import events from "./images/events.png";
+import user from "../../store/user";
 
 const NavBar = () => {
-  const region = useAppSelector((state) => state.user.userData.role);
+  const userData = useAppSelector((state) => state.user.userData);
+
+  function localiseLegion() {
+    if (userData.role === "GMS") {
+      return "Legion";
+    } else if (userData.role === "MSEA") {
+      return "Union";
+    }
+  }
+  const legionLocalisation = localiseLegion();
 
   return (
     <div className={styles.parent_ctn}>
@@ -24,7 +34,12 @@ const NavBar = () => {
       </div>
       <div className={styles.right_ctn}>
         <Tooltip title="Manage Characters" arrow>
-          <Link to="/characters" className={styles.right_ctn_link}>
+          <Link
+            to={
+              userData.characters.length > 0 ? "/characters" : "/characters/add"
+            }
+            className={styles.right_ctn_link}
+          >
             <img src={characters} alt="Characters" />
           </Link>
         </Tooltip>
@@ -43,7 +58,7 @@ const NavBar = () => {
             <img src={progression} alt="Progression" />
           </Link>
         </Tooltip>
-        <Tooltip title="Legion" arrow>
+        <Tooltip title={legionLocalisation} arrow>
           <Link to="/legion" className={styles.right_ctn_link}>
             <img src={legion} alt="Legion" />
           </Link>

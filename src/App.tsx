@@ -2,11 +2,15 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { useAppSelector } from "./store/hooks";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./pages/NavBar/NavBar";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Characters from "./pages/Characters/Characters";
+import CharactersAdd from "./pages/CharactersAdd/CharactersAdd";
 
 function App() {
-  // Material UI colours
+  // ==============================
+  // Configuring Material UI styles
+  // ==============================
   const theme = createTheme({
     palette: {
       primary: {
@@ -21,7 +25,7 @@ function App() {
         main: "#9ac4f8",
         contrastText: "#1b512d",
       },
-      // success, warning, error
+      // additional button types: success, warning, error
     },
     components: {
       MuiTooltip: {
@@ -34,8 +38,16 @@ function App() {
         },
       },
     },
+    typography: {
+      button: {
+        textTransform: "none",
+      },
+    },
   });
 
+  // =========
+  // Variables
+  // =========
   const userData = useAppSelector((state) => state.user.userData);
 
   function getIndex() {
@@ -49,13 +61,17 @@ function App() {
   }
   const index = getIndex();
 
+  // ======
+  // Return
+  // ======
   return (
     <>
       <ThemeProvider theme={theme}>
         {userData.username && <NavBar />}
         <Routes>
           <Route path="/" element={index} />
-          <Route path="/characters" />
+          <Route path="/characters" element={<Characters />} />
+          <Route path="/characters/add" element={<CharactersAdd />} />
           <Route path="/dailies-weeklies" />
           <Route path="/bossing" />
           <Route path="/progression" />

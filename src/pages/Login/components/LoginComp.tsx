@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useAppDispatch } from "../../../store/hooks";
 import { loginActions } from "../../../store/login";
 import { userActions } from "../../../store/user";
-import { LoginResponse } from "../../../types/types";
+import { LoginRes } from "../../../types/types";
 import styles from "../Login.module.css";
 import { Button, TextField } from "@mui/material";
 
@@ -51,7 +51,7 @@ const LoginComp = () => {
             password: passwordRef.current.value,
           }),
         });
-        const response: LoginResponse = await res.json();
+        const response: LoginRes = await res.json();
 
         if (response.role) {
           dispatch(
@@ -104,7 +104,7 @@ const LoginComp = () => {
           color="primary"
           type="submit"
         >
-          Login
+          LOGIN
         </Button>
       </form>
       <div className="centered">

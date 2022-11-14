@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useAppDispatch } from "../../../store/hooks";
 import { loginActions } from "../../../store/login";
-import { MessageResponse } from "../../../types/types";
+import { DefaultRes } from "../../../types/types";
 import styles from "../Login.module.css";
 import { Button, TextField } from "@mui/material";
 
@@ -66,7 +66,7 @@ const Register = () => {
             role: region,
           }),
         });
-        const response: MessageResponse = await res.json();
+        const response: DefaultRes = await res.json();
         // Handle duplicate username error
         if (response.message === "Duplicate username") {
           setDuplicateError(true);
@@ -131,7 +131,7 @@ const Register = () => {
           color="primary"
           type="submit"
         >
-          Register
+          REGISTER
         </Button>
       </form>
       <div className={styles.main_btm_ctn}>

@@ -6,3 +6,33 @@
   opacity: 1;
   flex-direction: column;
 }
+
+/* ==================
+/  No Characters Page 
+/  =================*/
+.no_chars_parent_ctn {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no_chars_main_ctn {
+  min-height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #1b512d;
+}
+
+.no_chars_btn {
+  width: 40%;
+}
+
+/* ====================
+/  Have Characters Page 
+/  ===================*/
+.have_chars_main_ctn {
+}
