@@ -38,15 +38,23 @@ function App() {
 
   const userData = useAppSelector((state) => state.user.userData);
 
+  function getIndex() {
+    if (userData.role) {
+      if (userData.role === "GMS" || "MSEA") {
+        return <Dashboard />;
+      }
+    } else {
+      return <Login />;
+    }
+  }
+  const index = getIndex();
+
   return (
     <>
       <ThemeProvider theme={theme}>
         {userData.username && <NavBar />}
         <Routes>
-          <Route
-            path="/"
-            element={userData.username ? <Dashboard /> : <Login />}
-          />
+          <Route path="/" element={index} />
           <Route path="/characters" />
           <Route path="/dailies-weeklies" />
           <Route path="/bossing" />

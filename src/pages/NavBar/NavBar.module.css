@@ -12,7 +12,7 @@
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  justify-content: center;
+  margin-left: 1rem;
 }
 
 .left_ctn_link {
@@ -22,8 +22,10 @@
 
 .left_ctn_link > img {
   height: 100%;
-  width: 100%;
+  min-width: 100%;
   image-rendering: crisp-edges;
+  position: relative;
+  bottom: 5%;
 }
 
 .left_ctn > p {
