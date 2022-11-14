@@ -4,5 +4,50 @@
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 1;
-  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main_ctn {
+  height: 80%;
+  min-width: 35%;
+  background: rgba(245, 245, 245, 0.9);
+  display: grid;
+  grid-template-rows: 1fr 4fr 1fr;
+  border-radius: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.main_ctn > div,
+form {
+  height: 100%;
+  width: 100%;
+}
+
+.back_btn {
+  justify-self: start;
+  margin-left: 2rem;
+}
+
+.form {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.text_field {
+  width: 60%;
+}
+
+.btm_ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_btn {
+  min-height: 40%;
 }

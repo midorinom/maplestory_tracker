@@ -10,7 +10,6 @@ import progression from "./images/progression.png";
 import legion from "./images/legion.png";
 import farming from "./images/farming.png";
 import events from "./images/events.png";
-import user from "../../store/user";
 
 const NavBar = () => {
   const userData = useAppSelector((state) => state.user.userData);

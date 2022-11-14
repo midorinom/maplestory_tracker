@@ -22,6 +22,7 @@ export interface LoginRes {
 export interface GetCharactersRes {
   message: string;
   characters: Character[];
+  main: Character | null;
 }
 
 export interface Character {

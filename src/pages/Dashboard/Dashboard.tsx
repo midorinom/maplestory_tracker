@@ -34,8 +34,6 @@ const Dashboard = () => {
       });
       const response: GetCharactersRes = await res.json();
 
-      console.log(response.characters.length);
-
       dispatch(
         userActions.setUserData({
           characters: response.characters,

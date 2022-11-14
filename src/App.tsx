@@ -22,8 +22,8 @@ function App() {
         contrastText: "#1b512d",
       },
       info: {
-        main: "#9ac4f8",
-        contrastText: "#1b512d",
+        main: "#fbc3bc",
+        contrastText: "#9ac4f8",
       },
       // additional button types: success, warning, error
     },
