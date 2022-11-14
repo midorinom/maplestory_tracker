@@ -57,13 +57,13 @@ const CharactersAdd = () => {
           <TextField
             label="IGN"
             required
-            color="info"
+            color="primary"
             className={styles.text_field}
           />
           <TextField
             label="Level"
             required
-            color="info"
+            color="primary"
             className={styles.text_field}
           />
           <Autocomplete
@@ -76,12 +76,17 @@ const CharactersAdd = () => {
           <TextField
             label="Image"
             required
-            color="info"
+            color="primary"
             className={styles.text_field}
           />
         </form>
         <div className={styles.btm_ctn}>
-          <Button className={styles.add_btn} variant="contained" size="large">
+          <Button
+            className={styles.add_btn}
+            variant="contained"
+            size="large"
+            color="info"
+          >
             Add Character
           </Button>
         </div>

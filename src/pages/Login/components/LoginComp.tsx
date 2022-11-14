@@ -84,6 +84,7 @@ const LoginComp = () => {
             required
             error={loginError}
             onChange={handleOnChange}
+            color="info"
             className={styles.input_field}
           />
           <TextField
@@ -94,6 +95,7 @@ const LoginComp = () => {
             error={loginError}
             helperText={loginError && "incorrect username or password"}
             onChange={handleOnChange}
+            color="info"
             className={styles.input_field}
           />
         </div>
@@ -101,7 +103,7 @@ const LoginComp = () => {
           className={styles.login_btn}
           size="large"
           variant="contained"
-          color="primary"
+          color="info"
           type="submit"
         >
           LOGIN

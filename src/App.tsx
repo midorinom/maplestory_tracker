@@ -14,16 +14,16 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#def4c6",
-        contrastText: "#1b512d",
+        main: "#fbc3bc",
+        contrastText: "#9ac4f8",
       },
       secondary: {
         main: "#b1cf5f",
         contrastText: "#1b512d",
       },
       info: {
-        main: "#fbc3bc",
-        contrastText: "#9ac4f8",
+        main: "#def4c6",
+        contrastText: "#1b512d",
       },
       // additional button types: success, warning, error
     },

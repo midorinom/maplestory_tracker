@@ -95,6 +95,7 @@ const Register = () => {
               error={duplicateError}
               helperText={duplicateError && "username is already taken"}
               onChange={handleOnChange}
+              color="info"
               className={styles.input_field}
             />
             <TextField
@@ -102,6 +103,7 @@ const Register = () => {
               type="password"
               label="Password"
               required
+              color="info"
               className={styles.input_field}
             />
           </div>
@@ -128,7 +130,7 @@ const Register = () => {
           className={styles.login_btn}
           size="large"
           variant="contained"
-          color="primary"
+          color="info"
           type="submit"
         >
           REGISTER
