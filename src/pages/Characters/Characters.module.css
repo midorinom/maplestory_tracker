@@ -1,8 +1,0 @@
-.parent_ctn {
-  flex: 1;
-  background-image: url("../../images/lucid.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 1;
-  flex-direction: column;
-}

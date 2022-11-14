@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { Tooltip } from "@mui/material";
 import rockSpirit from "./images/rock_spirit.png";
-import characters from "./images/characters.jpg";
 import dailiesWeeklies from "./images/dailies_weeklies.png";
 import bossing from "./images/bossing.png";
 import progression from "./images/progression.png";
@@ -32,16 +31,6 @@ const NavBar = () => {
         <p>Maple Tracker</p>
       </div>
       <div className={styles.right_ctn}>
-        <Tooltip title="Manage Characters" arrow>
-          <Link
-            to={
-              userData.characters.length > 0 ? "/characters" : "/characters/add"
-            }
-            className={styles.right_ctn_link}
-          >
-            <img src={characters} alt="Characters" />
-          </Link>
-        </Tooltip>
         <Tooltip title="Dailies & Weeklies" arrow>
           <Link to="/dailies-weeklies" className={styles.right_ctn_link}>
             <img src={dailiesWeeklies} alt="Dailies Weeklies" />

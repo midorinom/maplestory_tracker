@@ -34,7 +34,8 @@ form {
 .back_btn {
   height: 40%;
   width: 20%;
-  margin-left: 1rem;
+  position: relative;
+  left: 1.5rem;
 }
 
 .form {

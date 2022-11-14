@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../Dashboard.module.css";
 import { Button } from "@mui/material";
@@ -10,7 +9,7 @@ const NoChars = () => {
         <h1>You do not have any characters</h1>
         <Button
           component={Link}
-          to={"/characters/add"}
+          to={"/add-characters"}
           className={styles.no_chars_btn}
           size="large"
           variant="contained"

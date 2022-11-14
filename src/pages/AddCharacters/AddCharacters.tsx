@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { GetClassesRes, DefaultRes } from "../../types/types";
-import styles from "./CharactersAdd.module.css";
+import styles from "./AddCharacters.module.css";
 import { Button, TextField, Autocomplete, Tooltip, Alert } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const CharactersAdd = () => {
+const AddCharacters = () => {
   // =========
   // Variables
   // =========
@@ -191,7 +191,7 @@ const CharactersAdd = () => {
             variant="outlined"
             color="secondary"
             component={Link}
-            to={userData.characters.length > 0 ? "/characters" : "/"}
+            to="/"
             startIcon={<ArrowBackIcon />}
             className={styles.back_btn}
           >
@@ -270,4 +270,4 @@ const CharactersAdd = () => {
   );
 };
 
-export default CharactersAdd;
+export default AddCharacters;

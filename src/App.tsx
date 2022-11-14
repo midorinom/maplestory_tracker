@@ -4,8 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./pages/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Characters from "./pages/Characters/Characters";
-import CharactersAdd from "./pages/CharactersAdd/CharactersAdd";
+import AddCharacters from "./pages/AddCharacters/AddCharacters";
 
 function App() {
   // ==============================
@@ -70,8 +69,7 @@ function App() {
         {userData.username && <NavBar />}
         <Routes>
           <Route path="/" element={index} />
-          <Route path="/characters" element={<Characters />} />
-          <Route path="/characters/add" element={<CharactersAdd />} />
+          <Route path="/add-characters" element={<AddCharacters />} />
           <Route path="/dailies-weeklies" />
           <Route path="/bossing" />
           <Route path="/progression" />
