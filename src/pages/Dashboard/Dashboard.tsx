@@ -61,7 +61,7 @@ const Dashboard = () => {
         const res = await fetch(
           `http://127.0.0.1:5000/characters/get-image/${characters[0].uuid}`,
           {
-            method: "POST",
+            method: "GET",
           }
         );
         const response: any = await res.blob();
