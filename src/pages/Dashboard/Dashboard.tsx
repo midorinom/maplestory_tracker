@@ -82,11 +82,14 @@ const Dashboard = () => {
   // ======
   return (
     <div className={styles.parent_ctn}>
-      {charImg ? (
+      {/* {charImg ? (
         <img src={charImg} alt="img" />
       ) : (
         <img src={defaultChar} alt="Default Character" />
-      )}
+      )} */}
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 };

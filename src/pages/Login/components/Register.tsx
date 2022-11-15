@@ -41,7 +41,14 @@ const Register = () => {
     }
 
     if (usernameRef.current && passwordRef.current && region) {
-      createUser();
+      if (
+        usernameRef.current.value.length > 20 ||
+        passwordRef.current.value.length > 20
+      ) {
+        alert("Inputs must be 20 characters or less");
+      } else {
+        createUser();
+      }
     }
   }
 
