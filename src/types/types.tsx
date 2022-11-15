@@ -1,3 +1,6 @@
+// =====
+// Store
+// =====
 export interface UserData {
   username: string;
   role: string;
@@ -14,6 +17,10 @@ export interface SetUserData {
 
 export interface DefaultRes {
   message: string;
+}
+
+export interface SetDashboard {
+  featuredChar: Character;
 }
 
 // ==========

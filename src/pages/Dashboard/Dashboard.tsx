@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user";
+import { dashboardActions } from "../../store/dashboard";
 import { Character, GetCharactersRes } from "../../types/types";
 import styles from "./Dashboard.module.css";
-import defaultChar from "../../images/default_char.png";
+import NoChars from "./NoChars";
 import FeaturedChar from "./components/FeaturedChar";
 import CharsList from "./components/CharsList";
 import Charts from "./components/Charts";
@@ -45,6 +46,7 @@ const Dashboard = () => {
       const response: GetCharactersRes = await res.json();
 
       if (res.ok) {
+        // Set userData.characters
         dispatch(
           userActions.setUserData({
             characters: response.characters,
@@ -52,6 +54,25 @@ const Dashboard = () => {
           })
         );
         setCharacters(response.characters);
+
+        // Set dashboard.featuredCharacters
+        if (response.characters.length > 0) {
+          let featuredChar: Character;
+
+          if (response.main) {
+            // If the player has set a main character
+            featuredChar = response.main;
+          } else {
+            // Take the highest level character
+            featuredChar = response.characters[0];
+          }
+
+          dispatch(
+            dashboardActions.setDashboard({
+              featuredChar: featuredChar,
+            })
+          );
+        }
       }
     } catch (err: any) {
       console.log(err);
@@ -84,16 +105,17 @@ const Dashboard = () => {
   // Return
   // ======
   return (
-    <div className={styles.parent_ctn}>
-      {/* {charImg ? (
-        <img src={charImg} alt="img" />
+    <>
+      {userData.characters.length === 0 ? (
+        <NoChars />
       ) : (
-        <img src={defaultChar} alt="Default Character" />
-      )} */}
-      <FeaturedChar />
-      <CharsList />
-      <Charts />
-    </div>
+        <div className={styles.parent_ctn}>
+          <FeaturedChar />
+          <CharsList />
+          <Charts />
+        </div>
+      )}
+    </>
   );
 };
 
