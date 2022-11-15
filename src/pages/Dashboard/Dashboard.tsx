@@ -4,6 +4,9 @@ import { userActions } from "../../store/user";
 import { Character, GetCharactersRes } from "../../types/types";
 import styles from "./Dashboard.module.css";
 import defaultChar from "../../images/default_char.png";
+import FeaturedChar from "./components/FeaturedChar";
+import CharsList from "./components/CharsList";
+import Charts from "./components/Charts";
 
 const Dashboard = () => {
   // =========
@@ -87,9 +90,9 @@ const Dashboard = () => {
       ) : (
         <img src={defaultChar} alt="Default Character" />
       )} */}
-      <div></div>
-      <div></div>
-      <div></div>
+      <FeaturedChar />
+      <CharsList />
+      <Charts />
     </div>
   );
 };

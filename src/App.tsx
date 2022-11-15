@@ -15,7 +15,7 @@ function App() {
     palette: {
       primary: {
         main: "#fbc3bc",
-        contrastText: "#9ac4f8",
+        contrastText: "#def4c6",
       },
       secondary: {
         main: "#b1cf5f",

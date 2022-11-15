@@ -35,8 +35,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas: "featured list" "featured graphs";
   align-items: center;
   justify-items: center;
@@ -44,22 +44,47 @@
 
 .parent_ctn > div:nth-child(1) {
   grid-area: featured;
-  height: 95%;
+  height: 92%;
   width: 80%;
   background: rgba(245, 245, 245, 0.9);
   border-radius: 1rem;
 }
-.parent_ctn > div:nth-child(2) {
+
+.chars_list_ctn {
   grid-area: list;
-  height: 90%;
+  height: 85%;
   width: 80%;
   background: rgba(245, 245, 245, 0.9);
   border-radius: 1rem;
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  gap: 1rem;
 }
+
 .parent_ctn > div:nth-child(3) {
   grid-area: graphs;
-  height: 90%;
+  height: 85%;
   width: 80%;
   background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
+}
+
+.chars_list_add_btn {
+  width: 30%;
+  justify-self: end;
+}
+
+.char_cards_ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.char_card {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  background-color: #fbc3bc;
   border-radius: 1rem;
 }
