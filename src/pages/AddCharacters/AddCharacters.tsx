@@ -280,11 +280,11 @@ const AddCharacters = () => {
           />
           <div className={styles.upload_ctn}>
             <Tooltip title={imageTooltip}>
-              <p>Image: </p>
+              {file ? <p>{file.name}</p> : <p>Image: </p>}
             </Tooltip>
             <Button variant="outlined" color="secondary" component="label">
               Upload File
-              <input type="file" onChange={handleFileChange} />
+              <input type="file" onChange={handleFileChange} hidden />
             </Button>
           </div>
           <div className={styles.btm_ctn}>
