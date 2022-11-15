@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user";
 import { Character, GetCharactersRes } from "../../types/types";
-import HaveChars from "./components/HaveChars";
-import NoChars from "./components/NoChars";
 import styles from "./Dashboard.module.css";
+import defaultChar from "../../images/default_char.png";
 
 const Dashboard = () => {
   // =========
@@ -12,7 +11,7 @@ const Dashboard = () => {
   // =========
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
-  const [char, setChar] = useState<Character>();
+  const [characters, setCharacters] = useState<Character[]>();
   const [charImg, setCharImg] = useState<any>();
 
   // ==========
@@ -23,10 +22,10 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (char) {
+    if (characters) {
       getImage();
     }
-  }, [char]);
+  }, [characters]);
 
   // ===============
   // Fetch Functions
@@ -49,7 +48,7 @@ const Dashboard = () => {
             main: response.main,
           })
         );
-        setChar(response.characters[0]);
+        setCharacters(response.characters);
       }
     } catch (err: any) {
       console.log(err);
@@ -58,9 +57,9 @@ const Dashboard = () => {
 
   const getImage = async () => {
     try {
-      if (char) {
+      if (characters && characters.length > 0) {
         const res = await fetch(
-          `http://127.0.0.1:5000/characters/get-image/${char.uuid}`,
+          `http://127.0.0.1:5000/characters/get-image/${characters[0].uuid}`,
           {
             method: "POST",
           }
@@ -68,7 +67,10 @@ const Dashboard = () => {
         const response: any = await res.blob();
         const image = URL.createObjectURL(response);
 
-        setCharImg(image);
+        // Check if image is empty
+        if (response.size > 0) {
+          setCharImg(image);
+        }
       }
     } catch (err: any) {
       console.log(err);
@@ -80,8 +82,11 @@ const Dashboard = () => {
   // ======
   return (
     <div className={styles.parent_ctn}>
-      {userData.characters.length > 0 ? <HaveChars /> : <NoChars />}
-      {charImg && <img src={charImg} alt="img" />}
+      {charImg ? (
+        <img src={charImg} alt="img" />
+      ) : (
+        <img src={defaultChar} alt="Default Character" />
+      )}
     </div>
   );
 };

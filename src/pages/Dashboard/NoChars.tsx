@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../Dashboard.module.css";
+import styles from "./Dashboard.module.css";
 import { Button } from "@mui/material";
 
 const NoChars = () => {

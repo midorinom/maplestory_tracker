@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./pages/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import NoChars from "./pages/Dashboard/NoChars";
 import AddCharacters from "./pages/AddCharacters/AddCharacters";
 
 function App() {
@@ -51,8 +52,10 @@ function App() {
 
   function getIndex() {
     if (userData.role) {
-      if (userData.role === "GMS" || "MSEA") {
+      if (userData.characters) {
         return <Dashboard />;
+      } else {
+        return <NoChars />;
       }
     } else {
       return <Login />;
