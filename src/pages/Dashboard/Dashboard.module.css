@@ -42,19 +42,6 @@
   justify-items: center;
 }
 
-.parent_ctn > div:nth-child(1) {
-  grid-area: featured;
-  /* min-height: 40vh; */
-  max-height: 60vh;
-  width: 70%;
-  background: rgba(245, 245, 245, 0.9);
-  border-radius: 1rem;
-  position: relative;
-  top: 7.2%;
-  left: 6%;
-  align-self: start;
-}
-
 /* ===============
 /  Characters List 
 /  ==============*/
@@ -125,6 +112,16 @@
 .featured_ctn {
   display: grid;
   grid-template-rows: 22.5vh auto 1fr;
+  grid-area: featured;
+  /* min-height: 40vh; */
+  max-height: 60vh;
+  width: 70%;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
+  position: relative;
+  top: 7.2%;
+  left: 6%;
+  align-self: start;
 }
 
 .featured_top {
@@ -212,4 +209,108 @@
   justify-content: flex-start;
   align-items: center;
   align-self: center;
+}
+
+/* ==============
+/  Edit Character
+/  =============*/
+.edit_ctn {
+  height: fit-content;
+  display: grid;
+  grid-template-rows: 40% 1.5fr 1fr;
+  grid-area: featured;
+  width: 70%;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
+  position: relative;
+  top: 7.2%;
+  left: 6%;
+  align-self: start;
+}
+
+.edit_top {
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  border-bottom: thin dotted #fbc3bc;
+}
+
+.edit_image_ctn {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_ign_class {
+  max-height: 100%;
+  max-width: 100%;
+  width: max-content;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-wrap: break-word;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.edit_ign_class::-webkit-scrollbar {
+  display: none;
+}
+
+.edit_ign {
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: bold;
+  width: max-content;
+  border-bottom: 0.2rem solid #fbc3bc;
+}
+
+.edit_level_class {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.edit_mid {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin-left: 1rem;
+  border-bottom: thin dotted #fbc3bc;
+  gap: 1rem;
+}
+
+.stats {
+  margin-left: 0.3rem;
+  border-bottom: 0.2rem solid #fbc3bc;
+}
+
+.edit_btm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.text_field {
+  width: 100%;
+}
+
+.upload_ctn {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.edit_btm {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
 }

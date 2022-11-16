@@ -2,7 +2,15 @@ import { useState, useRef } from "react";
 import { useAppSelector } from "../../../store/hooks";
 import { Character } from "../../../types/types";
 import styles from "../Dashboard.module.css";
-import { Button, TextField, Autocomplete, Tooltip, Alert } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Autocomplete,
+  Checkbox,
+  FormControlLabel,
+  Alert,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const EditFeaturedChar = () => {
   // =========
@@ -22,14 +30,6 @@ const EditFeaturedChar = () => {
   const [duplicateError, setDuplicateError] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
 
-  function getImageTooltip() {
-    if (userData.role === "GMS") {
-      return "Search for your character either on maplestory.gg or the official website's rankings page. Alternatively, you can create your character on maples.im";
-    } else if (userData.role === "MSEA") {
-      return "Create your character on the maples.im website. Alternatively, you can use a snipping tool to crop out your character from ingame.";
-    }
-  }
-  const imageTooltip = getImageTooltip();
   // ==============
   // Event Handlers
   // ==============
@@ -87,21 +87,33 @@ const EditFeaturedChar = () => {
   // Return
   // ======
   return (
-    <div className={styles.featured_ctn}>
-      <div className={styles.featured_top}>
-        {/* {showEditIcon && (
-          <IconButton
-            style={{ position: "absolute", top: "1%", right: "2%" }}
-            onClick={edit}
+    <div className={styles.edit_ctn}>
+      <div className={styles.edit_top}>
+        <Button
+          size="medium"
+          variant="outlined"
+          color="secondary"
+          startIcon={<ArrowBackIcon />}
+          className={styles.edit_back_btn}
+          style={{ position: "absolute", top: "1%", left: "2%" }}
+        >
+          Back
+        </Button>
+        <div className={styles.edit_image_ctn}>
+          <Button
             size="large"
-            className={styles.edit_btn_ctn}
+            variant="outlined"
+            color="secondary"
+            component="label"
           >
-            <EditIcon className={styles.edit_btn_icon} />
-          </IconButton>
-        )} */}
-        <div className={styles.featured_image_ctn}></div>
-        <div className={styles.featured_ign_class}>
+            Upload File
+            <input type="file" onChange={handleFileChange} hidden />
+          </Button>
+          {file && <p>{file.name}</p>}
+        </div>
+        <div className={styles.edit_ign_class}>
           <TextField
+            size="small"
             inputRef={ignRef}
             onChange={handleIgnChange}
             error={ignError}
@@ -112,6 +124,7 @@ const EditFeaturedChar = () => {
             className={styles.text_field}
           />
           <TextField
+            size="small"
             inputRef={levelRef}
             onChange={handleLevelChange}
             error={levelError}
@@ -124,21 +137,84 @@ const EditFeaturedChar = () => {
             className={styles.text_field}
           />
           <Autocomplete
+            size="small"
             onChange={handleClassChange}
             disablePortal
             id="classes_dropdown"
             options={classes}
-            sx={{ width: "60%" }}
-            renderInput={(params) => <TextField {...params} label="Classes" />}
+            sx={{ width: "100%" }}
+            renderInput={(params) => <TextField {...params} label="Class" />}
           />
         </div>
       </div>
-      <div className={styles.featured_mid}>
-        <p>Stat:</p>
-        <p>Dojo Floor:</p>
-        <p>Full Rotation BA (b/s):</p>
+      <div className={styles.edit_mid}>
+        <FormControlLabel
+          style={{ width: "max-content" }}
+          control={
+            <Checkbox
+              // style={{ width: "max-content" }}
+              // onChange={handleChange}
+              // checked={tracking.bossing}
+              id="bossing"
+            />
+          }
+          label="Main Character"
+        />
+        <TextField
+          size="small"
+          inputRef={levelRef}
+          onChange={handleLevelChange}
+          error={levelError}
+          helperText={
+            levelError && "Level must be an integer number from 1-300"
+          }
+          label="Stat"
+          color="primary"
+          className={styles.text_field}
+        />
+        <TextField
+          size="small"
+          inputRef={levelRef}
+          onChange={handleLevelChange}
+          error={levelError}
+          helperText={
+            levelError && "Level must be an integer number from 1-300"
+          }
+          label="Dojo Floor"
+          color="primary"
+          className={styles.text_field}
+        />
+        <TextField
+          size="small"
+          inputRef={levelRef}
+          onChange={handleLevelChange}
+          error={levelError}
+          helperText={
+            levelError && "Level must be an integer number from 1-300"
+          }
+          label="Full Rotation BA (b/s)"
+          color="primary"
+          className={styles.text_field}
+        />
       </div>
-      <div className={styles.featured_btm}>Delete Button</div>
+      <div className={styles.edit_btm}>
+        <Button
+          variant="contained"
+          size="large"
+          color="error"
+          className={styles.delete_btn}
+        >
+          Delete
+        </Button>
+        <Button
+          variant="contained"
+          size="large"
+          color="info"
+          className={styles.delete_btn}
+        >
+          Update
+        </Button>
+      </div>
     </div>
   );
 };
