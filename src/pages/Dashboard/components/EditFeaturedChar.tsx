@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { dashboardActions } from "../../../store/dashboard";
-import { Character, GetClassesRes } from "../../../types/types";
+import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import {
   Button,
@@ -32,18 +32,25 @@ const EditFeaturedChar = () => {
   const baRef = useRef<HTMLInputElement>(null);
   const [classes, setClasses] = useState<string[]>([]);
   const [selectedClass, setSelectedClass] = useState<string | null>(
-    featuredChar.class_name
+    editedChar.class_name
   );
   const [ignError, setIgnError] = useState<boolean>(false);
+  const [duplicateError, setDuplicateError] = useState<boolean>(false);
   const [levelError, setLevelError] = useState<boolean>(false);
   const [classError, setClassError] = useState<boolean>(false);
+  const [statError, setStatError] = useState<boolean>(false);
+  const [dojoError, setDojoError] = useState<boolean>(false);
+  const [baError, setBaError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [duplicateError, setDuplicateError] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
 
   // ==============
   // Event Handlers
   // ==============
+  function backButton() {
+    dispatch(dashboardActions.setIsEditing(false));
+  }
+
   // Check if the user has resolved the ign error
   function handleIgnChange() {
     if (ignError) {
@@ -76,6 +83,7 @@ const EditFeaturedChar = () => {
     }
   }
 
+  // Check if the user has resolved the class error
   function handleClassChange(e: any, value: string | null) {
     setSelectedClass(value);
     if (classError) {
@@ -98,14 +106,153 @@ const EditFeaturedChar = () => {
     }
   }
 
+  // Check if the user has resolved the stat error
+  function handleStatChange() {
+    if (statError) {
+      if (statRef.current) {
+        // Check if stat is a number and is an integer of 1 - 999999
+        if (Number(statRef.current.value)) {
+          const stat = Number(statRef.current.value);
+          if (Number.isInteger(stat) && stat >= 1 && stat <= 999999) {
+            setStatError(false);
+          }
+        }
+      }
+    }
+    if (success) {
+      setSuccess(false);
+    }
+  }
+
+  // Check if the user has resolved the dojo error
+  function handleDojoChange() {
+    if (dojoError) {
+      if (dojoRef.current) {
+        // Check if dojo is a number and is an integer of 1 - 999
+        if (Number(dojoRef.current.value)) {
+          const dojo = Number(dojoRef.current.value);
+          if (Number.isInteger(dojo) && dojo >= 1 && dojo <= 999) {
+            setDojoError(false);
+          }
+        }
+      }
+    }
+    if (success) {
+      setSuccess(false);
+    }
+  }
+
+  // Check if the user has resolved the stat error
+  function handleBaChange() {
+    if (baError) {
+      if (baRef.current) {
+        // Check if ba is a number and is an integer of 1 - 9999
+        if (Number(baRef.current.value)) {
+          const ba = Number(baRef.current.value);
+          if (Number.isInteger(ba) && ba >= 1 && ba <= 9999) {
+            setBaError(false);
+          }
+        }
+      }
+    }
+    if (success) {
+      setSuccess(false);
+    }
+  }
+
+  // Check if the user has selected a different file
   function handleFileChange(e: any) {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
   }
 
-  function backButton() {
-    dispatch(dashboardActions.setIsEditing(false));
+  // ======
+  // Submit
+  // ======
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setSuccess(false);
+    setDuplicateError(false);
+
+    let validation: number = 0;
+
+    // Check if IGN is 12 characters or less
+    if (ignRef.current) {
+      if (ignRef.current.value.length > 12) {
+        setIgnError(true);
+        validation += 1;
+      }
+    }
+
+    // Check if Level is a number and is an integer of 1 - 300
+    if (levelRef.current) {
+      if (!Number(levelRef.current.value)) {
+        setLevelError(true);
+        validation += 1;
+      } else {
+        const level = Number(levelRef.current.value);
+        if (!Number.isInteger(level) || level < 1 || level > 300) {
+          setLevelError(true);
+          validation += 1;
+        }
+      }
+    }
+
+    // Check if Class is selected
+    if (ignRef.current && levelRef.current) {
+      if (!selectedClass) {
+        setClassError(true);
+        validation += 1;
+      }
+
+      // Validate for Stats
+      if (statRef.current) {
+        if (!Number(statRef.current.value)) {
+          setStatError(true);
+          validation += 1;
+        } else {
+          const stats = Number(statRef.current.value);
+          if (!Number.isInteger(stats) || stats < 0 || stats > 999999) {
+            setStatError(true);
+            validation += 1;
+          }
+        }
+      }
+
+      // Validate for Dojo
+      if (dojoRef.current) {
+        if (!Number(dojoRef.current.value)) {
+          setDojoError(true);
+          validation += 1;
+        } else {
+          const dojo = Number(dojoRef.current.value);
+          if (!Number.isInteger(dojo) || dojo < 0 || dojo > 999) {
+            setStatError(true);
+            validation += 1;
+          }
+        }
+      }
+
+      // Validate for Ba
+      if (baRef.current) {
+        if (!Number(baRef.current.value)) {
+          setBaError(true);
+          validation += 1;
+        } else {
+          const ba = Number(baRef.current.value);
+          if (!Number.isInteger(ba) || ba < 0 || ba > 9999) {
+            setBaError(true);
+            validation += 1;
+          }
+        }
+      }
+
+      // If there are no errors, perform the fetch to create a new character
+      if (validation === 0) {
+        updateCharacter();
+      }
+    }
   }
 
   // ==========
@@ -116,16 +263,16 @@ const EditFeaturedChar = () => {
     getClasses();
 
     if (ignRef.current && levelRef.current) {
-      ignRef.current.value = featuredChar.ign;
-      levelRef.current.value = String(featuredChar.level);
-      if (statRef.current && featuredChar.stats) {
-        statRef.current.value = String(featuredChar.stats);
+      ignRef.current.value = editedChar.ign;
+      levelRef.current.value = String(editedChar.level);
+      if (statRef.current && editedChar.stats) {
+        statRef.current.value = String(editedChar.stats);
       }
-      if (dojoRef.current && featuredChar.dojo) {
-        dojoRef.current.value = String(featuredChar.dojo);
+      if (dojoRef.current && editedChar.dojo) {
+        dojoRef.current.value = String(editedChar.dojo);
       }
-      if (baRef.current && featuredChar.ba) {
-        baRef.current.value = String(featuredChar.ba);
+      if (baRef.current && editedChar.ba) {
+        baRef.current.value = String(editedChar.ba);
       }
     }
   }, []);
@@ -157,12 +304,49 @@ const EditFeaturedChar = () => {
     }
   };
 
+  const updateCharacter = async () => {
+    try {
+      if (ignRef.current && levelRef.current) {
+        const res = await fetch("http://127.0.0.1:5000/characters/create", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(editedChar),
+        });
+        const response: DefaultRes = await res.json();
+        // Handle duplicate IGN error
+        if (response.message === "This character has already been created") {
+          setDuplicateError(true);
+          throw new Error(response.message);
+        } else if (response.message === "Character is created") {
+          setSuccess(true);
+        }
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   // ======
   // Return
   // ======
   return (
     <div className={styles.edit_ctn}>
       <div className={styles.edit_top}>
+        {success && (
+          <Alert severity="success" className={styles.alert}>
+            Character added!
+          </Alert>
+        )}
+        {duplicateError && (
+          <Alert severity="error" className={styles.alert}>
+            Duplicate IGN
+          </Alert>
+        )}
+        {classError && (
+          <Alert severity="error" className={styles.alert}>
+            Please select a class
+          </Alert>
+        )}
         <Button
           onClick={backButton}
           size="medium"
@@ -224,6 +408,38 @@ const EditFeaturedChar = () => {
         </div>
       </div>
       <div className={styles.edit_mid}>
+        <TextField
+          size="small"
+          inputRef={statRef}
+          onChange={handleStatChange}
+          error={statError}
+          helperText={
+            statError && "Stats must be an integer number from 1-999999"
+          }
+          label="Stat"
+          color="primary"
+          className={styles.stats_text_field}
+        />
+        <TextField
+          size="small"
+          inputRef={dojoRef}
+          onChange={handleDojoChange}
+          error={dojoError}
+          helperText={dojoError && "Level must be an integer number from 1-999"}
+          label="Dojo Floor"
+          color="primary"
+          className={styles.stats_text_field}
+        />
+        <TextField
+          size="small"
+          inputRef={baRef}
+          onChange={handleBaChange}
+          error={baError}
+          helperText={baError && "BA must be an integer number from 1-9999"}
+          label="Full Rotation BA (b/s)"
+          color="primary"
+          className={styles.stats_text_field}
+        />
         <FormControlLabel
           style={{ width: "max-content" }}
           control={
@@ -236,42 +452,6 @@ const EditFeaturedChar = () => {
           }
           label="Main Character"
         />
-        <TextField
-          size="small"
-          inputRef={statRef}
-          onChange={handleLevelChange}
-          error={levelError}
-          helperText={
-            levelError && "Level must be an integer number from 1-300"
-          }
-          label="Stat"
-          color="primary"
-          className={styles.text_field}
-        />
-        <TextField
-          size="small"
-          inputRef={dojoRef}
-          onChange={handleLevelChange}
-          error={levelError}
-          helperText={
-            levelError && "Level must be an integer number from 1-300"
-          }
-          label="Dojo Floor"
-          color="primary"
-          className={styles.text_field}
-        />
-        <TextField
-          size="small"
-          inputRef={baRef}
-          onChange={handleLevelChange}
-          error={levelError}
-          helperText={
-            levelError && "Level must be an integer number from 1-300"
-          }
-          label="Full Rotation BA (b/s)"
-          color="primary"
-          className={styles.text_field}
-        />
       </div>
       <div className={styles.edit_btm}>
         <Button
@@ -283,6 +463,7 @@ const EditFeaturedChar = () => {
           Delete
         </Button>
         <Button
+          onClick={handleSubmit}
           variant="contained"
           size="large"
           color="info"

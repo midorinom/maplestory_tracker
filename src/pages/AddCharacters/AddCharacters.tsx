@@ -115,6 +115,7 @@ const AddCharacters = () => {
     }
   }
 
+  // Check if the user has resolved the class error
   function handleClassChange(e: any, value: string | null) {
     setSelectedClass(value);
     if (classError) {
@@ -125,6 +126,7 @@ const AddCharacters = () => {
     }
   }
 
+  // Check if the user has selected a different file
   function handleFileChange(e: any) {
     if (e.target.files) {
       setFile(e.target.files[0]);

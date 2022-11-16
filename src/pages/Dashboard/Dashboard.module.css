@@ -282,6 +282,8 @@
 .edit_mid {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 1em;
   margin-left: 1rem;
   border-bottom: thin dotted #fbc3bc;
@@ -302,6 +304,10 @@
 
 .text_field {
   width: 100%;
+}
+
+.stats_text_field {
+  width: 70%;
 }
 
 .upload_ctn {
