@@ -134,6 +134,7 @@
   align-items: center;
   border-bottom: thin dotted #fbc3bc;
   justify-items: center;
+  position: relative;
 }
 
 .featured_image_ctn {
@@ -163,24 +164,22 @@
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  position: relative;
 }
 
 .featured_ign_class::-webkit-scrollbar {
   display: none;
 }
 
-.featured_ign_class > div:nth-child(1) {
+.featured_ign {
   font-size: 1.3rem;
   margin: 0;
   font-weight: bold;
-}
-
-.featured_ign {
   width: max-content;
   border-bottom: 0.2rem solid #fbc3bc;
 }
 
-.featured_ign_class > p:nth-child(2) {
+.featured_level_class {
   font-size: 1rem;
   margin: 0;
 }

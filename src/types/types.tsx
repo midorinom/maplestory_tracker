@@ -8,19 +8,8 @@ export interface UserData {
   main: Character | null;
 }
 
-export interface SetUserData {
-  username?: string;
-  role?: string;
-  characters?: Character[];
-  main?: Character | null;
-}
-
 export interface DefaultRes {
   message: string;
-}
-
-export interface SetDashboard {
-  featuredChar: Character;
 }
 
 // ==========

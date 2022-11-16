@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { dashboardActions } from "../../../store/dashboard";
+import dashboard, { dashboardActions } from "../../../store/dashboard";
 import { Character, DefaultRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import defaultChar from "../../../images/default_char.png";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
 const FeaturedChar = () => {
   // =========
@@ -12,7 +13,9 @@ const FeaturedChar = () => {
   // =========
   const dispatch = useAppDispatch();
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
+  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
   const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
+  const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
   const [charImg, setCharImg] = useState<string>();
   const [tracking, setTracking] = useState<any>();
   interface Tracking {
@@ -35,6 +38,16 @@ const FeaturedChar = () => {
       setTracking((prevState: any) => {
         return { ...prevState, [e.target.id]: true };
       });
+    }
+  }
+
+  function edit() {
+    if (!isEditing) {
+      dispatch(
+        dashboardActions.setDashboard({
+          isEditing: true,
+        })
+      );
     }
   }
 
@@ -123,7 +136,7 @@ const FeaturedChar = () => {
       if (response.size > 0) {
         setCharImg(image);
       } else {
-        setCharImg(undefined);
+        setCharImg(defaultChar);
       }
     } catch (err: any) {
       console.log(err);
@@ -149,25 +162,37 @@ const FeaturedChar = () => {
   // Return
   // ======
   return (
-    <div className={styles.featured_ctn}>
+    <div
+      onMouseEnter={() => setShowEditIcon(true)}
+      onMouseLeave={() => setShowEditIcon(false)}
+      className={styles.featured_ctn}
+    >
       <div className={styles.featured_top}>
+        {showEditIcon && (
+          <IconButton
+            style={{ position: "absolute", top: "1%", right: "2%" }}
+            onClick={edit}
+            size="large"
+            className={styles.edit_btn_ctn}
+          >
+            <EditIcon className={styles.edit_btn_icon} />
+          </IconButton>
+        )}
         <div className={styles.featured_image_ctn}>
-          {charImg ? (
-            <img className={styles.featured_image} src={charImg} alt="img" />
-          ) : (
-            <img
-              className={styles.featured_image}
-              src={defaultChar}
-              alt="Default Character"
-            />
-          )}
+          <img
+            className={styles.featured_image}
+            src={charImg}
+            alt="character img"
+          />
         </div>
         <div className={styles.featured_ign_class}>
           {featuredChar.uuid && (
             <div className={styles.featured_ign}>{featuredChar.ign}</div>
           )}
           {featuredChar.uuid && (
-            <p>{`Lv ${featuredChar.level} ${featuredChar.class_name}`}</p>
+            <p
+              className={styles.featured_level_class}
+            >{`Lv ${featuredChar.level} ${featuredChar.class_name}`}</p>
           )}
         </div>
       </div>

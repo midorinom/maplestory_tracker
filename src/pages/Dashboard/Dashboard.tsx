@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user";
 import { dashboardActions } from "../../store/dashboard";
@@ -15,11 +15,13 @@ const Dashboard = () => {
   // =========
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
+  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
 
   // ==========
   // useEffects
   // ==========
   useEffect(() => {
+    console.log("get all chars");
     getCharacters();
   }, []);
 
@@ -79,7 +81,7 @@ const Dashboard = () => {
         <NoChars />
       ) : (
         <div className={styles.parent_ctn}>
-          <FeaturedChar />
+          {isEditing ? "test" : <FeaturedChar />}
           <CharsList />
           <Charts />
         </div>

@@ -1,8 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserData, SetUserData } from "../types/types";
+import { UserData, Character } from "../types/types";
 
 interface userState {
   userData: UserData;
+}
+
+interface SetUserData {
+  username?: string;
+  role?: string;
+  characters?: Character[];
+  main?: Character | null;
 }
 
 const initialState: userState = {
