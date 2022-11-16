@@ -61,6 +61,7 @@ const FeaturedChar = () => {
           ign: "",
           level: 0,
           is_main: false,
+          tracking: "",
         })
       );
     };
@@ -110,7 +111,7 @@ const FeaturedChar = () => {
       };
 
       updateCharacter(newChar);
-      // dispatch(featuredCharActions.setFeaturedChar(newChar));
+      dispatch(dashboardActions.setTempChar(newChar));
     }
   }, [tracking]);
 
@@ -131,8 +132,10 @@ const FeaturedChar = () => {
       // Check if image is empty
       if (response.size > 0) {
         setCharImg(image);
+        dispatch(dashboardActions.setTempChar({ image: image }));
       } else {
         setCharImg(defaultChar);
+        dispatch(dashboardActions.setTempChar({ image: defaultChar }));
       }
     } catch (err: any) {
       console.log(err);

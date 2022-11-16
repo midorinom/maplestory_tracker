@@ -12,6 +12,20 @@ export interface DefaultRes {
   message: string;
 }
 
+export interface TempCharacter {
+  image?: string;
+  uuid?: string;
+  username?: string;
+  class_name?: string;
+  ign?: string;
+  level?: number;
+  tracking?: string;
+  is_main?: boolean;
+  stats?: number;
+  dojo?: number;
+  ba?: number;
+}
+
 // ==========
 // Login Page
 // ==========
@@ -45,7 +59,7 @@ export interface Character {
   class_name: string;
   ign: string;
   level: number;
-  tracking?: string;
+  tracking: string;
   is_main: boolean;
   stats?: number;
   dojo?: number;

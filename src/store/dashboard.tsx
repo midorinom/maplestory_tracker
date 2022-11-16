@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character } from "../types/types";
+import { Character, TempCharacter } from "../types/types";
 
 interface dashboardState {
   featuredChar: Character;
   isEditing: boolean;
+  tempChar: TempCharacter;
 }
 
 const initialState: dashboardState = {
@@ -14,8 +15,19 @@ const initialState: dashboardState = {
     ign: "",
     level: 0,
     is_main: false,
+    tracking: "",
   },
   isEditing: false,
+  tempChar: {
+    image: "",
+    uuid: "",
+    username: "",
+    class_name: "",
+    ign: "",
+    level: 0,
+    is_main: false,
+    tracking: "",
+  },
 };
 
 const dashboardSlice = createSlice({
@@ -30,6 +42,12 @@ const dashboardSlice = createSlice({
     },
     setIsEditing(state, action: PayloadAction<boolean>) {
       state.isEditing = action.payload;
+    },
+    setTempChar(state, action: PayloadAction<TempCharacter>) {
+      state.tempChar = {
+        ...state.tempChar,
+        ...action.payload,
+      };
     },
   },
 });
