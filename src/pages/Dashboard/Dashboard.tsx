@@ -15,8 +15,6 @@ const Dashboard = () => {
   // =========
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
-  const [characters, setCharacters] = useState<Character[]>();
-  const [charImg, setCharImg] = useState<any>();
 
   // ==========
   // useEffects
@@ -24,12 +22,6 @@ const Dashboard = () => {
   useEffect(() => {
     getCharacters();
   }, []);
-
-  useEffect(() => {
-    if (characters) {
-      getImage();
-    }
-  }, [characters]);
 
   // ===============
   // Fetch Functions
@@ -53,7 +45,6 @@ const Dashboard = () => {
             main: response.main,
           })
         );
-        setCharacters(response.characters);
 
         // Set dashboard.featuredCharacters
         if (response.characters.length > 0) {
@@ -72,28 +63,6 @@ const Dashboard = () => {
               featuredChar: featuredChar,
             })
           );
-        }
-      }
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
-
-  const getImage = async () => {
-    try {
-      if (characters && characters.length > 0) {
-        const res = await fetch(
-          `http://127.0.0.1:5000/characters/get-image/${characters[0].uuid}`,
-          {
-            method: "GET",
-          }
-        );
-        const response: any = await res.blob();
-        const image = URL.createObjectURL(response);
-
-        // Check if image is empty
-        if (response.size > 0) {
-          setCharImg(image);
         }
       }
     } catch (err: any) {

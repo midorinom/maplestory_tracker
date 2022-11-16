@@ -17,12 +17,12 @@
 
 .left_ctn_link {
   height: 100%;
-  width: 25%;
+  min-width: 25%;
 }
 
 .left_ctn_link > img {
   height: 100%;
-  min-width: 100%;
+  width: 100%;
   image-rendering: crisp-edges;
   position: relative;
   bottom: 5%;
