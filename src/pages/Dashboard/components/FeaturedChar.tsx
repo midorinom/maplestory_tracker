@@ -33,11 +33,11 @@ const FeaturedChar = () => {
     setIsUpdatingTracking(true);
 
     if (tracking && tracking[e.target.id] === true) {
-      setTracking((prevState: any) => {
+      setTracking((prevState: Tracking) => {
         return { ...prevState, [e.target.id]: false };
       });
     } else {
-      setTracking((prevState: any) => {
+      setTracking((prevState: Tracking) => {
         return { ...prevState, [e.target.id]: true };
       });
     }

@@ -117,11 +117,9 @@ const AddCharacters = () => {
 
   function handleClassChange(e: any, value: string | null) {
     setSelectedClass(value);
-
     if (classError) {
       setClassError(false);
     }
-
     if (success) {
       setSuccess(false);
     }
@@ -136,10 +134,12 @@ const AddCharacters = () => {
   // ==========
   // useEffects
   // ==========
+  // onMount
   useEffect(() => {
     getClasses();
   }, []);
 
+  // after character is created
   useEffect(() => {
     if (createdChar) {
       uploadImage();

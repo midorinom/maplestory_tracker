@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { dashboardActions } from "../../../store/dashboard";
-import { Character } from "../../../types/types";
+import { Character, GetClassesRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import {
   Button,
@@ -24,11 +24,16 @@ const EditFeaturedChar = () => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
-  const editedChar = useState<Character>(featuredChar);
+  const [editedChar, setEditedChar] = useState<Character>(featuredChar);
   const ignRef = useRef<HTMLInputElement>(null);
   const levelRef = useRef<HTMLInputElement>(null);
+  const statRef = useRef<HTMLInputElement>(null);
+  const dojoRef = useRef<HTMLInputElement>(null);
+  const baRef = useRef<HTMLInputElement>(null);
   const [classes, setClasses] = useState<string[]>([]);
-  const [selectedClass, setSelectedClass] = useState<string | null>("");
+  const [selectedClass, setSelectedClass] = useState<string | null>(
+    featuredChar.class_name
+  );
   const [ignError, setIgnError] = useState<boolean>(false);
   const [levelError, setLevelError] = useState<boolean>(false);
   const [classError, setClassError] = useState<boolean>(false);
@@ -73,13 +78,23 @@ const EditFeaturedChar = () => {
 
   function handleClassChange(e: any, value: string | null) {
     setSelectedClass(value);
-
     if (classError) {
       setClassError(false);
     }
-
     if (success) {
       setSuccess(false);
+    }
+  }
+
+  function handleMainChange(e: any) {
+    if (editedChar.is_main === true) {
+      setEditedChar((prevState: Character) => {
+        return { ...prevState, [e.target.id]: false };
+      });
+    } else {
+      setEditedChar((prevState: Character) => {
+        return { ...prevState, [e.target.id]: true };
+      });
     }
   }
 
@@ -92,6 +107,55 @@ const EditFeaturedChar = () => {
   function backButton() {
     dispatch(dashboardActions.setIsEditing(false));
   }
+
+  // ==========
+  // useEffects
+  // ==========
+  // onMount
+  useEffect(() => {
+    getClasses();
+
+    if (ignRef.current && levelRef.current) {
+      ignRef.current.value = featuredChar.ign;
+      levelRef.current.value = String(featuredChar.level);
+      if (statRef.current && featuredChar.stats) {
+        statRef.current.value = String(featuredChar.stats);
+      }
+      if (dojoRef.current && featuredChar.dojo) {
+        dojoRef.current.value = String(featuredChar.dojo);
+      }
+      if (baRef.current && featuredChar.ba) {
+        baRef.current.value = String(featuredChar.ba);
+      }
+    }
+  }, []);
+
+  // // after character is created
+  // useEffect(() => {
+  //   if (createdChar) {
+  //     uploadImage();
+  //   }
+  // }, [createdChar]);
+
+  // ===============
+  // Fetch Functions
+  // ===============
+  const getClasses = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/enums/classes/get", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          role: userData.role,
+        }),
+      });
+      const response: GetClassesRes = await res.json();
+
+      setClasses(response.classes);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   // ======
   // Return
@@ -150,6 +214,7 @@ const EditFeaturedChar = () => {
           <Autocomplete
             size="small"
             onChange={handleClassChange}
+            value={selectedClass}
             disablePortal
             id="classes_dropdown"
             options={classes}
@@ -163,17 +228,17 @@ const EditFeaturedChar = () => {
           style={{ width: "max-content" }}
           control={
             <Checkbox
-              // style={{ width: "max-content" }}
-              // onChange={handleChange}
-              // checked={tracking.bossing}
-              id="bossing"
+              style={{ width: "max-content" }}
+              onChange={handleMainChange}
+              checked={editedChar.is_main}
+              id="is_main"
             />
           }
           label="Main Character"
         />
         <TextField
           size="small"
-          inputRef={levelRef}
+          inputRef={statRef}
           onChange={handleLevelChange}
           error={levelError}
           helperText={
@@ -185,7 +250,7 @@ const EditFeaturedChar = () => {
         />
         <TextField
           size="small"
-          inputRef={levelRef}
+          inputRef={dojoRef}
           onChange={handleLevelChange}
           error={levelError}
           helperText={
@@ -197,7 +262,7 @@ const EditFeaturedChar = () => {
         />
         <TextField
           size="small"
-          inputRef={levelRef}
+          inputRef={baRef}
           onChange={handleLevelChange}
           error={levelError}
           helperText={
