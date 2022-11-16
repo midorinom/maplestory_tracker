@@ -111,7 +111,6 @@ const FeaturedChar = () => {
       };
 
       updateCharacter(newChar);
-      dispatch(dashboardActions.setTempChar(newChar));
     }
   }, [tracking]);
 
@@ -132,10 +131,8 @@ const FeaturedChar = () => {
       // Check if image is empty
       if (response.size > 0) {
         setCharImg(image);
-        dispatch(dashboardActions.setTempChar({ image: image }));
       } else {
         setCharImg(defaultChar);
-        dispatch(dashboardActions.setTempChar({ image: defaultChar }));
       }
     } catch (err: any) {
       console.log(err);
@@ -174,7 +171,7 @@ const FeaturedChar = () => {
             size="large"
             className={styles.edit_btn_ctn}
           >
-            <EditIcon className={styles.edit_btn_icon} />
+            <EditIcon fontSize="large" className={styles.edit_btn_icon} />
           </IconButton>
         )}
         <div className={styles.featured_image_ctn}>
