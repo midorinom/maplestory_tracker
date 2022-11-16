@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user";
-import { featuredCharActions } from "../../store/featuredChar";
+import { dashboardActions } from "../../store/dashboard";
 import { isEditingActions } from "../../store/isEditing";
 import { Character, GetCharactersRes } from "../../types/types";
 import styles from "./Dashboard.module.css";
@@ -18,10 +18,8 @@ const Dashboard = () => {
   const dispatch = useAppDispatch();
   const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
   const userData = useAppSelector((state) => state.user.userData);
-  const featuredChar = useAppSelector(
-    (state) => state.featuredChar.featuredChar
-  );
-  const isEditing = useAppSelector((state) => state.isEditing.isEditing);
+  const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
+  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
 
   // ==========
   // useEffects
@@ -31,7 +29,7 @@ const Dashboard = () => {
     getCharacters();
 
     return () => {
-      dispatch(isEditingActions.setIsEditing(false));
+      dispatch(dashboardActions.setIsEditing(false));
     };
   }, []);
 
@@ -57,7 +55,7 @@ const Dashboard = () => {
       const response: GetCharactersRes = await res.json();
 
       if (res.ok) {
-        // Set userData.characters
+        // Set characters
         dispatch(
           userActions.setUserData({
             characters: response.characters,
@@ -77,7 +75,7 @@ const Dashboard = () => {
             featuredChar = response.characters[0];
           }
 
-          dispatch(featuredCharActions.setFeaturedChar(featuredChar));
+          dispatch(dashboardActions.setFeaturedChar(featuredChar));
         }
       }
 

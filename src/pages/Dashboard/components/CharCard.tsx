@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { featuredCharActions } from "../../../store/featuredChar";
+import { dashboardActions } from "../../../store/dashboard";
 import { isEditingActions } from "../../../store/isEditing";
 import { Character } from "../../../types/types";
 import styles from "../Dashboard.module.css";
@@ -11,16 +11,14 @@ interface CharCardProps {
 
 const CharCard: React.FC<CharCardProps> = (props) => {
   const dispatch = useAppDispatch();
-  const featuredChar = useAppSelector(
-    (state) => state.featuredChar.featuredChar
-  );
-  const isEditing = useAppSelector((state) => state.isEditing.isEditing);
+  const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
+  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
 
   function handleClick() {
     if (featuredChar.uuid !== props.character.uuid) {
-      dispatch(featuredCharActions.setFeaturedChar(props.character));
+      dispatch(dashboardActions.setFeaturedChar(props.character));
       if (isEditing) {
-        dispatch(isEditingActions.setIsEditing(false));
+        dispatch(dashboardActions.setIsEditing(false));
       }
     }
   }

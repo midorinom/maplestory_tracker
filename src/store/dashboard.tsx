@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Character } from "../types/types";
 
-interface featuredCharState {
+interface dashboardState {
   featuredChar: Character;
+  isEditing: boolean;
 }
 
-const initialState: featuredCharState = {
+const initialState: dashboardState = {
   featuredChar: {
     uuid: "",
     username: "",
@@ -14,10 +15,11 @@ const initialState: featuredCharState = {
     level: 0,
     is_main: false,
   },
+  isEditing: false,
 };
 
-const featuredCharSlice = createSlice({
-  name: "featuredChar",
+const dashboardSlice = createSlice({
+  name: "dashboard",
   initialState,
   reducers: {
     setFeaturedChar(state, action: PayloadAction<Character>) {
@@ -26,9 +28,12 @@ const featuredCharSlice = createSlice({
         ...action.payload,
       };
     },
+    setIsEditing(state, action: PayloadAction<boolean>) {
+      state.isEditing = action.payload;
+    },
   },
 });
 
-export const featuredCharActions = featuredCharSlice.actions;
+export const dashboardActions = dashboardSlice.actions;
 
-export default featuredCharSlice.reducer;
+export default dashboardSlice.reducer;

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { featuredCharActions } from "../../../store/featuredChar";
-import { featuredCharImgActions } from "../../../store/featuredCharImg";
-import { isEditingActions } from "../../../store/isEditing";
+import { dashboardActions } from "../../../store/dashboard";
 import { Character, DefaultRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import defaultChar from "../../../images/default_char.png";
@@ -14,13 +12,9 @@ const FeaturedChar = () => {
   // Variables
   // =========
   const dispatch = useAppDispatch();
-  const featuredChar = useAppSelector(
-    (state) => state.featuredChar.featuredChar
-  );
-  const featuredCharImg = useAppSelector(
-    (state) => state.featuredCharImg.featuredCharImg
-  );
-  const isEditing = useAppSelector((state) => state.isEditing);
+  const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
+  const [charImg, setCharImg] = useState<string>("");
+  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
   const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
   const [tracking, setTracking] = useState<any>();
@@ -49,7 +43,7 @@ const FeaturedChar = () => {
 
   function edit() {
     if (!isEditing) {
-      dispatch(isEditingActions.setIsEditing(true));
+      dispatch(dashboardActions.setIsEditing(true));
     }
   }
 
@@ -60,7 +54,7 @@ const FeaturedChar = () => {
   useEffect(() => {
     return () => {
       dispatch(
-        featuredCharActions.setFeaturedChar({
+        dashboardActions.setFeaturedChar({
           uuid: "",
           username: "",
           class_name: "",
@@ -136,9 +130,9 @@ const FeaturedChar = () => {
 
       // Check if image is empty
       if (response.size > 0) {
-        dispatch(featuredCharImgActions.setFeaturedCharImg(image));
+        setCharImg(image);
       } else {
-        dispatch(featuredCharImgActions.setFeaturedCharImg(defaultChar));
+        setCharImg(defaultChar);
       }
     } catch (err: any) {
       console.log(err);
@@ -183,7 +177,7 @@ const FeaturedChar = () => {
         <div className={styles.featured_image_ctn}>
           <img
             className={styles.featured_image}
-            src={featuredCharImg}
+            src={charImg}
             alt="character img"
           />
         </div>

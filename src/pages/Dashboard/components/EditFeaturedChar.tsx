@@ -3,9 +3,7 @@ import { useAppSelector } from "../../../store/hooks";
 import styles from "../Dashboard.module.css";
 
 const EditFeaturedChar = () => {
-  const featuredChar = useAppSelector(
-    (state) => state.featuredChar.featuredChar
-  );
+  const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
 
   return (
     <div className={styles.featured_ctn}>
