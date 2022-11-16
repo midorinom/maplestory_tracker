@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { dashboardActions } from "../../../store/dashboard";
 import { Character } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import {
@@ -12,10 +13,15 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+interface EditFeaturedCharProps {
+  getCharacters: () => void;
+}
+
 const EditFeaturedChar = () => {
   // =========
   // Variables
   // =========
+  const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
   const editedChar = useState<Character>(featuredChar);
@@ -77,11 +83,15 @@ const EditFeaturedChar = () => {
     }
   }
 
-  const handleFileChange = (e: any) => {
+  function handleFileChange(e: any) {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
-  };
+  }
+
+  function backButton() {
+    dispatch(dashboardActions.setIsEditing(false));
+  }
 
   // ======
   // Return
@@ -90,6 +100,7 @@ const EditFeaturedChar = () => {
     <div className={styles.edit_ctn}>
       <div className={styles.edit_top}>
         <Button
+          onClick={backButton}
           size="medium"
           variant="outlined"
           color="secondary"

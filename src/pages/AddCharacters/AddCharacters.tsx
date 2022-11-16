@@ -127,11 +127,11 @@ const AddCharacters = () => {
     }
   }
 
-  const handleFileChange = (e: any) => {
+  function handleFileChange(e: any) {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
-  };
+  }
 
   // ==========
   // useEffects

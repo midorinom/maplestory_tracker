@@ -30,6 +30,18 @@ const Dashboard = () => {
 
     return () => {
       dispatch(dashboardActions.setIsEditing(false));
+
+      dispatch(
+        dashboardActions.setFeaturedChar({
+          uuid: "",
+          username: "",
+          class_name: "",
+          ign: "",
+          level: 0,
+          is_main: false,
+          tracking: "",
+        })
+      );
     };
   }, []);
 

@@ -15,8 +15,8 @@ const FeaturedChar = () => {
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
   const [charImg, setCharImg] = useState<string>("");
   const isEditing = useAppSelector((state) => state.dashboard.isEditing);
-  const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
+  const [isUpdatingTracking, setIsUpdatingTracking] = useState<boolean>(false);
   const [tracking, setTracking] = useState<any>();
   interface Tracking {
     dailies: boolean;
@@ -30,6 +30,8 @@ const FeaturedChar = () => {
   // Event Handlers
   // ==============
   function handleChange(e: any) {
+    setIsUpdatingTracking(true);
+
     if (tracking && tracking[e.target.id] === true) {
       setTracking((prevState: any) => {
         return { ...prevState, [e.target.id]: false };
@@ -50,23 +52,6 @@ const FeaturedChar = () => {
   // ==========
   // useEffects
   // ==========
-  // onDismount
-  useEffect(() => {
-    return () => {
-      dispatch(
-        dashboardActions.setFeaturedChar({
-          uuid: "",
-          username: "",
-          class_name: "",
-          ign: "",
-          level: 0,
-          is_main: false,
-          tracking: "",
-        })
-      );
-    };
-  }, []);
-
   // When Featured Character changes
   useEffect(() => {
     // Set Image
@@ -90,13 +75,13 @@ const FeaturedChar = () => {
         }
       }
       setTracking(defaultTracking);
-      setFirstRenderDone(true);
     }
   }, [featuredChar]);
 
   // Update Character
   useEffect(() => {
-    if (firstRenderDone) {
+    if (isUpdatingTracking) {
+      setIsUpdatingTracking(false);
       const trackingArr: string[] = [];
 
       for (const item of Object.keys(tracking)) {
@@ -110,6 +95,7 @@ const FeaturedChar = () => {
         tracking: trackingArr.join("@"),
       };
 
+      console.log("updating");
       updateCharacter(newChar);
     }
   }, [tracking]);
