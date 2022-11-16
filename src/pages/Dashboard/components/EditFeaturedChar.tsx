@@ -24,7 +24,7 @@ const EditFeaturedChar = () => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
-  const [editedChar, setEditedChar] = useState<Character>(featuredChar);
+  const [isMain, setIsMain] = useState<boolean>(featuredChar.is_main);
   const ignRef = useRef<HTMLInputElement>(null);
   const levelRef = useRef<HTMLInputElement>(null);
   const statRef = useRef<HTMLInputElement>(null);
@@ -32,7 +32,7 @@ const EditFeaturedChar = () => {
   const baRef = useRef<HTMLInputElement>(null);
   const [classes, setClasses] = useState<string[]>([]);
   const [selectedClass, setSelectedClass] = useState<string | null>(
-    editedChar.class_name
+    featuredChar.class_name
   );
   const [ignError, setIgnError] = useState<boolean>(false);
   const [duplicateError, setDuplicateError] = useState<boolean>(false);
@@ -94,15 +94,12 @@ const EditFeaturedChar = () => {
     }
   }
 
+  // Check if the user checked the "Main" checkbox
   function handleMainChange(e: any) {
-    if (editedChar.is_main === true) {
-      setEditedChar((prevState: Character) => {
-        return { ...prevState, [e.target.id]: false };
-      });
+    if (featuredChar.is_main === true) {
+      setIsMain(false);
     } else {
-      setEditedChar((prevState: Character) => {
-        return { ...prevState, [e.target.id]: true };
-      });
+      setIsMain(true);
     }
   }
 
@@ -251,6 +248,18 @@ const EditFeaturedChar = () => {
       // If there are no errors, perform the fetch to create a new character
       if (validation === 0) {
         updateCharacter();
+        uploadImage();
+
+        if (isMain) {
+          const currentMain = userData.characters.find(
+            (element) => element.is_main === true
+          );
+          if (currentMain) {
+            updateMain(currentMain.uuid);
+          }
+        }
+
+        setSuccess(true);
       }
     }
   }
@@ -263,26 +272,19 @@ const EditFeaturedChar = () => {
     getClasses();
 
     if (ignRef.current && levelRef.current) {
-      ignRef.current.value = editedChar.ign;
-      levelRef.current.value = String(editedChar.level);
-      if (statRef.current && editedChar.stats) {
-        statRef.current.value = String(editedChar.stats);
+      ignRef.current.value = featuredChar.ign;
+      levelRef.current.value = String(featuredChar.level);
+      if (statRef.current && featuredChar.stats) {
+        statRef.current.value = String(featuredChar.stats);
       }
-      if (dojoRef.current && editedChar.dojo) {
-        dojoRef.current.value = String(editedChar.dojo);
+      if (dojoRef.current && featuredChar.dojo) {
+        dojoRef.current.value = String(featuredChar.dojo);
       }
-      if (baRef.current && editedChar.ba) {
-        baRef.current.value = String(editedChar.ba);
+      if (baRef.current && featuredChar.ba) {
+        baRef.current.value = String(featuredChar.ba);
       }
     }
   }, []);
-
-  // // after character is created
-  // useEffect(() => {
-  //   if (createdChar) {
-  //     uploadImage();
-  //   }
-  // }, [createdChar]);
 
   // ===============
   // Fetch Functions
@@ -306,23 +308,75 @@ const EditFeaturedChar = () => {
 
   const updateCharacter = async () => {
     try {
+      let uploadResponse;
+
       if (ignRef.current && levelRef.current) {
-        const res = await fetch("http://127.0.0.1:5000/characters/create", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(editedChar),
-        });
-        const response: DefaultRes = await res.json();
-        // Handle duplicate IGN error
-        if (response.message === "This character has already been created") {
-          setDuplicateError(true);
-          throw new Error(response.message);
-        } else if (response.message === "Character is created") {
-          setSuccess(true);
+        // Combined the form inputs with the previous character data
+        let stat: number = 0;
+        let dojo: number = 0;
+        let ba: number = 0;
+        if (statRef.current) {
+          stat = Number(statRef.current.value);
         }
+        if (dojoRef.current) {
+          dojo = Number(dojoRef.current.value);
+        }
+        if (baRef.current) {
+          ba = Number(baRef.current.value);
+        }
+
+        const formInputs = {
+          ign: ignRef.current.value,
+          level: levelRef.current.value,
+          class_name: selectedClass,
+          stat: stat,
+          dojo: dojo,
+          ba: ba,
+          main: isMain,
+        };
+
+        // Update the character
+        const res = await fetch("http://127.0.0.1:5000/characters/update", {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ...featuredChar, ...formInputs }),
+        });
+        const updateResponse: DefaultRes = await res.json();
       }
     } catch (err: any) {
       console.log(err);
+    }
+  };
+
+  const uploadImage = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch(
+        `http://127.0.0.1:5000/characters/upload/${featuredChar.uuid}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const response: DefaultRes = await res.json();
+    }
+  };
+
+  const updateMain = async (uuid: string) => {
+    if (uuid) {
+      const update = {
+        uuid: uuid,
+        is_main: false,
+      };
+
+      const res = await fetch("http://127.0.0.1:5000/characters/update", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ update }),
+      });
+      const response: DefaultRes = await res.json();
     }
   };
 
@@ -446,7 +500,7 @@ const EditFeaturedChar = () => {
             <Checkbox
               style={{ width: "max-content" }}
               onChange={handleMainChange}
-              checked={editedChar.is_main}
+              checked={featuredChar.is_main}
               id="is_main"
             />
           }
