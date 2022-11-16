@@ -2,13 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./user";
 import loginReducer from "./login";
-import dashboardReducer from "./dashboard";
+import featuredCharReducer from "./featuredChar";
+import featuredCharImgReducer from "./featuredCharImg";
+import isEditingReducer from "./isEditing";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     login: loginReducer,
-    dashboard: dashboardReducer,
+    featuredChar: featuredCharReducer,
+    featuredCharImg: featuredCharImgReducer,
+    isEditing: isEditingReducer,
   },
 });
 

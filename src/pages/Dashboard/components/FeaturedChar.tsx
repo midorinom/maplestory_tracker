@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import dashboard, { dashboardActions } from "../../../store/dashboard";
+import { featuredCharActions } from "../../../store/featuredChar";
+import { featuredCharImgActions } from "../../../store/featuredCharImg";
+import { isEditingActions } from "../../../store/isEditing";
 import { Character, DefaultRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 import defaultChar from "../../../images/default_char.png";
@@ -12,11 +14,15 @@ const FeaturedChar = () => {
   // Variables
   // =========
   const dispatch = useAppDispatch();
-  const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
-  const isEditing = useAppSelector((state) => state.dashboard.isEditing);
+  const featuredChar = useAppSelector(
+    (state) => state.featuredChar.featuredChar
+  );
+  const featuredCharImg = useAppSelector(
+    (state) => state.featuredCharImg.featuredCharImg
+  );
+  const isEditing = useAppSelector((state) => state.isEditing);
   const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
-  const [charImg, setCharImg] = useState<string>();
   const [tracking, setTracking] = useState<any>();
   interface Tracking {
     dailies: boolean;
@@ -43,11 +49,7 @@ const FeaturedChar = () => {
 
   function edit() {
     if (!isEditing) {
-      dispatch(
-        dashboardActions.setDashboard({
-          isEditing: true,
-        })
-      );
+      dispatch(isEditingActions.setIsEditing(true));
     }
   }
 
@@ -58,15 +60,13 @@ const FeaturedChar = () => {
   useEffect(() => {
     return () => {
       dispatch(
-        dashboardActions.setDashboard({
-          featuredChar: {
-            uuid: "",
-            username: "",
-            class_name: "",
-            ign: "",
-            level: 0,
-            is_main: false,
-          },
+        featuredCharActions.setFeaturedChar({
+          uuid: "",
+          username: "",
+          class_name: "",
+          ign: "",
+          level: 0,
+          is_main: false,
         })
       );
     };
@@ -114,7 +114,9 @@ const FeaturedChar = () => {
         ...featuredChar,
         tracking: trackingArr.join("@"),
       };
+
       updateCharacter(newChar);
+      // dispatch(featuredCharActions.setFeaturedChar(newChar));
     }
   }, [tracking]);
 
@@ -134,9 +136,9 @@ const FeaturedChar = () => {
 
       // Check if image is empty
       if (response.size > 0) {
-        setCharImg(image);
+        dispatch(featuredCharImgActions.setFeaturedCharImg(image));
       } else {
-        setCharImg(defaultChar);
+        dispatch(featuredCharImgActions.setFeaturedCharImg(defaultChar));
       }
     } catch (err: any) {
       console.log(err);
@@ -181,7 +183,7 @@ const FeaturedChar = () => {
         <div className={styles.featured_image_ctn}>
           <img
             className={styles.featured_image}
-            src={charImg}
+            src={featuredCharImg}
             alt="character img"
           />
         </div>

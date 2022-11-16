@@ -34,6 +34,11 @@ export interface GetCharactersRes {
   main: Character | null;
 }
 
+export interface GetCharacterRes {
+  message: string;
+  characters: Character[];
+}
+
 export interface Character {
   uuid: string;
   username: string;
