@@ -276,7 +276,7 @@ const AddCharacters = () => {
             id="classes_dropdown"
             options={classes}
             sx={{ width: "60%" }}
-            renderInput={(params) => <TextField {...params} label="Classes" />}
+            renderInput={(params) => <TextField {...params} label="Class" />}
           />
           <div className={styles.upload_ctn}>
             <Tooltip title={imageTooltip}>
