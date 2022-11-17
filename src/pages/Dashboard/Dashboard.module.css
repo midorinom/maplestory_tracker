@@ -288,6 +288,17 @@
   padding: 1em;
 }
 
+.edit_delete_ctn {
+  display: flex;
+  width: 70%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.delete_confirm_btn {
+  height: 60%;
+}
+
 .text_field {
   width: 100%;
 }

@@ -13,10 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 
-interface EditFeaturedCharProps {
-  getCharacters: () => void;
-}
-
 const EditFeaturedChar = () => {
   // =========
   // Variables
@@ -43,6 +39,7 @@ const EditFeaturedChar = () => {
   const [baError, setBaError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
+  const [deleteClicked, setDeleteClicked] = useState<boolean>(false);
 
   // ==============
   // Event Handlers
@@ -161,6 +158,14 @@ const EditFeaturedChar = () => {
   function handleFileChange(e: any) {
     if (e.target.files) {
       setFile(e.target.files[0]);
+    }
+  }
+
+  function handleDelete() {
+    if (!deleteClicked) {
+      setDeleteClicked(true);
+    } else {
+      setDeleteClicked(false);
     }
   }
 
@@ -512,14 +517,39 @@ const EditFeaturedChar = () => {
         />
       </div>
       <div className={styles.edit_btm}>
-        <Button
-          variant="contained"
-          size="large"
-          color="error"
-          className={styles.delete_btn}
-        >
-          Delete
-        </Button>
+        {deleteClicked ? (
+          <div className={styles.edit_delete_ctn}>
+            <p>Confirm Delete?</p>
+            <Button
+              onClick={handleDelete}
+              variant="contained"
+              size="medium"
+              color="error"
+              className={styles.delete_confirm_btn}
+            >
+              Yes
+            </Button>
+            <Button
+              onClick={handleDelete}
+              variant="contained"
+              size="medium"
+              color="error"
+              className={styles.delete_confirm_btn}
+            >
+              Cancel
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            size="large"
+            color="error"
+            className={styles.delete_btn}
+          >
+            Delete
+          </Button>
+        )}
         <Button
           onClick={handleSubmit}
           variant="contained"
