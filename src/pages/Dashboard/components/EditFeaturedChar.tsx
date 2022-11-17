@@ -213,7 +213,7 @@ const EditFeaturedChar = () => {
           validation += 1;
         } else {
           const stats = Number(statRef.current.value);
-          if (!Number.isInteger(stats) || stats < 0 || stats > 999999) {
+          if (!Number.isInteger(stats) || stats < 1 || stats > 999999) {
             setStatError(true);
             validation += 1;
           }
@@ -227,8 +227,8 @@ const EditFeaturedChar = () => {
           validation += 1;
         } else {
           const dojo = Number(dojoRef.current.value);
-          if (!Number.isInteger(dojo) || dojo < 0 || dojo > 999) {
-            setStatError(true);
+          if (!Number.isInteger(dojo) || dojo < 1 || dojo > 999) {
+            setDojoError(true);
             validation += 1;
           }
         }
@@ -241,7 +241,7 @@ const EditFeaturedChar = () => {
           validation += 1;
         } else {
           const ba = Number(baRef.current.value);
-          if (!Number.isInteger(ba) || ba < 0 || ba > 9999) {
+          if (!Number.isInteger(ba) || ba < 1 || ba > 9999) {
             setBaError(true);
             validation += 1;
           }
@@ -442,7 +442,7 @@ const EditFeaturedChar = () => {
             inputRef={levelRef}
             onChange={handleLevelChange}
             error={levelError}
-            helperText={levelError && "Level must be an integer from 1-300"}
+            helperText={levelError && "Must be an integer from 1-300"}
             label="Level"
             required
             color="primary"
@@ -466,9 +466,7 @@ const EditFeaturedChar = () => {
           inputRef={statRef}
           onChange={handleStatChange}
           error={statError}
-          helperText={
-            statError && "Stats must be an integer number from 1-999999"
-          }
+          helperText={statError && "Must be an integer from 1-999999"}
           label="Stat"
           color="primary"
           className={styles.stats_text_field}
@@ -478,7 +476,7 @@ const EditFeaturedChar = () => {
           inputRef={dojoRef}
           onChange={handleDojoChange}
           error={dojoError}
-          helperText={dojoError && "Level must be an integer number from 1-999"}
+          helperText={dojoError && "Must be an integer from 1-999"}
           label="Dojo Floor"
           color="primary"
           className={styles.stats_text_field}
@@ -488,7 +486,7 @@ const EditFeaturedChar = () => {
           inputRef={baRef}
           onChange={handleBaChange}
           error={baError}
-          helperText={baError && "BA must be an integer number from 1-9999"}
+          helperText={baError && "Must be an integer number from 1-9999"}
           label="Full Rotation BA (b/s)"
           color="primary"
           className={styles.stats_text_field}
