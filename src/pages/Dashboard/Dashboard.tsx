@@ -82,7 +82,9 @@ const Dashboard = () => {
           dispatch(dashboardActions.setFeaturedChar(featuredCharacter));
         }
       }
-      setFirstRenderDone(true);
+      if (!firstRenderDone) {
+        setFirstRenderDone(true);
+      }
     } catch (err: any) {
       console.log(err);
     }

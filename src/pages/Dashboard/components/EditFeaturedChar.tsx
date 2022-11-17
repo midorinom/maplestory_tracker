@@ -318,13 +318,13 @@ const EditFeaturedChar = () => {
         let dojo: number = 0;
         let ba: number = 0;
 
-        if (statRef.current) {
+        if (statRef.current && statRef.current.value !== "") {
           stat = Number(statRef.current.value);
         }
-        if (dojoRef.current) {
+        if (dojoRef.current && dojoRef.current.value !== "") {
           dojo = Number(dojoRef.current.value);
         }
-        if (baRef.current) {
+        if (baRef.current && baRef.current.value !== "") {
           ba = Number(baRef.current.value);
         }
 
@@ -333,9 +333,9 @@ const EditFeaturedChar = () => {
             ign: ignRef.current.value,
             level: Number(levelRef.current.value),
             class_name: selectedClass,
-            stats: Number(stat),
-            dojo: Number(dojo),
-            ba: Number(ba),
+            stats: stat,
+            dojo: dojo,
+            ba: ba,
             is_main: isMain,
           };
 
