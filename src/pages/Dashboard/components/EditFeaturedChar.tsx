@@ -1,17 +1,17 @@
-import { useState, useRef, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { dashboardActions } from "../../../store/dashboard";
-import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
-import styles from "../Dashboard.module.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-  Button,
-  TextField,
+  Alert,
   Autocomplete,
+  Button,
   Checkbox,
   FormControlLabel,
-  Alert,
+  TextField,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useEffect, useRef, useState } from "react";
+import { dashboardActions } from "../../../store/dashboard";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
+import styles from "../Dashboard.module.css";
 
 interface EditFeaturedCharProps {
   getCharacters: () => void;
@@ -253,6 +253,7 @@ const EditFeaturedChar = () => {
         updateCharacter();
         uploadImage();
 
+        // set is_main of the current main character to false
         if (isMain) {
           const currentMain = userData.characters.find(
             (element) => element.is_main === true
@@ -316,6 +317,7 @@ const EditFeaturedChar = () => {
         let stat: number = 0;
         let dojo: number = 0;
         let ba: number = 0;
+
         if (statRef.current) {
           stat = Number(statRef.current.value);
         }
@@ -326,23 +328,28 @@ const EditFeaturedChar = () => {
           ba = Number(baRef.current.value);
         }
 
-        const formInputs = {
-          ign: ignRef.current.value,
-          level: levelRef.current.value,
-          class_name: selectedClass,
-          stats: stat,
-          dojo: dojo,
-          ba: ba,
-          is_main: isMain,
-        };
+        if (selectedClass) {
+          const formInputs = {
+            ign: ignRef.current.value,
+            level: Number(levelRef.current.value),
+            class_name: selectedClass,
+            stats: Number(stat),
+            dojo: Number(dojo),
+            ba: Number(ba),
+            is_main: isMain,
+          };
 
-        // Update the character
-        const res = await fetch("http://127.0.0.1:5000/characters/update", {
-          method: "PATCH",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ ...featuredChar, ...formInputs }),
-        });
-        const updateResponse: DefaultRes = await res.json();
+          const newChar: Character = { ...featuredChar, ...formInputs };
+
+          // Update the character
+          const res = await fetch("http://127.0.0.1:5000/characters/update", {
+            method: "PATCH",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(newChar),
+          });
+          const updateResponse: DefaultRes = await res.json();
+          dispatch(dashboardActions.setFeaturedChar(newChar));
+        }
       }
     } catch (err: any) {
       console.log(err);
