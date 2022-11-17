@@ -1,30 +1,94 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { dailiesActions } from "../../store/dailies";
-import { GetCharactersRes } from "../../types/types";
+import {
+  Dailies,
+  GetCharactersRes,
+  GetDailiesRes,
+  GetUrsusTourRes,
+  GetWeekliesRes,
+  UrsusTour,
+  Weeklies,
+} from "../../types/types";
 import styles from "./Dailies.module.css";
 import CharCard from "./components/CharCard";
 import defaultChar from "../../images/default_char.png";
+import moment from "moment";
+import { Button } from "@material-ui/core";
 
 const DailiesWeeklies = () => {
   // =========
   // Variables
   // =========
   const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.user.userData);
   const characters = useAppSelector((state) => state.dailies.characters);
   const featuredChar = useAppSelector((state) => state.dailies.featuredChar);
   const charImg = useAppSelector((state) => state.dailies.charImg);
   const charCards = characters.map((element) => {
     return <CharCard character={element} key={Math.random()} />;
   });
+  const [todayDate, setTodayDate] = useState<string>();
+  const [dailyDate, setDailyDate] = useState<string>();
+  const [weeklyDate, setWeeklyDate] = useState<string>();
+  const [dailies, setDailies] = useState<Dailies>();
+  const [weeklies, setWeeklies] = useState<Weeklies>();
+  const [ursusTour, setUrsusTour] = useState<UrsusTour>();
+  const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
+  const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
+
+  // =====
+  // Dates
+  // =====
+  function getDates() {
+    let today: string = "";
+
+    // GMS;
+    if (userData.role === "GMS") {
+      today = moment.utc().toISOString();
+      setDailyDate(moment.utc().endOf("day").fromNow());
+      setWeeklyDate(
+        moment.utc().startOf("isoWeek").day(4).add(1, "weeks").fromNow()
+      );
+    }
+
+    // MSEA
+    if (userData.role === "MSEA") {
+      today = moment().toISOString();
+      setDailyDate(moment().endOf("day").fromNow());
+      setWeeklyDate(
+        moment().startOf("isoWeek").day(4).add(1, "weeks").fromNow()
+      );
+    }
+
+    setTodayDate(today.slice(0, 10));
+  }
+  // ==============
+  // Event Handlers
+  // ==============
+  function handleDailiesPrevBtn() {
+    if (dailiesPrevClicked) {
+      setDailiesPrevClicked(false);
+    } else {
+      setDailiesPrevClicked(true);
+    }
+  }
+
+  function handleWeekliesPrevBtn() {
+    if (weekliesPrevClicked) {
+      setWeekliesPrevClicked(false);
+    } else {
+      setWeekliesPrevClicked(true);
+    }
+  }
 
   // ==========
   // useEffects
   // ==========
   // onMount and onDismount
-  console.log("characters", characters);
   useEffect(() => {
     getCharactersTracking();
+    getDates();
 
     return () => {
       dispatch(dailiesActions.setCharacters([]));
@@ -47,8 +111,15 @@ const DailiesWeeklies = () => {
   useEffect(() => {
     if (featuredChar.uuid) {
       getImage();
+      getDailies();
+      getWeeklies();
+      getUrsusTour();
     }
   }, [featuredChar]);
+
+  // After Dailies has been set
+
+  // After Weeklies has been set
 
   // ===============
   // Fetch Functions
@@ -96,13 +167,94 @@ const DailiesWeeklies = () => {
     }
   };
 
+  const getDailies = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/dailies/get", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          character: featuredChar.uuid,
+          date: todayDate,
+        }),
+      });
+      const response: GetDailiesRes = await res.json();
+      setDailies(response.dailies);
+      console.log("dailies", response.dailies);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const getWeeklies = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/weeklies/get", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          character: featuredChar.uuid,
+          date: todayDate,
+        }),
+      });
+      const response: GetWeekliesRes = await res.json();
+      setWeeklies(response.weeklies);
+      console.log("weeklies", response.weeklies);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const getUrsusTour = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/ursus-tour/get", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          username: userData.username,
+          date: todayDate,
+        }),
+      });
+      const response: GetUrsusTourRes = await res.json();
+      setUrsusTour(response.ursus_tour);
+      console.log("ursus tour", response.ursus_tour);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   // ======
   // Return
   // ======
   return (
     <div className={styles.parent_ctn}>
-      <div>Dailies</div>
-      <div>Weeklies</div>
+      <div className={styles.dailies_ctn}>
+        <b>Dailies</b>
+        <div className={styles.dailies_options}>
+          ursus: {JSON.stringify(ursusTour)}
+          dailies: {JSON.stringify(dailies)}
+        </div>
+        <Button
+          onClick={handleDailiesPrevBtn}
+          style={{ width: "30%" }}
+          variant="contained"
+        >
+          {dailiesPrevClicked ? " Show Today" : "Show Prev"}
+        </Button>
+        <p>Daily Reset {dailyDate}</p>
+      </div>
+      <div className={styles.weeklies_ctn}>
+        <b>Weeklies</b>
+        <div className={styles.weeklies_options}>
+          {JSON.stringify(weeklies)}
+        </div>
+        <Button
+          onClick={handleWeekliesPrevBtn}
+          style={{ width: "30%" }}
+          variant="contained"
+        >
+          {weekliesPrevClicked ? " Show Today" : "Show Prev"}
+        </Button>
+        <p>Weekly Boss Reset {weeklyDate}</p>
+      </div>
       <div className={styles.right_ctn}>
         <div className={styles.featured_ctn}>
           <img className={styles.image} src={charImg} alt="character img" />
