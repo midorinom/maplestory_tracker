@@ -177,19 +177,19 @@ const FeaturedChar = () => {
           )}
         </div>
       </div>
-      {(featuredChar.stats || featuredChar.dojo || featuredChar.ba) && (
+      {(!!featuredChar.stats || !!featuredChar.dojo || !!featuredChar.ba) && (
         <div className={styles.featured_mid}>
-          {featuredChar.stats && (
+          {!!featuredChar.stats && (
             <p>
               Stat: <span className={styles.stats}>{featuredChar.stats}</span>
             </p>
           )}
-          {featuredChar.dojo && (
+          {!!featuredChar.dojo && (
             <p>
               Dojo: <span className={styles.stats}>{featuredChar.dojo}F</span>
             </p>
           )}
-          {featuredChar.ba && (
+          {!!featuredChar.ba && (
             <p>
               Full Rotation BA:
               <span className={styles.stats}>{featuredChar.ba} (b/s)</span>
