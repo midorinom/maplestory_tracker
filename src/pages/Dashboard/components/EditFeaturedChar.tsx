@@ -389,7 +389,7 @@ const EditFeaturedChar = () => {
       <div className={styles.edit_top}>
         {success && (
           <Alert severity="success" className={styles.alert}>
-            Character added!
+            Character updated!
           </Alert>
         )}
         {duplicateError && (
