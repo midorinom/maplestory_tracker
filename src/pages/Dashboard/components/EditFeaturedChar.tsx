@@ -207,7 +207,7 @@ const EditFeaturedChar = () => {
       }
 
       // Validate for Stats
-      if (statRef.current) {
+      if (statRef.current && statRef.current.value !== "") {
         if (!Number(statRef.current.value)) {
           setStatError(true);
           validation += 1;
@@ -221,7 +221,7 @@ const EditFeaturedChar = () => {
       }
 
       // Validate for Dojo
-      if (dojoRef.current) {
+      if (dojoRef.current && dojoRef.current.value !== "") {
         if (!Number(dojoRef.current.value)) {
           setDojoError(true);
           validation += 1;
@@ -235,7 +235,7 @@ const EditFeaturedChar = () => {
       }
 
       // Validate for Ba
-      if (baRef.current) {
+      if (baRef.current && baRef.current.value !== "") {
         if (!Number(baRef.current.value)) {
           setBaError(true);
           validation += 1;
