@@ -1,4 +1,9 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useEffect, useRef, useState } from "react";
+import dashboard, { dashboardActions } from "../../../store/dashboard";
+import { userActions } from "../../../store/user";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
+import styles from "../Dashboard.module.css";
 import {
   Alert,
   Autocomplete,
@@ -7,11 +12,7 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { dashboardActions } from "../../../store/dashboard";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { Character, DefaultRes, GetClassesRes } from "../../../types/types";
-import styles from "../Dashboard.module.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const EditFeaturedChar = () => {
   // =========
@@ -161,12 +162,28 @@ const EditFeaturedChar = () => {
     }
   }
 
+  // Delete
   function handleDelete() {
     if (!deleteClicked) {
       setDeleteClicked(true);
     } else {
       setDeleteClicked(false);
     }
+  }
+
+  function handleConfirmDelete() {
+    deleteChar();
+
+    const newChars = userData.characters.filter(
+      (element) => element.uuid !== featuredChar.uuid
+    );
+
+    if (newChars.length > 0) {
+      dispatch(dashboardActions.setFeaturedChar(newChars[0]));
+    } else {
+      dispatch(userActions.setUserData({ characters: [] }));
+    }
+    dispatch(dashboardActions.setIsEditing(false));
   }
 
   // ======
@@ -267,7 +284,6 @@ const EditFeaturedChar = () => {
             updateMain(currentMain.uuid);
           }
         }
-
         setSuccess(true);
       }
     }
@@ -390,6 +406,21 @@ const EditFeaturedChar = () => {
         body: JSON.stringify({ ...update }),
       });
       const response: DefaultRes = await res.json();
+    }
+  };
+
+  const deleteChar = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/characters/delete", {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          uuid: featuredChar.uuid,
+        }),
+      });
+      const response: DefaultRes = await res.json();
+    } catch (err: any) {
+      console.log(err);
     }
   };
 
@@ -521,7 +552,7 @@ const EditFeaturedChar = () => {
           <div className={styles.edit_delete_ctn}>
             <p>Confirm Delete?</p>
             <Button
-              onClick={handleDelete}
+              onClick={handleConfirmDelete}
               variant="contained"
               size="medium"
               color="error"
