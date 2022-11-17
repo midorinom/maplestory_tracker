@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user";
 import { dashboardActions } from "../../store/dashboard";
-import { isEditingActions } from "../../store/isEditing";
 import { Character, GetCharactersRes } from "../../types/types";
 import styles from "./Dashboard.module.css";
 import NoChars from "./NoChars";
