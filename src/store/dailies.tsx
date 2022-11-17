@@ -26,7 +26,7 @@ const dailiesSlice = createSlice({
   initialState,
   reducers: {
     setCharacters(state, action: PayloadAction<Character[]>) {
-      state.characters = [...state.characters, ...action.payload];
+      state.characters = [...action.payload];
     },
     setFeaturedChar(state, action: PayloadAction<Character>) {
       state.featuredChar = {

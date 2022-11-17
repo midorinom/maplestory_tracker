@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { dailiesActions } from "../../store/dailies";
 import { GetCharactersRes } from "../../types/types";
-import styles from "./DailiesWeeklies.module.css";
-import CharCard from "../Dashboard/components/CharCard";
+import styles from "./Dailies.module.css";
+import CharCard from "./components/CharCard";
 import defaultChar from "../../images/default_char.png";
 
 const DailiesWeeklies = () => {
@@ -22,6 +22,7 @@ const DailiesWeeklies = () => {
   // useEffects
   // ==========
   // onMount and onDismount
+  console.log("characters", characters);
   useEffect(() => {
     getCharactersTracking();
 
@@ -102,24 +103,21 @@ const DailiesWeeklies = () => {
     <div className={styles.parent_ctn}>
       <div>Dailies</div>
       <div>Weeklies</div>
-      <div>
-        <div className={styles.right_ctn}>
-          <img
-            className={styles.featured_image}
-            src={charImg}
-            alt="character img"
-          />
+      <div className={styles.right_ctn}>
+        <div className={styles.featured_ctn}>
+          <img className={styles.image} src={charImg} alt="character img" />
+          <div className={styles.ign_class}>
+            {featuredChar.uuid && (
+              <div className={styles.ign}>{featuredChar.ign}</div>
+            )}
+            {featuredChar.uuid && (
+              <p
+                className={styles.level_class}
+              >{`Lv ${featuredChar.level} ${featuredChar.class_name}`}</p>
+            )}
+          </div>
         </div>
-        <div className={styles.featured_ign_class}>
-          {featuredChar.uuid && (
-            <div className={styles.featured_ign}>{featuredChar.ign}</div>
-          )}
-          {featuredChar.uuid && (
-            <p
-              className={styles.featured_level_class}
-            >{`Lv ${featuredChar.level} ${featuredChar.class_name}`}</p>
-          )}
-        </div>
+        <div className={styles.char_cards_ctn}>{charCards}</div>
       </div>
     </div>
   );
