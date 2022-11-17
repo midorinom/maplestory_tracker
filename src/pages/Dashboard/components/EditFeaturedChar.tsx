@@ -176,7 +176,10 @@ const EditFeaturedChar = () => {
 
     // Check if IGN is 12 characters or less
     if (ignRef.current) {
-      if (ignRef.current.value.length > 12) {
+      if (
+        ignRef.current.value.length > 12 ||
+        ignRef.current.value.length === 0
+      ) {
         setIgnError(true);
         validation += 1;
       }
@@ -308,8 +311,6 @@ const EditFeaturedChar = () => {
 
   const updateCharacter = async () => {
     try {
-      let uploadResponse;
-
       if (ignRef.current && levelRef.current) {
         // Combined the form inputs with the previous character data
         let stat: number = 0;
@@ -374,7 +375,7 @@ const EditFeaturedChar = () => {
       const res = await fetch("http://127.0.0.1:5000/characters/update", {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ update }),
+        body: JSON.stringify({ ...update }),
       });
       const response: DefaultRes = await res.json();
     }
@@ -430,7 +431,7 @@ const EditFeaturedChar = () => {
             inputRef={ignRef}
             onChange={handleIgnChange}
             error={ignError}
-            helperText={ignError && "IGN must be 12 characters or less"}
+            helperText={ignError && "Required and must be <= 12 chars"}
             label="IGN"
             required
             color="primary"
@@ -441,9 +442,7 @@ const EditFeaturedChar = () => {
             inputRef={levelRef}
             onChange={handleLevelChange}
             error={levelError}
-            helperText={
-              levelError && "Level must be an integer number from 1-300"
-            }
+            helperText={levelError && "Level must be an integer from 1-300"}
             label="Level"
             required
             color="primary"

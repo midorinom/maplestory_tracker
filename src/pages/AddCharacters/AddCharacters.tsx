@@ -254,7 +254,7 @@ const AddCharacters = () => {
             inputRef={ignRef}
             onChange={handleIgnChange}
             error={ignError}
-            helperText={ignError && "IGN must be 12 characters or less"}
+            helperText={ignError && "IGN must be <= 12 characters"}
             label="IGN"
             required
             color="primary"
@@ -264,9 +264,7 @@ const AddCharacters = () => {
             inputRef={levelRef}
             onChange={handleLevelChange}
             error={levelError}
-            helperText={
-              levelError && "Level must be an integer number from 1-300"
-            }
+            helperText={levelError && "Level must be an integer from 1-300"}
             label="Level"
             required
             color="primary"
