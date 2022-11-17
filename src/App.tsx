@@ -5,6 +5,8 @@ import NavBar from "./pages/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddCharacters from "./pages/AddCharacters/AddCharacters";
+import DailiesWeeklies from "./pages/DailiesWeeklies/DailiesWeeklies";
+import Bossing from "./pages/Bossing/Bossing";
 
 function App() {
   // ==============================
@@ -68,12 +70,12 @@ function App() {
         <Routes>
           <Route path="/" element={index} />
           <Route path="/add-characters" element={<AddCharacters />} />
-          <Route path="/dailies-weeklies" />
-          <Route path="/bossing" />
-          <Route path="/progression" />
-          <Route path="/legion" />
-          <Route path="/farming" />
-          <Route path="/events" />
+          <Route path="/dailies-weeklies" element={<DailiesWeeklies />} />
+          <Route path="/bossing" element={<Bossing />} />
+          <Route path="/progression" element={<Bossing />} />
+          <Route path="/legion" element={<Bossing />} />
+          <Route path="/farming" element={<Bossing />} />
+          <Route path="/events" element={<Bossing />} />
         </Routes>
       </ThemeProvider>
     </>

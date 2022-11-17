@@ -1,0 +1,11 @@
+.parent_ctn {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  background-image: url("../../images/lucid.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
