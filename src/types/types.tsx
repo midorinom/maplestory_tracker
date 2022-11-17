@@ -5,7 +5,6 @@ export interface UserData {
   username: string;
   role: string;
   characters: Character[];
-  main: Character | null;
 }
 
 export interface DefaultRes {
@@ -31,7 +30,6 @@ export interface GetClassesRes {
 export interface GetCharactersRes {
   message: string;
   characters: Character[];
-  main: Character | null;
 }
 
 export interface GetCharacterRes {

@@ -7,13 +7,8 @@ import CharCard from "./CharCard";
 
 const CharsList = () => {
   const userData = useAppSelector((state) => state.user.userData);
-  let characters = [];
+  let characters = userData.characters;
 
-  if (userData.main) {
-    characters = [userData.main, ...userData.characters];
-  } else {
-    characters = userData.characters;
-  }
   const charCards = characters.map((element) => {
     return <CharCard character={element} key={Math.random()} />;
   });

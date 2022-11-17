@@ -71,26 +71,17 @@ const Dashboard = () => {
         dispatch(
           userActions.setUserData({
             characters: response.characters,
-            main: response.main,
           })
         );
 
         // Set featuredCharacters
         if (response.characters.length > 0) {
-          let featuredChar: Character;
+          let featuredCharacter: Character;
 
-          if (response.main) {
-            // If the player has set a main character
-            featuredChar = response.main;
-          } else {
-            // Take the highest level character
-            featuredChar = response.characters[0];
-          }
-
-          dispatch(dashboardActions.setFeaturedChar(featuredChar));
+          featuredCharacter = response.characters[0];
+          dispatch(dashboardActions.setFeaturedChar(featuredCharacter));
         }
       }
-
       setFirstRenderDone(true);
     } catch (err: any) {
       console.log(err);
@@ -113,7 +104,6 @@ const Dashboard = () => {
         dispatch(
           userActions.setUserData({
             characters: response.characters,
-            main: response.main,
           })
         );
       }

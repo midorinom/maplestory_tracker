@@ -96,7 +96,7 @@ const EditFeaturedChar = () => {
 
   // Check if the user checked the "Main" checkbox
   function handleMainChange(e: any) {
-    if (featuredChar.is_main === true) {
+    if (isMain === true) {
       setIsMain(false);
     } else {
       setIsMain(true);
@@ -329,10 +329,10 @@ const EditFeaturedChar = () => {
           ign: ignRef.current.value,
           level: levelRef.current.value,
           class_name: selectedClass,
-          stat: stat,
+          stats: stat,
           dojo: dojo,
           ba: ba,
-          main: isMain,
+          is_main: isMain,
         };
 
         // Update the character
@@ -500,7 +500,7 @@ const EditFeaturedChar = () => {
             <Checkbox
               style={{ width: "max-content" }}
               onChange={handleMainChange}
-              checked={featuredChar.is_main}
+              checked={isMain}
               id="is_main"
             />
           }

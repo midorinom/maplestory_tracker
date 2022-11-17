@@ -95,7 +95,6 @@ const FeaturedChar = () => {
         tracking: trackingArr.join("@"),
       };
 
-      console.log("updating");
       updateCharacter(newChar);
     }
   }, [tracking]);
