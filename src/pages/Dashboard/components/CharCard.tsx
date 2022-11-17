@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { dashboardActions } from "../../../store/dashboard";
-import { isEditingActions } from "../../../store/isEditing";
 import { Character } from "../../../types/types";
 import styles from "../Dashboard.module.css";
 
