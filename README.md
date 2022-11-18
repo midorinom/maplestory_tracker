@@ -13,13 +13,37 @@ and also have friends in both regions, who would potentially be using this app.
 Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backend</a>
 
 ## Technologies Used
-Frontend: React, Typescript, Redux, Material UI
+Frontend: React, Typescript, Redux, Material UI, MomentJS
 
-Backend: Flask, Python 
+Backend: PostgreSQL, Flask, Python, Flask-SQLAlchemy, Marshmallow, Psycopg2-binary, Flask-Migrate, Flask-Cors, Flask-Bcrypt, Uuid, Python-dotenv
 
 ###### Installation Instructions
-
-
+﻿alembic==1.8.1
+apispec==6.0.1
+asgiref==3.5.2
+bcrypt==4.0.1
+click==8.1.3
+colorama==0.4.6
+Flask==2.2.2
+Flask-Bcrypt==1.0.1
+Flask-Cors==3.0.10
+Flask-Migrate==3.1.0
+Flask-SQLAlchemy==3.0.2
+greenlet==2.0.1
+itsdangerous==2.1.2
+Jinja2==3.1.2
+Mako==1.2.3
+MarkupSafe==2.1.1
+marshmallow==3.18.0
+packaging==21.3
+psycopg2-binary==2.9.5
+pyparsing==3.0.9
+python-dotenv==0.21.0
+six==1.16.0
+SQLAlchemy==1.4.43
+uuid==1.30
+webargs==8.2.0
+Werkzeug==2.2.2
 ## Component Hierarchy
 ```
 App
