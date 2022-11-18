@@ -106,4 +106,4 @@ Below I have included the images of the spreadsheets I made previously which I u
 #### Admin Page
 
 Admin users will be able to edit the list of items that are used to display the dropdowns in the Progression page.
-They can also edit the event information for both MapleSEA and GMS, such as changing the main event, event shop items, quantity and cost, as well as setting the event calendar. The admin can perform full CRUD on all these pieces of data.
+They can also edit the event information that will be displayed for both MapleSEA and GMS users, such as changing the main event, event shop items, quantity and cost, as well as setting the event calendar. The admin can perform full CRUD on all these pieces of data.
