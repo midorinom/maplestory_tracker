@@ -67,21 +67,21 @@ The component combination of a currently selected character + character list is 
 
 ## Outstanding Features to Implement
 * Dailies/Weeklies Page
-<img src="/src/readme/images/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
+<img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
 * Bossing Page
-<img src="/src/readme/images/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
+<img src="/src/images/readme/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
 
 * Progression Page
-<img src="/src/readme/images/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
+<img src="/src/images/readme/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
 
 * Legion Page
-<img src="/src/readme/images/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
+<img src="/src/images/readme/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
 
 * Farming Page
-<img src="/src/readme/images/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
+<img src="/src/images/readme/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
 
 * Events Page
-<img src="/src/readme/images/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
+<img src="/src/images/readme/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
 
 * Admin Page
