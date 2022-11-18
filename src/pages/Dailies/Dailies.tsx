@@ -15,6 +15,8 @@ import CharCard from "./components/CharCard";
 import defaultChar from "../../images/default_char.png";
 import moment from "moment";
 import { Button } from "@material-ui/core";
+import DailiesCard from "./components/DailiesCard";
+import WeekliesCard from "./components/WeekliesCard";
 
 const DailiesWeeklies = () => {
   // =========
@@ -32,7 +34,9 @@ const DailiesWeeklies = () => {
   const [dailyDate, setDailyDate] = useState<string>();
   const [weeklyDate, setWeeklyDate] = useState<string>();
   const [dailies, setDailies] = useState<Dailies>();
+  const [dailiesCards, setDailiesCards] = useState<any>();
   const [weeklies, setWeeklies] = useState<Weeklies>();
+  const [weekliesCards, setWeekliesCards] = useState<any>();
   const [ursusTour, setUrsusTour] = useState<UrsusTour>();
   const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
   const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
@@ -82,6 +86,12 @@ const DailiesWeeklies = () => {
     }
   }
 
+  function handleDailiesChange() {}
+
+  function handleWeekliesChange() {}
+
+  function handleUrsusTourChange() {}
+
   // ==========
   // useEffects
   // ==========
@@ -118,8 +128,37 @@ const DailiesWeeklies = () => {
   }, [featuredChar]);
 
   // After Dailies has been set
+  useEffect(() => {
+    if (dailies) {
+      const cards = dailies.dailies_list.split("@").map((element: string) => {
+        return (
+          <DailiesCard
+            dailies={dailies}
+            name={element}
+            handleDailiesChange={handleDailiesChange}
+            handleUrsusTourChange={handleUrsusTourChange}
+          />
+        );
+      });
+      setDailiesCards(cards);
+    }
+  }, [dailies]);
 
   // After Weeklies has been set
+  useEffect(() => {
+    if (weeklies) {
+      const cards = weeklies.weeklies_list.split("@").map((element: string) => {
+        return (
+          <WeekliesCard
+            weeklies={weeklies}
+            name={element}
+            handleWeekliesChange={handleWeekliesChange}
+          />
+        );
+      });
+      setWeekliesCards(cards);
+    }
+  }, [weeklies]);
 
   // ===============
   // Fetch Functions
@@ -228,10 +267,7 @@ const DailiesWeeklies = () => {
     <div className={styles.parent_ctn}>
       <div className={styles.dailies_ctn}>
         <b>Dailies</b>
-        <div className={styles.dailies_options}>
-          ursus: {JSON.stringify(ursusTour)}
-          dailies: {JSON.stringify(dailies)}
-        </div>
+        <div className={styles.dailies_options}>{dailiesCards}</div>
         <Button
           onClick={handleDailiesPrevBtn}
           style={{ width: "30%" }}
@@ -243,9 +279,7 @@ const DailiesWeeklies = () => {
       </div>
       <div className={styles.weeklies_ctn}>
         <b>Weeklies</b>
-        <div className={styles.weeklies_options}>
-          {JSON.stringify(weeklies)}
-        </div>
+        <div className={styles.weeklies_options}>{weekliesCards}</div>
         <Button
           onClick={handleWeekliesPrevBtn}
           style={{ width: "30%" }}
