@@ -47,16 +47,17 @@ Link to <a href="https://docs.google.com/spreadsheets/d/1johWJthKgyvEfgcKUEl9HcQ
 
 ## Data Model
 Database name: maplestory_tracker
+
 <img src="/src/images/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
 <img src="/src/images/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
 
 
 ## Brief Explanation of Each Page
-* Login/Register
+#### Login/Register
 When registering, users have to select either the MapleSEA or GMS server, which defines the user's account type. There will be subtle differences in the app for each 
 type of user such as different item names and tooltip instructions. This is due to the game having localised differences across different regional servers. 
 
-* Dashboard
+#### Dashboard
 If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an iamge of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
 
 The dashboard page displays the currently selected character, a list of all the user's characters that can be scrolled through, and a pie chart that consolidates all the weekly mesos acquired by the user over this bossing week (which resets on Thursday) alongside a timer that shows the number of days/hours/minutes until the weekly bossing reset.
