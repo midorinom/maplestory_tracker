@@ -2,8 +2,8 @@
 
 ## Introduction
 As a maplestory player, I used to make numerous spreadsheets to keep track of various information such as dailies, bosses and progression for each of my characters.
-It was an extremely tedious process to set up the spreadsheets with the the fields that I wanted and annoying to navigate between spreadsheets for different characters
-as I had to duplicate every spreadsheet for the number of characters that I had. Not to mention, excel sheets are just ugly and unpleasant to look at, with only visual
+It was an extremely tedious process to set up the spreadsheets the the fields that I wanted and annoying to navigate between spreadsheets for different characters
+as I had to duplicate every spreadsheet for the number of characters that I had. Not to mention, excel sheets are ugly and unpleasant to look at, with only visual
 representations of raw data of words and numbers.
 
 This was my inspiration for making this tracker app, to provide a convenient platform for players to keep track of their information in an interface that is simple to use and visually appealing. I catered this app for players in both the MapleSEA (Southeast Asia) and GMS (Global) servers, as I have played extensively in both regions
@@ -66,22 +66,24 @@ The dashboard page displays the currently selected character, a list of all the 
 The component combination of a currently selected character + character list is a common one that will be repeated in most of the other pages in the app. The character list is arranged in descending order by the character's level. However, if any character is assigned to be a "Main" character, that character would always be shown first in the list, regardless of the character's level. The first character in the list is also the one that would be displayed by default upon visiting any of the pages that has a currently selected character + character list feature.
 
 ## Outstanding Features to Implement
-* Dailies/Weeklies Page
-<img src="/src/readme/images/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
+Below I have included the images of the spreadsheets I made previously which I use as a reference to design the pages in this app. 
 
-* Bossing Page
-<img src="/src/readme/images/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
+#### Dailies/Weeklies Page
+<img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
-* Progression Page
-<img src="/src/readme/images/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
+#### Bossing Page
+<img src="/src/images/readme/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
 
-* Legion Page
-<img src="/src/readme/images/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
+#### Progression Page
+<img src="/src/images/readme/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
 
-* Farming Page
-<img src="/src/readme/images/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
+#### Legion Page
+<img src="/src/images/readme/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
 
-* Events Page
-<img src="/src/readme/images/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
+#### Farming Page
+<img src="/src/images/readme/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
 
-* Admin Page
+#### Events Page
+<img src="/src/images/readme/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
+
+#### Admin Page
