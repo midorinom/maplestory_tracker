@@ -50,9 +50,8 @@ Link to <a href="https://docs.google.com/spreadsheets/d/1johWJthKgyvEfgcKUEl9HcQ
 ## Data Model
 Database name: maplestory_tracker
 
-<img src="/src/images/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
-<img src="/src/images/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
-
+<img src="/src/images/readme/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
+<img src="/src/images/readme/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
 
 ## Brief Explanation of Each Page
 #### Login/Register
@@ -68,9 +67,21 @@ The component combination of a currently selected character + character list is 
 
 ## Outstanding Features to Implement
 * Dailies/Weeklies Page
+<img src="/src/readme/images/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
+
 * Bossing Page
+<img src="/src/readme/images/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
+
 * Progression Page
+<img src="/src/readme/images/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
+
 * Legion Page
+<img src="/src/readme/images/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
+
 * Farming Page
+<img src="/src/readme/images/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
+
 * Events Page
+<img src="/src/readme/images/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
+
 * Admin Page
