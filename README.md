@@ -66,22 +66,24 @@ The dashboard page displays the currently selected character, a list of all the 
 The component combination of a currently selected character + character list is a common one that will be repeated in most of the other pages in the app. The character list is arranged in descending order by the character's level. However, if any character is assigned to be a "Main" character, that character would always be shown first in the list, regardless of the character's level. The first character in the list is also the one that would be displayed by default upon visiting any of the pages that has a currently selected character + character list feature.
 
 ## Outstanding Features to Implement
-* Dailies/Weeklies Page
+Below I have included the images of the spreadsheets I made previously which I use as a reference to design the pages in this app. 
+
+#### Dailies/Weeklies Page
 <img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
-* Bossing Page
+#### Bossing Page
 <img src="/src/images/readme/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
 
-* Progression Page
+#### Progression Page
 <img src="/src/images/readme/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
 
-* Legion Page
+#### Legion Page
 <img src="/src/images/readme/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
 
-* Farming Page
+#### Farming Page
 <img src="/src/images/readme/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
 
-* Events Page
+#### Events Page
 <img src="/src/images/readme/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
 
-* Admin Page
+#### Admin Page
