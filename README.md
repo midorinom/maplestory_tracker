@@ -12,9 +12,11 @@ and also have friends in both regions who would potentially be using this app.
 Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backend</a>
 
 ## Technologies Used
-Frontend: React, Typescript, Redux, Material UI, MomentJS
+Frontend:
+* React, Typescript, Redux, Material UI, MomentJS
 
-Backend: PostgreSQL, Flask, Python, Flask-SQLAlchemy, Marshmallow, Psycopg2-binary, Flask-Migrate, Flask-Cors, Flask-Bcrypt, Uuid, Python-dotenv
+Backend:
+* PostgreSQL, Flask, Python, Flask-SQLAlchemy, Marshmallow, Psycopg2-binary, Flask-Migrate, Flask-Cors, Flask-Bcrypt, Uuid, Python-dotenv
 
 ## Component Hierarchy
 ```
