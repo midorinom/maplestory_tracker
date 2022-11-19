@@ -79,6 +79,9 @@ The component combination of a currently selected character + character list is 
 
 Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages. 
 
+#### Dashboard Page
+* Add pie chart to display total weekly mesos earned by the user
+
 #### Dailies/Weeklies Page
 
 <img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
