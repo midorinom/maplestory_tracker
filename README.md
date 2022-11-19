@@ -57,8 +57,8 @@ Link to <a href="https://docs.google.com/spreadsheets/d/1johWJthKgyvEfgcKUEl9HcQ
 
 Database name: maplestory_tracker
 
-<img src="/src/images/readme/data_model_1.png" alt="Data Model 1" title="Data Model (1)">
-<img src="/src/images/readme/data_model_2.png" alt="Data Model 1" title="Data Model (2)">
+<img src="/src/images/readme/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
+<img src="/src/images/readme/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
 
 ## Brief Explanation of Each Page
 
@@ -89,27 +89,27 @@ Currently, I have fully developed the backend for all the following pages, all t
 
 #### Dailies/Weeklies Page
 
-<img src="/src/images/readme/dailies_spreadsheet.png" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
+<img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
 #### Bossing Page
 
-<img src="/src/images/readme/bossing_spreadsheet.png" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
+<img src="/src/images/readme/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
 
 #### Progression Page
 
-<img src="/src/images/readme/progression_spreadsheet.png" alt="Progression Spreadsheet" title="Progression Spreadsheet">
+<img src="/src/images/readme/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
 
 #### Legion Page
 
-<img src="/src/images/readme/legion_spreadsheet.png" alt="Legion Spreadsheet" title="Legion Spreadsheet">
+<img src="/src/images/readme/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
 
 #### Farming Page
 
-<img src="/src/images/readme/farming_spreadsheet.png" alt="Farming Spreadsheet" title="Farming Spreadsheet">
+<img src="/src/images/readme/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
 
 #### Events Page
 
-<img src="/src/images/readme/events_spreadsheet.png" alt="Events Spreadsheet" title="Events Spreadsheet">
+<img src="/src/images/readme/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
 
 #### Admin Page
 
