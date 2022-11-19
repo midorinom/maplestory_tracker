@@ -177,11 +177,13 @@ const EditFeaturedChar = () => {
     const newChars = userData.characters.filter(
       (element) => element.uuid !== featuredChar.uuid
     );
+
     console.log("newChars", newChars);
 
     if (newChars.length > 0) {
       dispatch(dashboardActions.setFeaturedChar(newChars[0]));
     } else {
+      // No more characters remaining
       dispatch(userActions.setUserData({ characters: [] }));
     }
     dispatch(dashboardActions.setIsEditing(false));
@@ -276,12 +278,12 @@ const EditFeaturedChar = () => {
         updateCharacter();
         uploadImage();
 
-        // set is_main of the current main character to false
+        // set is_main of the current main character to false, if it isn't already the featured character
         if (isMain) {
           const currentMain = userData.characters.find(
             (element) => element.is_main === true
           );
-          if (currentMain) {
+          if (currentMain && currentMain.uuid !== featuredChar.uuid) {
             updateMain(currentMain.uuid);
           }
         }
