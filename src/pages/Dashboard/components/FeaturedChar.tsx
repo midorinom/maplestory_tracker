@@ -181,7 +181,10 @@ const FeaturedChar = () => {
         <div className={styles.featured_mid}>
           {!!featuredChar.stats && (
             <p>
-              Stat: <span className={styles.stats}>{featuredChar.stats}</span>
+              Stat:{" "}
+              <span className={styles.stats}>
+                {featuredChar.stats.toLocaleString()}
+              </span>
             </p>
           )}
           {!!featuredChar.dojo && (
