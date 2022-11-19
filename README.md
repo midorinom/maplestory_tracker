@@ -77,7 +77,7 @@ The component combination of a currently selected character + character list is 
 
 ## Outstanding Features to Implement
 
-Below I have included the images of the spreadsheets I made previously which I use as a reference to design the pages in this app.
+Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages. 
 
 #### Dailies/Weeklies Page
 
