@@ -169,6 +169,7 @@ const DailiesWeeklies = () => {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          username: userData.username,
           tracking: "dailies",
         }),
       });
