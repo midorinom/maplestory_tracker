@@ -57,8 +57,8 @@ Link to <a href="https://docs.google.com/spreadsheets/d/1johWJthKgyvEfgcKUEl9HcQ
 
 Database name: maplestory_tracker
 
-<img src="/src/images/readme/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
-<img src="/src/images/readme/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
+<img src="/src/images/readme/data_model_1.png" alt="Data Model 1" title="Data Model (1)">
+<img src="/src/images/readme/data_model_2.png" alt="Data Model 1" title="Data Model (2)">
 
 ## Brief Explanation of Each Page
 
@@ -67,7 +67,7 @@ Database name: maplestory_tracker
 When registering, users have to select either the MapleSEA or GMS server, which defines the user's account type. There will be subtle differences in the app for each
 type of user such as different item names and tooltip instructions. This is due to the game having localised differences across different regional servers.
 
-<img src="/src/images/readme/login_page.PNG" alt="Login Page" title="Login Page">
+<img src="/src/images/readme/login_page.png" alt="Login Page" title="Login Page">
 
 #### Dashboard
 
@@ -77,38 +77,39 @@ The dashboard page displays the currently selected character, a list of all the 
 
 The component combination of a currently selected character + character list is a common one that will be repeated in most of the other pages in the app. The character list is arranged in descending order by the character's level. However, if any character is assigned to be a "Main" character, that character would always be shown first in the list, regardless of the character's level. The first character in the list is also the one that would be displayed by default upon visiting any of the pages that has a currently selected character + character list feature.
 
-<img src="/src/images/readme/dashboard_page.PNG" alt="Dashboard Page" title="Dashboard Page">
+<img src="/src/images/readme/dashboard_page.png" alt="Dashboard Page" title="Dashboard Page">
 
 ## Outstanding Features to Implement
 
-Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages. 
+Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages.
 
 #### Dashboard Page
-* Add pie chart to display total weekly mesos earned by the user
+
+- Add pie chart to display total weekly mesos earned by the user
 
 #### Dailies/Weeklies Page
 
-<img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
+<img src="/src/images/readme/dailies_spreadsheet.png" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
 #### Bossing Page
 
-<img src="/src/images/readme/bossing_spreadsheet.PNG" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
+<img src="/src/images/readme/bossing_spreadsheet.png" alt="Bossing Spreadsheet" title="Bossing Spreadsheet">
 
 #### Progression Page
 
-<img src="/src/images/readme/progression_spreadsheet.PNG" alt="Progression Spreadsheet" title="Progression Spreadsheet">
+<img src="/src/images/readme/progression_spreadsheet.png" alt="Progression Spreadsheet" title="Progression Spreadsheet">
 
 #### Legion Page
 
-<img src="/src/images/readme/legion_spreadsheet.PNG" alt="Legion Spreadsheet" title="Legion Spreadsheet">
+<img src="/src/images/readme/legion_spreadsheet.png" alt="Legion Spreadsheet" title="Legion Spreadsheet">
 
 #### Farming Page
 
-<img src="/src/images/readme/farming_spreadsheet.PNG" alt="Farming Spreadsheet" title="Farming Spreadsheet">
+<img src="/src/images/readme/farming_spreadsheet.png" alt="Farming Spreadsheet" title="Farming Spreadsheet">
 
 #### Events Page
 
-<img src="/src/images/readme/events_spreadsheet.PNG" alt="Events Spreadsheet" title="Events Spreadsheet">
+<img src="/src/images/readme/events_spreadsheet.png" alt="Events Spreadsheet" title="Events Spreadsheet">
 
 #### Admin Page
 
