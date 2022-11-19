@@ -2,7 +2,7 @@
 
 ## Introduction
 
-As a maplestory player, I used to make numerous spreadsheets to keep track of various information such as dailies, bosses and progression for each of my characters.
+As a maplestory player, I used to make numerous spreadsheets to keep track of various information such as dailies, bosses and gear progression for each of my characters.
 It was an extremely tedious process to set up the spreadsheets the the fields that I wanted and annoying to navigate between spreadsheets for different characters
 as I had to duplicate every spreadsheet for the number of characters that I had. Not to mention, excel sheets are ugly and unpleasant to look at, with only visual
 representations of raw data of words and numbers.
