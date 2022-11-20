@@ -5,54 +5,141 @@
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 2rem;
+  gap: 5rem;
+}
+
+.parent_ctn > div {
+  margin-top: 2rem;
+}
+
+.left_ctn {
+  max-height: 85vh;
+  width: fit-content;
+  max-width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5rem;
+  padding: 1rem;
 }
 
 .dailies_ctn {
+  height: max-content;
+  max-height: 100%;
+  max-width: 45%;
   display: flex;
   flex-direction: column;
   border: 1px solid blue;
-  height: 50%;
-  width: 20%;
   padding: 1rem;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
 }
 
 .dailies_options {
   border: 1px solid red;
   padding: 1rem;
+  max-width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.dailies_options::-webkit-scrollbar {
+  display: none;
 }
 
 .weeklies_ctn {
+  height: max-content;
+  max-height: 100%;
+  max-width: 45%;
   display: flex;
   flex-direction: column;
   border: 1px solid green;
-  height: 50%;
-  width: 20%;
   padding: 1rem;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
 }
 
 .weeklies_options {
   border: 1px solid red;
   padding: 1rem;
+  max-width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.weeklies_options::-webkit-scrollbar {
+  display: none;
 }
 
 .right_ctn {
+  height: max-content;
+  max-height: 85vh;
   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  width: 20%;
-  padding: 1rem;
+  gap: 1rem;
+  width: 25%;
+  padding-bottom: 1rem;
+  background: rgba(245, 245, 245, 0.9);
+  border-radius: 1rem;
 }
 
 .featured_ctn {
-  display: flex;
-  border: 1px solid black;
+  height: 25vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+  align-items: center;
+  border-bottom: thin dotted #fbc3bc;
+  justify-items: center;
+  position: relative;
 }
 
-.ign_class {
+.featured_image_ctn {
+  height: 95%;
+  width: 95%;
+  position: relative;
+  display: flex;
+  justify-self: end;
+}
+
+.featured_image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.featured_ign_class {
+  max-height: 50%;
+  width: max-content;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  overflow-wrap: break-word;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.featured_ign_class::-webkit-scrollbar {
+  display: none;
+}
+
+.featured_ign {
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: bold;
+  width: max-content;
+  border-bottom: 0.2rem solid #fbc3bc;
+}
+
+.featured_level_class {
+  font-size: 1rem;
+  margin: 0;
 }
 
 .char_cards_ctn {

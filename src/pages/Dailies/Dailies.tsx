@@ -266,40 +266,48 @@ const DailiesWeeklies = () => {
   // ======
   return (
     <div className={styles.parent_ctn}>
-      <div className={styles.dailies_ctn}>
-        <b>Dailies</b>
-        <div className={styles.dailies_options}>{dailiesCards}</div>
-        <Button
-          onClick={handleDailiesPrevBtn}
-          style={{ width: "30%" }}
-          variant="contained"
-        >
-          {dailiesPrevClicked ? " Show Today" : "Show Prev"}
-        </Button>
-        <p>Daily Reset {dailyDate}</p>
-      </div>
-      <div className={styles.weeklies_ctn}>
-        <b>Weeklies</b>
-        <div className={styles.weeklies_options}>{weekliesCards}</div>
-        <Button
-          onClick={handleWeekliesPrevBtn}
-          style={{ width: "30%" }}
-          variant="contained"
-        >
-          {weekliesPrevClicked ? " Show Today" : "Show Prev"}
-        </Button>
-        <p>Weekly Boss Reset {weeklyDate}</p>
+      <div className={styles.left_ctn}>
+        <div className={styles.dailies_ctn}>
+          <b>Dailies</b>
+          <div className={styles.dailies_options}>{dailiesCards}</div>
+          <Button
+            onClick={handleDailiesPrevBtn}
+            style={{ width: "30%" }}
+            variant="contained"
+          >
+            {dailiesPrevClicked ? " Show Today" : "Show Prev"}
+          </Button>
+          <p>Daily Reset {dailyDate}</p>
+        </div>
+        <div className={styles.weeklies_ctn}>
+          <b>Weeklies</b>
+          <div className={styles.weeklies_options}>{weekliesCards}</div>
+          <Button
+            onClick={handleWeekliesPrevBtn}
+            style={{ width: "30%" }}
+            variant="contained"
+          >
+            {weekliesPrevClicked ? " Show Today" : "Show Prev"}
+          </Button>
+          <p>Weekly Boss Reset {weeklyDate}</p>
+        </div>
       </div>
       <div className={styles.right_ctn}>
         <div className={styles.featured_ctn}>
-          <img className={styles.image} src={charImg} alt="character img" />
-          <div className={styles.ign_class}>
+          <div className={styles.featured_image_ctn}>
+            <img
+              className={styles.featured_image}
+              src={charImg}
+              alt="character img"
+            />
+          </div>
+          <div className={styles.featured_ign_class}>
             {featuredChar.uuid && (
-              <div className={styles.ign}>{featuredChar.ign}</div>
+              <div className={styles.featured_ign}>{featuredChar.ign}</div>
             )}
             {featuredChar.uuid && (
               <p
-                className={styles.level_class}
+                className={styles.featured_level_class}
               >{`Lv ${featuredChar.level} ${featuredChar.class_name}`}</p>
             )}
           </div>

@@ -5,8 +5,10 @@ const DailiesCard = (props: any) => {
   return (
     <div>
       <FormControlLabel
+        style={{ overflowWrap: "break-word" }}
         control={
           <Checkbox
+            style={{ overflowWrap: "break-word" }}
             onChange={
               props.name === "Ursus" || props.name === "Maple Tour"
                 ? props.handleUrsusTourChange

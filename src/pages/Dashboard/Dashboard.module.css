@@ -57,6 +57,7 @@
   justify-self: start;
   position: relative;
   top: 4%;
+  padding-bottom: 1rem;
 }
 
 .parent_ctn > div:nth-child(3) {
@@ -135,12 +136,11 @@
 }
 
 .featured_image_ctn {
-  height: 80%;
-  width: 80%;
+  height: 95%;
+  width: 95%;
   position: relative;
   display: flex;
   justify-self: end;
-  margin-right: 1rem;
 }
 
 .featured_image {
