@@ -14,7 +14,7 @@ import styles from "./Dailies.module.css";
 import CharCard from "./components/CharCard";
 import defaultChar from "../../images/default_char.png";
 import moment from "moment";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
 
@@ -52,7 +52,7 @@ const DailiesWeeklies = () => {
       today = moment.utc().toISOString();
       setDailyDate(moment.utc().endOf("day").fromNow());
       setWeeklyDate(
-        moment.utc().startOf("isoWeek").day(4).add(1, "weeks").fromNow()
+        moment.utc().startOf("isoWeek").day(1).add(1, "weeks").fromNow()
       );
     }
 
@@ -61,7 +61,7 @@ const DailiesWeeklies = () => {
       today = moment().toISOString();
       setDailyDate(moment().endOf("day").fromNow());
       setWeeklyDate(
-        moment().startOf("isoWeek").day(4).add(1, "weeks").fromNow()
+        moment().startOf("isoWeek").day(1).add(1, "weeks").fromNow()
       );
     }
 
@@ -268,28 +268,36 @@ const DailiesWeeklies = () => {
     <div className={styles.parent_ctn}>
       <div className={styles.left_ctn}>
         <div className={styles.dailies_ctn}>
-          <b>Dailies</b>
+          <p className={styles.dailies_title}>Dailies</p>
           <div className={styles.dailies_options}>{dailiesCards}</div>
-          <Button
-            onClick={handleDailiesPrevBtn}
-            style={{ width: "30%" }}
-            variant="contained"
-          >
-            {dailiesPrevClicked ? " Show Today" : "Show Prev"}
-          </Button>
-          <p>Daily Reset {dailyDate}</p>
+          <div className={styles.dailies_btm}>
+            <Button
+              onClick={handleDailiesPrevBtn}
+              style={{ width: "40%" }}
+              variant="contained"
+              color="info"
+              size="medium"
+            >
+              {dailiesPrevClicked ? " View Today" : "View Prev"}
+            </Button>
+            <p>Reset {dailyDate}</p>
+          </div>
         </div>
-        <div className={styles.weeklies_ctn}>
-          <b>Weeklies</b>
-          <div className={styles.weeklies_options}>{weekliesCards}</div>
-          <Button
-            onClick={handleWeekliesPrevBtn}
-            style={{ width: "30%" }}
-            variant="contained"
-          >
-            {weekliesPrevClicked ? " Show Today" : "Show Prev"}
-          </Button>
-          <p>Weekly Boss Reset {weeklyDate}</p>
+        <div className={styles.dailies_ctn}>
+          <p className={styles.dailies_title}>Weeklies</p>
+          <div className={styles.dailies_options}>{weekliesCards}</div>
+          <div className={styles.dailies_btm}>
+            <Button
+              onClick={handleWeekliesPrevBtn}
+              style={{ width: "40%" }}
+              variant="contained"
+              color="info"
+              size="medium"
+            >
+              {weekliesPrevClicked ? " This Week" : "View Prev"}
+            </Button>
+            <p>Reset {weeklyDate}</p>
+          </div>
         </div>
       </div>
       <div className={styles.right_ctn}>
