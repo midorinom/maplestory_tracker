@@ -48,6 +48,9 @@
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .dailies_options::-webkit-scrollbar {

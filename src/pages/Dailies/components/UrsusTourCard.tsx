@@ -5,7 +5,7 @@ import { Dailies } from "../../../types/types";
 interface UrsusTourCardProps {
   ursusTour: Dailies;
   name: string;
-  handleUrsusTourChange: () => void;
+  handleUrsusTourChange: (e: any) => void;
 }
 
 const UrsusTourCard: React.FC<UrsusTourCardProps> = (props) => {
@@ -19,7 +19,7 @@ const UrsusTourCard: React.FC<UrsusTourCardProps> = (props) => {
             id={props.name}
           />
         }
-        label={props.name}
+        label={props.name === "ursus" ? "Ursus" : "Maple Tour"}
       />
     </div>
   );

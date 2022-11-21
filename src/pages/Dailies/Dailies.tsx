@@ -37,10 +37,11 @@ const DailiesWeeklies = () => {
   const [ursusTourCards, setUrsusTourCards] = useState<any>();
   const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
   const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
+  const [checkboxClicked, setCheckboxClicked] = useState<boolean>();
 
-  const [dailies, setDailies] = useState<Dailies>();
-  const [weeklies, setWeeklies] = useState<Dailies>();
-  const [ursusTour, setUrsusTour] = useState<Dailies>();
+  const [dailies, setDailies] = useState<any>();
+  const [weeklies, setWeeklies] = useState<any>();
+  const [ursusTour, setUrsusTour] = useState<any>();
 
   // =====
   // Dates
@@ -87,11 +88,47 @@ const DailiesWeeklies = () => {
     }
   }
 
-  function handleDailiesChange() {}
+  function handleDailiesChange(e: any) {
+    setCheckboxClicked(true);
 
-  function handleWeekliesChange() {}
+    if (dailies && dailies[e.target.id] === true) {
+      setDailies((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: false };
+      });
+    } else {
+      setDailies((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: true };
+      });
+    }
+  }
 
-  function handleUrsusTourChange() {}
+  function handleWeekliesChange(e: any) {
+    setCheckboxClicked(true);
+
+    if (weeklies && weeklies[e.target.id] === true) {
+      setWeeklies((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: false };
+      });
+    } else {
+      setWeeklies((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: true };
+      });
+    }
+  }
+
+  function handleUrsusTourChange(e: any) {
+    setCheckboxClicked(true);
+
+    if (ursusTour && ursusTour[e.target.id] === true) {
+      setUrsusTour((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: false };
+      });
+    } else {
+      setUrsusTour((prevState: Dailies) => {
+        return { ...prevState, [e.target.id]: true };
+      });
+    }
+  }
 
   // ==========
   // useEffects

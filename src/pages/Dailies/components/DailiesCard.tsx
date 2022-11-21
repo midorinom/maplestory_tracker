@@ -5,7 +5,7 @@ import { Dailies } from "../../../types/types";
 interface DailiesCardProps {
   dailies: Dailies;
   name: string;
-  handleDailiesChange: () => void;
+  handleDailiesChange: (e: any) => void;
 }
 
 const DailiesCard: React.FC<DailiesCardProps> = (props) => {
