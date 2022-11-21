@@ -16,10 +16,13 @@ import CharCard from "./components/CharCard";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
 import UrsusTourCard from "./components/UrsusTourCard";
+import EditDailiesCard from "./components/EditDailiesCard";
+import EditWeekliesCard from "./components/EditWeekliesCard";
 import styles from "./Dailies.module.css";
 import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import defaultChar from "../../images/default_char.png";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const DailiesWeeklies = () => {
   // =========
@@ -152,6 +155,18 @@ const DailiesWeeklies = () => {
   function handleEditWeeklies() {
     if (!isEditingWeeklies) {
       setIsEditingWeeklies(true);
+    }
+  }
+
+  function handleDailiesBack() {
+    if (isEditingDailies) {
+      setIsEditingDailies(false);
+    }
+  }
+
+  function handleWeekliesBack() {
+    if (isEditingWeeklies) {
+      setIsEditingWeeklies(false);
     }
   }
 
@@ -355,6 +370,33 @@ const DailiesWeeklies = () => {
       getWeeklies();
     }
   }, [weekliesPrevClicked]);
+
+  //
+  useEffect(() => {
+    if (isEditingDailies) {
+      const dailiesObj = { ...dailies };
+      delete dailiesObj.uuid;
+
+      const cards = Object.keys(dailiesObj).map((element) => {
+        return <EditDailiesCard />;
+      });
+
+      setEditDailiesCards(cards);
+    }
+  }, [isEditingDailies]);
+
+  useEffect(() => {
+    if (isEditingWeeklies) {
+      const weekliesObj = { ...weeklies };
+      delete weekliesObj.uuid;
+
+      const cards = Object.keys(weekliesObj).map((element) => {
+        return <EditWeekliesCard />;
+      });
+
+      setEditWeekliesCards(cards);
+    }
+  }, [isEditingWeeklies]);
 
   // ===============
   // Fetch Functions
@@ -587,18 +629,36 @@ const DailiesWeeklies = () => {
           onMouseLeave={() => setShowEditDailiesIcon(false)}
           className={styles.dailies_ctn}
         >
-          {showEditDailiesIcon && (
-            <IconButton
-              style={{ position: "absolute", top: "1%", right: "2%" }}
-              onClick={handleEditDailies}
-              size="small"
-            >
-              <EditIcon fontSize="large" />
-            </IconButton>
+          {isEditingDailies ? (
+            <>
+              <p className={styles.dailies_title}></p>
+              <Button
+                onClick={handleDailiesBack}
+                size="medium"
+                variant="outlined"
+                color="secondary"
+                startIcon={<ArrowBackIcon />}
+                style={{ position: "absolute", top: "2%", left: "2%" }}
+              >
+                Back
+              </Button>
+            </>
+          ) : (
+            <>
+              {showEditDailiesIcon && (
+                <IconButton
+                  style={{ position: "absolute", top: "1%", right: "2%" }}
+                  onClick={handleEditDailies}
+                  size="small"
+                >
+                  <EditIcon fontSize="large" />
+                </IconButton>
+              )}
+              <p className={styles.dailies_title}>
+                {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
+              </p>
+            </>
           )}
-          <p className={styles.dailies_title}>
-            {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
-          </p>
           <div className={styles.dailies_options}>
             {isEditingDailies ? (
               editDailiesCards
@@ -611,7 +671,24 @@ const DailiesWeeklies = () => {
           </div>
           <div className={styles.dailies_btm}>
             {isEditingDailies ? (
-              "test"
+              <>
+                <Button
+                  // onClick={handleSubmit}
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                >
+                  +
+                </Button>
+                <Button
+                  // onClick={handleSubmit}
+                  variant="contained"
+                  size="large"
+                  color="info"
+                >
+                  Update
+                </Button>
+              </>
             ) : (
               <>
                 <Button
@@ -633,18 +710,36 @@ const DailiesWeeklies = () => {
           onMouseLeave={() => setShowEditWeekliesIcon(false)}
           className={styles.dailies_ctn}
         >
-          {showEditWeekliesIcon && (
-            <IconButton
-              style={{ position: "absolute", top: "1%", right: "2%" }}
-              onClick={handleEditWeeklies}
-              size="small"
-            >
-              <EditIcon fontSize="large" />
-            </IconButton>
+          {isEditingWeeklies ? (
+            <>
+              <p className={styles.dailies_title}></p>
+              <Button
+                onClick={handleWeekliesBack}
+                size="medium"
+                variant="outlined"
+                color="secondary"
+                startIcon={<ArrowBackIcon />}
+                style={{ position: "absolute", top: "2%", left: "2%" }}
+              >
+                Back
+              </Button>
+            </>
+          ) : (
+            <>
+              {showEditWeekliesIcon && (
+                <IconButton
+                  style={{ position: "absolute", top: "1%", right: "2%" }}
+                  onClick={handleEditWeeklies}
+                  size="small"
+                >
+                  <EditIcon fontSize="large" />
+                </IconButton>
+              )}
+              <p className={styles.dailies_title}>
+                {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
+              </p>
+            </>
           )}
-          <p className={styles.dailies_title}>
-            {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
-          </p>
           <div className={styles.dailies_options}>
             {isEditingWeeklies ? (
               editWeekliesCards
@@ -654,7 +749,24 @@ const DailiesWeeklies = () => {
           </div>
           <div className={styles.dailies_btm}>
             {isEditingWeeklies ? (
-              "test"
+              <>
+                <Button
+                  // onClick={handleSubmit}
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                >
+                  +
+                </Button>
+                <Button
+                  // onClick={handleSubmit}
+                  variant="contained"
+                  size="large"
+                  color="info"
+                >
+                  Update
+                </Button>
+              </>
             ) : (
               <>
                 <Button
