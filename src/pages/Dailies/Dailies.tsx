@@ -2,13 +2,10 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { dailiesActions } from "../../store/dailies";
 import {
-  Dailies,
   GetCharactersRes,
   GetDailiesRes,
   GetUrsusTourRes,
   GetWeekliesRes,
-  UrsusTour,
-  Weeklies,
 } from "../../types/types";
 import styles from "./Dailies.module.css";
 import CharCard from "./components/CharCard";
@@ -34,15 +31,22 @@ const DailiesWeeklies = () => {
   const [todayDate, setTodayDate] = useState<string>();
   const [dailyDate, setDailyDate] = useState<string>();
   const [weeklyDate, setWeeklyDate] = useState<string>();
-  const [dailies, setDailies] = useState<Dailies>();
   const [dailiesCards, setDailiesCards] = useState<any>();
-  const [weeklies, setWeeklies] = useState<Weeklies>();
   const [weekliesCards, setWeekliesCards] = useState<any>();
-  const [ursusTour, setUrsusTour] = useState<UrsusTour>();
   const [ursusTourCards, setUrsusTourCards] = useState<any>();
   const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
   const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
 
+  const [dailies, setDailies] = useState<Dailies>();
+  const [weeklies, setWeeklies] = useState<Dailies>();
+  const [ursusTour, setUrsusTour] = useState<UrsusTour>();
+  interface Dailies {
+    [index: string]: boolean;
+  }
+  interface UrsusTour {
+    ursus: boolean;
+    tour: boolean;
+  }
   // =====
   // Dates
   // =====
@@ -178,6 +182,7 @@ const DailiesWeeklies = () => {
 
   const getDailies = async () => {
     try {
+      // Fetch
       const res = await fetch("http://127.0.0.1:5000/dailies/get", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -188,9 +193,19 @@ const DailiesWeeklies = () => {
       });
       const response: GetDailiesRes = await res.json();
 
-      const cards = response.dailies.dailies_list
-        .split("@")
-        .map((element: string) => {
+      // Set Dailies
+      if (response.dailies.dailies_list) {
+        const dailiesArr = response.dailies.dailies_list.split("@");
+        const dailiesObjArr = dailiesArr.map((element) => {
+          return [
+            element,
+            response.dailies.dailies_done.split("@").includes(element),
+          ];
+        });
+        setDailies(Object.fromEntries(dailiesObjArr));
+
+        // Set Dailies Cards
+        const cards = dailiesArr.map((element: string) => {
           return (
             <DailiesCard
               dailies={response.dailies}
@@ -199,14 +214,20 @@ const DailiesWeeklies = () => {
             />
           );
         });
-      setDailiesCards(cards);
+        setDailiesCards(cards);
+      } else {
+        setDailies(undefined);
+        setDailiesCards(undefined);
+      }
     } catch (err: any) {
       console.log(err);
     }
   };
 
   const getWeeklies = async () => {
+    console.log(todayDate);
     try {
+      // Fetch
       const res = await fetch("http://127.0.0.1:5000/weeklies/get", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -217,9 +238,19 @@ const DailiesWeeklies = () => {
       });
       const response: GetWeekliesRes = await res.json();
 
-      const cards = response.weeklies.weeklies_list
-        .split("@")
-        .map((element: string) => {
+      // Set Weeklies
+      if (response.weeklies.weeklies_list) {
+        const weekliesArr = response.weeklies.weeklies_list.split("@");
+        const weekliesObjArr = weekliesArr.map((element) => {
+          return [
+            element,
+            response.weeklies.weeklies_done.split("@").includes(element),
+          ];
+        });
+        setWeeklies(Object.fromEntries(weekliesObjArr));
+
+        // Set Weeklies Cards
+        const cards = weekliesArr.map((element: string) => {
           return (
             <WeekliesCard
               weeklies={response.weeklies}
@@ -228,7 +259,11 @@ const DailiesWeeklies = () => {
             />
           );
         });
-      setWeekliesCards(cards);
+        setWeekliesCards(cards);
+      } else {
+        setWeeklies(undefined);
+        setWeekliesCards(undefined);
+      }
     } catch (err: any) {
       console.log(err);
     }
@@ -236,6 +271,7 @@ const DailiesWeeklies = () => {
 
   const getUrsusTour = async () => {
     try {
+      // Fetch
       const res = await fetch("http://127.0.0.1:5000/ursus-tour/get", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -246,6 +282,7 @@ const DailiesWeeklies = () => {
       });
       const response: GetUrsusTourRes = await res.json();
 
+      // Set UrsusTour Cards
       const cards = ["", ""].map((element: string) => {
         return (
           <UrsusTourCard
@@ -270,8 +307,8 @@ const DailiesWeeklies = () => {
         <div className={styles.dailies_ctn}>
           <p className={styles.dailies_title}>Dailies</p>
           <div className={styles.dailies_options}>
-            {dailiesCards}
-            {ursusTourCards}
+            {dailiesCards && dailiesCards}
+            {ursusTourCards && ursusTourCards}
           </div>
           <div className={styles.dailies_btm}>
             <Button
@@ -288,7 +325,9 @@ const DailiesWeeklies = () => {
         </div>
         <div className={styles.dailies_ctn}>
           <p className={styles.dailies_title}>Weeklies</p>
-          <div className={styles.dailies_options}>{weekliesCards}</div>
+          <div className={styles.dailies_options}>
+            {weekliesCards && weekliesCards}
+          </div>
           <div className={styles.dailies_btm}>
             <Button
               onClick={handleWeekliesPrevBtn}
