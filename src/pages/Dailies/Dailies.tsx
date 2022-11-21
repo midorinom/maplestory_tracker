@@ -11,14 +11,15 @@ import {
   UpdateDailies,
   UpdateUrsusTour,
 } from "../../types/types";
-import styles from "./Dailies.module.css";
-import CharCard from "./components/CharCard";
-import defaultChar from "../../images/default_char.png";
 import moment from "moment";
-import { Button } from "@mui/material";
+import CharCard from "./components/CharCard";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
 import UrsusTourCard from "./components/UrsusTourCard";
+import styles from "./Dailies.module.css";
+import { Button, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import defaultChar from "../../images/default_char.png";
 
 const DailiesWeeklies = () => {
   // =========
@@ -38,9 +39,18 @@ const DailiesWeeklies = () => {
   const [dailiesCards, setDailiesCards] = useState<any>();
   const [weekliesCards, setWeekliesCards] = useState<any>();
   const [ursusTourCards, setUrsusTourCards] = useState<any>();
-  const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
-  const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
-  const [checkboxClicked, setCheckboxClicked] = useState<boolean>();
+  const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>(false);
+  const [weekliesPrevClicked, setWeekliesPrevClicked] =
+    useState<boolean>(false);
+  const [checkboxClicked, setCheckboxClicked] = useState<boolean>(false);
+  const [showEditDailiesIcon, setShowEditDailiesIcon] =
+    useState<boolean>(false);
+  const [showEditWeekliesIcon, setShowEditWeekliesIcon] =
+    useState<boolean>(false);
+  const [isEditingDailies, setIsEditingDailies] = useState<boolean>(false);
+  const [isEditingWeeklies, setIsEditingWeeklies] = useState<boolean>(false);
+  const [editDailiesCards, setEditDailiesCards] = useState<any>();
+  const [editWeekliesCards, setEditWeekliesCards] = useState<any>();
 
   const [dailies, setDailies] = useState<any>();
   const [weeklies, setWeeklies] = useState<any>();
@@ -57,7 +67,7 @@ const DailiesWeeklies = () => {
       today = moment.utc().toISOString();
       setDailyDate(moment.utc().endOf("day").fromNow());
       setWeeklyDate(
-        moment.utc().startOf("isoWeek").day(1).add(1, "weeks").fromNow()
+        moment.utc().startOf("isoWeek").day(0).add(1, "weeks").fromNow()
       );
     }
 
@@ -66,7 +76,7 @@ const DailiesWeeklies = () => {
       today = moment().toISOString();
       setDailyDate(moment().endOf("day").fromNow());
       setWeeklyDate(
-        moment().startOf("isoWeek").day(1).add(1, "weeks").fromNow()
+        moment().startOf("isoWeek").day(0).add(1, "weeks").fromNow()
       );
     }
 
@@ -130,6 +140,18 @@ const DailiesWeeklies = () => {
       setUrsusTour((prevState: Dailies) => {
         return { ...prevState, [e.target.id]: true };
       });
+    }
+  }
+
+  function handleEditDailies() {
+    if (!isEditingDailies) {
+      setIsEditingDailies(true);
+    }
+  }
+
+  function handleEditWeeklies() {
+    if (!isEditingWeeklies) {
+      setIsEditingWeeklies(true);
     }
   }
 
@@ -558,13 +580,32 @@ const DailiesWeeklies = () => {
   return (
     <div className={styles.parent_ctn}>
       <div className={styles.left_ctn}>
-        <div className={styles.dailies_ctn}>
+        <div
+          onMouseEnter={() => setShowEditDailiesIcon(true)}
+          onMouseLeave={() => setShowEditDailiesIcon(false)}
+          className={styles.dailies_ctn}
+        >
+          {showEditDailiesIcon && (
+            <IconButton
+              style={{ position: "absolute", top: "1%", right: "2%" }}
+              onClick={handleEditDailies}
+              size="small"
+            >
+              <EditIcon fontSize="large" />
+            </IconButton>
+          )}
           <p className={styles.dailies_title}>
             {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
           </p>
           <div className={styles.dailies_options}>
-            {dailiesCards && dailiesCards}
-            {ursusTourCards && ursusTourCards}
+            {isEditingDailies ? (
+              editDailiesCards
+            ) : (
+              <>
+                {dailiesCards && dailiesCards}
+                {ursusTourCards && ursusTourCards}
+              </>
+            )}
           </div>
           <div className={styles.dailies_btm}>
             <Button
@@ -579,12 +620,29 @@ const DailiesWeeklies = () => {
             <p>Reset {dailyDate}</p>
           </div>
         </div>
-        <div className={styles.dailies_ctn}>
+        <div
+          onMouseEnter={() => setShowEditWeekliesIcon(true)}
+          onMouseLeave={() => setShowEditWeekliesIcon(false)}
+          className={styles.dailies_ctn}
+        >
+          {showEditWeekliesIcon && (
+            <IconButton
+              style={{ position: "absolute", top: "1%", right: "2%" }}
+              onClick={handleEditWeeklies}
+              size="small"
+            >
+              <EditIcon fontSize="large" />
+            </IconButton>
+          )}
           <p className={styles.dailies_title}>
             {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
           </p>
           <div className={styles.dailies_options}>
-            {weekliesCards && weekliesCards}
+            {isEditingWeeklies ? (
+              editWeekliesCards
+            ) : (
+              <>{weekliesCards && weekliesCards}</>
+            )}
           </div>
           <div className={styles.dailies_btm}>
             <Button
