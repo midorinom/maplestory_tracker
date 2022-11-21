@@ -46,6 +46,24 @@ const FeaturedChar = () => {
   function edit() {
     if (!isEditing) {
       dispatch(dashboardActions.setIsEditing(true));
+
+      // Save the tracking state to featuredChar
+      const trackingArr: string[] = [];
+
+      for (const item of Object.keys(tracking)) {
+        if (tracking[item] === true) {
+          trackingArr.push(item);
+        }
+      }
+
+      if (featuredChar.tracking !== trackingArr.join("@")) {
+        const newChar: Character = {
+          ...featuredChar,
+          tracking: trackingArr.join("@"),
+        };
+
+        dispatch(dashboardActions.setFeaturedChar(newChar));
+      }
     }
   }
 
@@ -90,7 +108,7 @@ const FeaturedChar = () => {
         }
       }
 
-      const newChar = {
+      const newChar: Character = {
         ...featuredChar,
         tracking: trackingArr.join("@"),
       };

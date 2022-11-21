@@ -23,7 +23,12 @@ const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
-    setFeaturedChar(state, action: PayloadAction<Character>) {
+    setFeaturedChar(
+      state,
+      action: PayloadAction<
+        Character | Omit<Character, "username" | "tracking">
+      >
+    ) {
       state.featuredChar = {
         ...state.featuredChar,
         ...action.payload,

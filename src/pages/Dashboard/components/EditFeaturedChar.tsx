@@ -353,7 +353,10 @@ const EditFeaturedChar = () => {
         }
 
         if (selectedClass) {
-          const formInputs = {
+          type UpdateCharacter = Omit<Character, "username" | "tracking">;
+
+          const newChar: UpdateCharacter = {
+            uuid: featuredChar.uuid,
             ign: ignRef.current.value,
             level: Number(levelRef.current.value),
             class_name: selectedClass,
@@ -362,8 +365,6 @@ const EditFeaturedChar = () => {
             ba: ba,
             is_main: isMain,
           };
-
-          const newChar: Character = { ...featuredChar, ...formInputs };
 
           // Update the character
           const res = await fetch("http://127.0.0.1:5000/characters/update", {
