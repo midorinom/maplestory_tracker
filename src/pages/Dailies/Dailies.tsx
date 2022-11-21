@@ -7,6 +7,9 @@ import {
   GetUrsusTourRes,
   GetWeekliesRes,
   Dailies,
+  DefaultRes,
+  UpdateDailies,
+  UpdateUrsusTour,
 } from "../../types/types";
 import styles from "./Dailies.module.css";
 import CharCard from "./components/CharCard";
@@ -16,6 +19,7 @@ import { Button } from "@mui/material";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
 import UrsusTourCard from "./components/UrsusTourCard";
+import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 
 const DailiesWeeklies = () => {
   // =========
@@ -167,8 +171,12 @@ const DailiesWeeklies = () => {
 
   // Set Dailies Cards
   useEffect(() => {
-    if (dailies) {
-      const cards = Object.keys(dailies).map((element: string) => {
+    if (dailies && Object.keys(dailies).length > 1) {
+      // Delete the uuid key before mapping
+      const dailiesObj = { ...dailies };
+      delete dailiesObj.uuid;
+
+      const cards = Object.keys(dailiesObj).map((element: string) => {
         return (
           <DailiesCard
             dailies={dailies}
@@ -186,8 +194,12 @@ const DailiesWeeklies = () => {
 
   // Set Weeklies Cards
   useEffect(() => {
-    if (weeklies) {
-      const cards = Object.keys(weeklies).map((element: string) => {
+    if (weeklies && Object.keys(weeklies).length > 1) {
+      // Delete the uuid key before mapping
+      const weekliesObj = { ...weeklies };
+      delete weekliesObj.uuid;
+
+      const cards = Object.keys(weekliesObj).map((element: string) => {
         return (
           <WeekliesCard
             weeklies={weeklies}
@@ -224,6 +236,86 @@ const DailiesWeeklies = () => {
       setUrsusTourCards(cards);
     } else {
       setUrsusTour(undefined);
+    }
+  }, [ursusTour]);
+
+  // Update Dailies
+  useEffect(() => {
+    if (checkboxClicked) {
+      setCheckboxClicked(false);
+
+      const dailiesObj = { ...dailies };
+      delete dailiesObj.uuid;
+
+      const dailiesDoneArr: string[] = [];
+
+      for (const item of Object.keys(dailiesObj)) {
+        if (dailies[item] === true) {
+          dailiesDoneArr.push(item);
+        }
+      }
+
+      const newDailies: UpdateDailies = {
+        uuid: dailies.uuid,
+        dailies_list: Object.keys(dailiesObj).join("@"),
+        dailies_done: dailiesDoneArr.join("@"),
+      };
+
+      updateDailies(newDailies);
+    }
+  }, [dailies]);
+
+  // Update Weeklies
+  useEffect(() => {
+    if (checkboxClicked) {
+      setCheckboxClicked(false);
+
+      const weekliesObj = { ...weeklies };
+      delete weekliesObj.uuid;
+
+      const weekliesDoneArr: string[] = [];
+
+      for (const item of Object.keys(weekliesObj)) {
+        if (weeklies[item] === true) {
+          weekliesDoneArr.push(item);
+        }
+      }
+
+      const newWeeklies: UpdateDailies = {
+        uuid: weeklies.uuid,
+        weeklies_list: Object.keys(weekliesObj).join("@"),
+        weeklies_done: weekliesDoneArr.join("@"),
+      };
+
+      updateWeeklies(newWeeklies);
+    }
+  }, [weeklies]);
+
+  // Update UrsusTour
+  useEffect(() => {
+    if (checkboxClicked) {
+      setCheckboxClicked(false);
+
+      let newUrsusTour: UpdateUrsusTour = {
+        uuid: ursusTour.uuid,
+        ursus: 0,
+        tour: 0,
+      };
+
+      if (userData.role === "GMS") {
+        if (ursusTour.ursus === true) {
+          newUrsusTour.ursus = 100000000;
+        }
+        if (ursusTour.tour === true) {
+          newUrsusTour.tour = 50000000;
+        }
+      } else {
+        if (ursusTour.ursus === true) {
+          newUrsusTour.ursus = 20000000;
+        }
+      }
+
+      updateUrsusTour(newUrsusTour);
     }
   }, [ursusTour]);
 
@@ -296,9 +388,14 @@ const DailiesWeeklies = () => {
             response.dailies.dailies_done.split("@").includes(element),
           ];
         });
-        setDailies(Object.fromEntries(dailiesObjArr));
+        setDailies({
+          uuid: response.dailies.uuid,
+          ...Object.fromEntries(dailiesObjArr),
+        });
       } else {
-        setDailies(undefined);
+        setDailies({
+          uuid: response.dailies.uuid,
+        });
       }
     } catch (err: any) {
       console.log(err);
@@ -327,9 +424,14 @@ const DailiesWeeklies = () => {
             response.weeklies.weeklies_done.split("@").includes(element),
           ];
         });
-        setWeeklies(Object.fromEntries(weekliesObjArr));
+        setWeeklies({
+          uuid: response.weeklies.uuid,
+          ...Object.fromEntries(weekliesObjArr),
+        });
       } else {
-        setWeeklies(undefined);
+        setWeeklies({
+          uuid: response.weeklies.uuid,
+        });
       }
     } catch (err: any) {
       console.log(err);
@@ -351,9 +453,49 @@ const DailiesWeeklies = () => {
 
       // Set UrsusTour
       setUrsusTour({
+        uuid: response.ursus_tour.uuid,
         ursus: Boolean(response.ursus_tour.ursus),
         tour: Boolean(response.ursus_tour.tour),
       });
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const updateDailies = async (newDailies: UpdateDailies) => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/dailies/update", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newDailies),
+      });
+      const response: DefaultRes = await res.json();
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const updateWeeklies = async (newWeeklies: UpdateDailies) => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/weeklies/update", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newWeeklies),
+      });
+      const response: DefaultRes = await res.json();
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const updateUrsusTour = async (newUrsusTour: UpdateUrsusTour) => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/ursus-tour/update", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newUrsusTour),
+      });
+      const response: DefaultRes = await res.json();
     } catch (err: any) {
       console.log(err);
     }

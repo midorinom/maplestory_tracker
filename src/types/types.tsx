@@ -92,3 +92,13 @@ export interface GetUrsusTourRes {
 export interface Dailies {
   [index: string]: boolean;
 }
+
+export interface UpdateDailies {
+  [index: string]: string;
+}
+
+export interface UpdateUrsusTour {
+  uuid: string;
+  ursus: number;
+  tour: number;
+}
