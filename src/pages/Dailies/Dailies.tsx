@@ -183,6 +183,8 @@ const DailiesWeeklies = () => {
   // After featuredChar has been set
   useEffect(() => {
     if (featuredChar.uuid) {
+      setIsEditingDailies(false);
+      setIsEditingWeeklies(false);
       getImage();
       getDailies();
       getWeeklies();
@@ -608,16 +610,22 @@ const DailiesWeeklies = () => {
             )}
           </div>
           <div className={styles.dailies_btm}>
-            <Button
-              onClick={handleDailiesPrevBtn}
-              style={{ width: "40%" }}
-              variant="contained"
-              color="info"
-              size="medium"
-            >
-              {dailiesPrevClicked ? " View Today" : "View Prev"}
-            </Button>
-            <p>Reset {dailyDate}</p>
+            {isEditingDailies ? (
+              "test"
+            ) : (
+              <>
+                <Button
+                  onClick={handleDailiesPrevBtn}
+                  style={{ width: "40%" }}
+                  variant="contained"
+                  color="info"
+                  size="medium"
+                >
+                  {dailiesPrevClicked ? " View Today" : "View Prev"}
+                </Button>
+                <p>Reset {dailyDate}</p>{" "}
+              </>
+            )}
           </div>
         </div>
         <div
@@ -645,16 +653,22 @@ const DailiesWeeklies = () => {
             )}
           </div>
           <div className={styles.dailies_btm}>
-            <Button
-              onClick={handleWeekliesPrevBtn}
-              style={{ width: "40%" }}
-              variant="contained"
-              color="info"
-              size="medium"
-            >
-              {weekliesPrevClicked ? " This Week" : "View Prev"}
-            </Button>
-            <p>Reset {weeklyDate}</p>
+            {isEditingWeeklies ? (
+              "test"
+            ) : (
+              <>
+                <Button
+                  onClick={handleWeekliesPrevBtn}
+                  style={{ width: "40%" }}
+                  variant="contained"
+                  color="info"
+                  size="medium"
+                >
+                  {weekliesPrevClicked ? " This Week" : "View Prev"}
+                </Button>
+                <p>Reset {weeklyDate}</p>
+              </>
+            )}
           </div>
         </div>
       </div>
