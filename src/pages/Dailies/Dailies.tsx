@@ -19,7 +19,6 @@ import { Button } from "@mui/material";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
 import UrsusTourCard from "./components/UrsusTourCard";
-import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 
 const DailiesWeeklies = () => {
   // =========
@@ -165,12 +164,12 @@ const DailiesWeeklies = () => {
       getImage();
       getDailies();
       getWeeklies();
-      getUrsusTour();
     }
   }, [featuredChar]);
 
-  // Set Dailies Cards
+  // When Dailies changes
   useEffect(() => {
+    // Set Dailies Cards
     if (dailies && Object.keys(dailies).length > 1) {
       // Delete the uuid key before mapping
       const dailiesObj = { ...dailies };
@@ -190,57 +189,8 @@ const DailiesWeeklies = () => {
     } else {
       setDailiesCards(undefined);
     }
-  }, [dailies]);
 
-  // Set Weeklies Cards
-  useEffect(() => {
-    if (weeklies && Object.keys(weeklies).length > 1) {
-      // Delete the uuid key before mapping
-      const weekliesObj = { ...weeklies };
-      delete weekliesObj.uuid;
-
-      const cards = Object.keys(weekliesObj).map((element: string) => {
-        return (
-          <WeekliesCard
-            weeklies={weeklies}
-            name={element}
-            handleWeekliesChange={handleWeekliesChange}
-            key={Math.random()}
-          />
-        );
-      });
-      setWeekliesCards(cards);
-    } else {
-      setWeekliesCards(undefined);
-    }
-  }, [weeklies]);
-
-  // Set UrsusTour Cards
-  useEffect(() => {
-    if (ursusTour) {
-      const ursusTourArr: string[] = ["ursus"];
-      if (userData.role === "GMS") {
-        ursusTourArr.push("tour");
-      }
-
-      const cards = ursusTourArr.map((element: string) => {
-        return (
-          <UrsusTourCard
-            ursusTour={ursusTour}
-            name={element}
-            handleUrsusTourChange={handleUrsusTourChange}
-            key={Math.random()}
-          />
-        );
-      });
-      setUrsusTourCards(cards);
-    } else {
-      setUrsusTour(undefined);
-    }
-  }, [ursusTour]);
-
-  // Update Dailies
-  useEffect(() => {
+    // Update Dailies
     if (checkboxClicked) {
       setCheckboxClicked(false);
 
@@ -265,8 +215,30 @@ const DailiesWeeklies = () => {
     }
   }, [dailies]);
 
-  // Update Weeklies
+  // When Weeklies changes
   useEffect(() => {
+    // Set Weeklies Cards
+    if (weeklies && Object.keys(weeklies).length > 1) {
+      // Delete the uuid key before mapping
+      const weekliesObj = { ...weeklies };
+      delete weekliesObj.uuid;
+
+      const cards = Object.keys(weekliesObj).map((element: string) => {
+        return (
+          <WeekliesCard
+            weeklies={weeklies}
+            name={element}
+            handleWeekliesChange={handleWeekliesChange}
+            key={Math.random()}
+          />
+        );
+      });
+      setWeekliesCards(cards);
+    } else {
+      setWeekliesCards(undefined);
+    }
+
+    // Update Weeklies
     if (checkboxClicked) {
       setCheckboxClicked(false);
 
@@ -291,8 +263,31 @@ const DailiesWeeklies = () => {
     }
   }, [weeklies]);
 
-  // Update UrsusTour
+  // When UrsusTour changes
   useEffect(() => {
+    // Set UrsusTour Cards
+    if (ursusTour) {
+      const ursusTourArr: string[] = ["ursus"];
+      if (userData.role === "GMS") {
+        ursusTourArr.push("tour");
+      }
+
+      const cards = ursusTourArr.map((element: string) => {
+        return (
+          <UrsusTourCard
+            ursusTour={ursusTour}
+            name={element}
+            handleUrsusTourChange={handleUrsusTourChange}
+            key={Math.random()}
+          />
+        );
+      });
+      setUrsusTourCards(cards);
+    } else {
+      setUrsusTour(undefined);
+    }
+
+    // Update UrsusTour
     if (checkboxClicked) {
       setCheckboxClicked(false);
 
@@ -318,6 +313,24 @@ const DailiesWeeklies = () => {
       updateUrsusTour(newUrsusTour);
     }
   }, [ursusTour]);
+
+  // Fetch DailiesPrev
+  useEffect(() => {
+    if (dailiesPrevClicked) {
+      getDailies(true);
+    } else {
+      getDailies();
+    }
+  }, [dailiesPrevClicked]);
+
+  // Fetch WeekliesPrev
+  useEffect(() => {
+    if (weekliesPrevClicked) {
+      getWeeklies(true);
+    } else {
+      getWeeklies();
+    }
+  }, [weekliesPrevClicked]);
 
   // ===============
   // Fetch Functions
@@ -366,79 +379,117 @@ const DailiesWeeklies = () => {
     }
   };
 
-  const getDailies = async () => {
+  const getDailies = async (isPrev: boolean = false) => {
     try {
       // Fetch
-      const res = await fetch("http://127.0.0.1:5000/dailies/get", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          character: featuredChar.uuid,
-          date: todayDate,
-        }),
-      });
+      interface Body {
+        character: string;
+        date?: string;
+      }
+
+      let body: Body = { character: featuredChar.uuid };
+      if (!isPrev) {
+        body.date = todayDate;
+      }
+
+      const res = await fetch(
+        `http://127.0.0.1:5000/dailies/${isPrev ? "get-prev" : "get"}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const response: GetDailiesRes = await res.json();
 
       // Set Dailies
-      if (response.dailies.dailies_list) {
-        const dailiesArr = response.dailies.dailies_list.split("@");
-        const dailiesObjArr = dailiesArr.map((element) => {
-          return [
-            element,
-            response.dailies.dailies_done.split("@").includes(element),
-          ];
-        });
-        setDailies({
-          uuid: response.dailies.uuid,
-          ...Object.fromEntries(dailiesObjArr),
-        });
+      if (!response.dailies) {
+        setDailies(undefined);
+        setUrsusTour(undefined);
       } else {
-        setDailies({
-          uuid: response.dailies.uuid,
-        });
+        if (response.dailies.dailies_list) {
+          // Set Dailies
+          const dailiesArr = response.dailies.dailies_list.split("@");
+          const dailiesObjArr = dailiesArr.map((element) => {
+            return [
+              element,
+              response.dailies.dailies_done.split("@").includes(element),
+            ];
+          });
+          setDailies({
+            uuid: response.dailies.uuid,
+            ...Object.fromEntries(dailiesObjArr),
+          });
+        } else {
+          setDailies({
+            uuid: response.dailies.uuid,
+          });
+        }
+        // Get UrsusTour
+        let date: any;
+        if (isPrev) {
+          date = response.dailies.date;
+        } else {
+          date = todayDate;
+        }
+        getUrsusTour(date);
       }
     } catch (err: any) {
       console.log(err);
     }
   };
 
-  const getWeeklies = async () => {
+  const getWeeklies = async (isPrev: boolean = false) => {
     try {
       // Fetch
-      const res = await fetch("http://127.0.0.1:5000/weeklies/get", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          character: featuredChar.uuid,
-          date: todayDate,
-        }),
-      });
+      interface Body {
+        character: string;
+        date?: string;
+      }
+
+      let body: Body = { character: featuredChar.uuid };
+      if (!isPrev) {
+        body.date = todayDate;
+      }
+
+      const res = await fetch(
+        `http://127.0.0.1:5000/weeklies/${isPrev ? "get-prev" : "get"}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const response: GetWeekliesRes = await res.json();
 
       // Set Weeklies
-      if (response.weeklies.weeklies_list) {
-        const weekliesArr = response.weeklies.weeklies_list.split("@");
-        const weekliesObjArr = weekliesArr.map((element) => {
-          return [
-            element,
-            response.weeklies.weeklies_done.split("@").includes(element),
-          ];
-        });
-        setWeeklies({
-          uuid: response.weeklies.uuid,
-          ...Object.fromEntries(weekliesObjArr),
-        });
+      if (!response.weeklies) {
+        setWeeklies(undefined);
       } else {
-        setWeeklies({
-          uuid: response.weeklies.uuid,
-        });
+        if (response.weeklies.weeklies_list) {
+          const weekliesArr = response.weeklies.weeklies_list.split("@");
+          const weekliesObjArr = weekliesArr.map((element) => {
+            return [
+              element,
+              response.weeklies.weeklies_done.split("@").includes(element),
+            ];
+          });
+          setWeeklies({
+            uuid: response.weeklies.uuid,
+            ...Object.fromEntries(weekliesObjArr),
+          });
+        } else {
+          setWeeklies({
+            uuid: response.weeklies.uuid,
+          });
+        }
       }
     } catch (err: any) {
       console.log(err);
     }
   };
 
-  const getUrsusTour = async () => {
+  const getUrsusTour = async (date: string) => {
     try {
       // Fetch
       const res = await fetch("http://127.0.0.1:5000/ursus-tour/get", {
@@ -446,7 +497,7 @@ const DailiesWeeklies = () => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           username: userData.username,
-          date: todayDate,
+          date: date,
         }),
       });
       const response: GetUrsusTourRes = await res.json();
@@ -508,7 +559,9 @@ const DailiesWeeklies = () => {
     <div className={styles.parent_ctn}>
       <div className={styles.left_ctn}>
         <div className={styles.dailies_ctn}>
-          <p className={styles.dailies_title}>Dailies</p>
+          <p className={styles.dailies_title}>
+            {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
+          </p>
           <div className={styles.dailies_options}>
             {dailiesCards && dailiesCards}
             {ursusTourCards && ursusTourCards}
@@ -527,7 +580,9 @@ const DailiesWeeklies = () => {
           </div>
         </div>
         <div className={styles.dailies_ctn}>
-          <p className={styles.dailies_title}>Weeklies</p>
+          <p className={styles.dailies_title}>
+            {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
+          </p>
           <div className={styles.dailies_options}>
             {weekliesCards && weekliesCards}
           </div>
