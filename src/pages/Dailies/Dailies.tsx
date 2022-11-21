@@ -6,6 +6,7 @@ import {
   GetDailiesRes,
   GetUrsusTourRes,
   GetWeekliesRes,
+  Dailies,
 } from "../../types/types";
 import styles from "./Dailies.module.css";
 import CharCard from "./components/CharCard";
@@ -39,14 +40,8 @@ const DailiesWeeklies = () => {
 
   const [dailies, setDailies] = useState<Dailies>();
   const [weeklies, setWeeklies] = useState<Dailies>();
-  const [ursusTour, setUrsusTour] = useState<UrsusTour>();
-  interface Dailies {
-    [index: string]: boolean;
-  }
-  interface UrsusTour {
-    ursus: boolean;
-    tour: boolean;
-  }
+  const [ursusTour, setUrsusTour] = useState<Dailies>();
+
   // =====
   // Dates
   // =====
@@ -133,6 +128,68 @@ const DailiesWeeklies = () => {
     }
   }, [featuredChar]);
 
+  // Set Dailies Cards
+  useEffect(() => {
+    if (dailies) {
+      const cards = Object.keys(dailies).map((element: string) => {
+        return (
+          <DailiesCard
+            dailies={dailies}
+            name={element}
+            handleDailiesChange={handleDailiesChange}
+            key={Math.random()}
+          />
+        );
+      });
+      setDailiesCards(cards);
+    } else {
+      setDailiesCards(undefined);
+    }
+  }, [dailies]);
+
+  // Set Weeklies Cards
+  useEffect(() => {
+    if (weeklies) {
+      const cards = Object.keys(weeklies).map((element: string) => {
+        return (
+          <WeekliesCard
+            weeklies={weeklies}
+            name={element}
+            handleWeekliesChange={handleWeekliesChange}
+            key={Math.random()}
+          />
+        );
+      });
+      setWeekliesCards(cards);
+    } else {
+      setWeekliesCards(undefined);
+    }
+  }, [weeklies]);
+
+  // Set UrsusTour Cards
+  useEffect(() => {
+    if (ursusTour) {
+      const ursusTourArr: string[] = ["ursus"];
+      if (userData.role === "GMS") {
+        ursusTourArr.push("tour");
+      }
+
+      const cards = ursusTourArr.map((element: string) => {
+        return (
+          <UrsusTourCard
+            ursusTour={ursusTour}
+            name={element}
+            handleUrsusTourChange={handleUrsusTourChange}
+            key={Math.random()}
+          />
+        );
+      });
+      setUrsusTourCards(cards);
+    } else {
+      setUrsusTour(undefined);
+    }
+  }, [ursusTour]);
+
   // ===============
   // Fetch Functions
   // ===============
@@ -203,21 +260,8 @@ const DailiesWeeklies = () => {
           ];
         });
         setDailies(Object.fromEntries(dailiesObjArr));
-
-        // Set Dailies Cards
-        const cards = dailiesArr.map((element: string) => {
-          return (
-            <DailiesCard
-              dailies={response.dailies}
-              name={element}
-              handleDailiesChange={handleDailiesChange}
-            />
-          );
-        });
-        setDailiesCards(cards);
       } else {
         setDailies(undefined);
-        setDailiesCards(undefined);
       }
     } catch (err: any) {
       console.log(err);
@@ -225,7 +269,6 @@ const DailiesWeeklies = () => {
   };
 
   const getWeeklies = async () => {
-    console.log(todayDate);
     try {
       // Fetch
       const res = await fetch("http://127.0.0.1:5000/weeklies/get", {
@@ -248,21 +291,8 @@ const DailiesWeeklies = () => {
           ];
         });
         setWeeklies(Object.fromEntries(weekliesObjArr));
-
-        // Set Weeklies Cards
-        const cards = weekliesArr.map((element: string) => {
-          return (
-            <WeekliesCard
-              weeklies={response.weeklies}
-              name={element}
-              handleWeekliesChange={handleWeekliesChange}
-            />
-          );
-        });
-        setWeekliesCards(cards);
       } else {
         setWeeklies(undefined);
-        setWeekliesCards(undefined);
       }
     } catch (err: any) {
       console.log(err);
@@ -282,17 +312,11 @@ const DailiesWeeklies = () => {
       });
       const response: GetUrsusTourRes = await res.json();
 
-      // Set UrsusTour Cards
-      const cards = ["", ""].map((element: string) => {
-        return (
-          <UrsusTourCard
-            weeklies={response.ursus_tour}
-            name={element}
-            handleUrsusTourChange={handleUrsusTourChange}
-          />
-        );
+      // Set UrsusTour
+      setUrsusTour({
+        ursus: Boolean(response.ursus_tour.ursus),
+        tour: Boolean(response.ursus_tour.tour),
       });
-      setUrsusTourCards(cards);
     } catch (err: any) {
       console.log(err);
     }

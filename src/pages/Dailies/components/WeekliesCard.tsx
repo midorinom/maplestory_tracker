@@ -1,14 +1,21 @@
 import React from "react";
 import { FormControlLabel, Checkbox } from "@mui/material";
+import { Dailies } from "../../../types/types";
 
-const WeekliesCard = (props: any) => {
+interface WeekliesCardProps {
+  weeklies: Dailies;
+  name: string;
+  handleWeekliesChange: () => void;
+}
+
+const WeekliesCard: React.FC<WeekliesCardProps> = (props) => {
   return (
     <div>
       <FormControlLabel
         control={
           <Checkbox
             onChange={props.handleWeekliesChange}
-            // checked={props.dailies}
+            checked={props.weeklies[props.name]}
             id={props.name}
           />
         }
