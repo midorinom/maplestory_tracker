@@ -39,6 +39,9 @@ const DailiesWeeklies = () => {
   const [todayDate, setTodayDate] = useState<string>();
   const [dailyDate, setDailyDate] = useState<string>();
   const [weeklyDate, setWeeklyDate] = useState<string>();
+  const [dailies, setDailies] = useState<any>();
+  const [weeklies, setWeeklies] = useState<any>();
+  const [ursusTour, setUrsusTour] = useState<any>();
   const [dailiesCards, setDailiesCards] = useState<any>();
   const [weekliesCards, setWeekliesCards] = useState<any>();
   const [ursusTourCards, setUrsusTourCards] = useState<any>();
@@ -54,10 +57,10 @@ const DailiesWeeklies = () => {
   const [isEditingWeeklies, setIsEditingWeeklies] = useState<boolean>(false);
   const [editDailiesCards, setEditDailiesCards] = useState<any>();
   const [editWeekliesCards, setEditWeekliesCards] = useState<any>();
-
-  const [dailies, setDailies] = useState<any>();
-  const [weeklies, setWeeklies] = useState<any>();
-  const [ursusTour, setUrsusTour] = useState<any>();
+  const [editedDailies, setEditedDailies] = useState<string[]>([]);
+  const [editedWeeklies, setEditedWeeklies] = useState<string[]>([]);
+  const [editDailiesError, setEditDailiesError] = useState<boolean>(false);
+  const [editWeekliesError, setEditWeekliesError] = useState<boolean>(false);
 
   // =====
   // Dates
@@ -148,13 +151,19 @@ const DailiesWeeklies = () => {
 
   function handleEditDailies() {
     if (!isEditingDailies) {
-      setIsEditingDailies(true);
+      const dailiesObj = { ...dailies };
+      delete dailiesObj.uuid;
+      const dailiesArr = Object.keys(dailiesObj);
+      setEditedDailies(dailiesArr);
     }
   }
 
   function handleEditWeeklies() {
     if (!isEditingWeeklies) {
-      setIsEditingWeeklies(true);
+      const weekliesObj = { ...weeklies };
+      delete weekliesObj.uuid;
+      const weekliesArr = Object.keys(weekliesObj);
+      setEditedWeeklies(weekliesArr);
     }
   }
 
@@ -168,6 +177,14 @@ const DailiesWeeklies = () => {
     if (isEditingWeeklies) {
       setIsEditingWeeklies(false);
     }
+  }
+
+  function handleAddDailies() {
+    setEditedDailies((prevState) => [...prevState, ""]);
+  }
+
+  function handleAddWeeklies() {
+    setEditedWeeklies((prevState) => [...prevState, ""]);
   }
 
   // ==========
@@ -355,48 +372,83 @@ const DailiesWeeklies = () => {
 
   // Fetch DailiesPrev
   useEffect(() => {
-    if (dailiesPrevClicked) {
-      getDailies(true);
-    } else {
-      getDailies();
+    if (featuredChar.uuid) {
+      if (dailiesPrevClicked) {
+        getDailies(true);
+      } else {
+        getDailies();
+      }
     }
   }, [dailiesPrevClicked]);
 
   // Fetch WeekliesPrev
   useEffect(() => {
-    if (weekliesPrevClicked) {
-      getWeeklies(true);
-    } else {
-      getWeeklies();
+    if (featuredChar.uuid) {
+      if (weekliesPrevClicked) {
+        getWeeklies(true);
+      } else {
+        getWeeklies();
+      }
     }
   }, [weekliesPrevClicked]);
 
-  //
+  // Set EditDailies Cards
   useEffect(() => {
-    if (isEditingDailies) {
-      const dailiesObj = { ...dailies };
-      delete dailiesObj.uuid;
+    if (dailies) {
+      if (
+        !isEditingDailies ||
+        editedDailies.length !== Object.keys(dailies).length - 1
+      ) {
+        const cards = editedDailies.map((element, index) => {
+          return (
+            <EditDailiesCard
+              editedDailies={editedDailies}
+              setEditedDailies={setEditedDailies}
+              editDailiesError={editDailiesError}
+              setEditDailiesError={setEditDailiesError}
+              name={element}
+              index={index}
+              key={Math.random()}
+            />
+          );
+        });
+        setEditDailiesCards(cards);
 
-      const cards = Object.keys(dailiesObj).map((element) => {
-        return <EditDailiesCard />;
-      });
-
-      setEditDailiesCards(cards);
+        if (!isEditingDailies) {
+          setIsEditingDailies(true);
+        }
+      }
     }
-  }, [isEditingDailies]);
+  }, [editedDailies]);
 
+  // Set EditWeeklies Cards
   useEffect(() => {
-    if (isEditingWeeklies) {
-      const weekliesObj = { ...weeklies };
-      delete weekliesObj.uuid;
+    if (weeklies) {
+      if (
+        !isEditingWeeklies ||
+        editedWeeklies.length !== Object.keys(weeklies).length - 1
+      ) {
+        const cards = editedWeeklies.map((element, index) => {
+          return (
+            <EditWeekliesCard
+              editedWeeklies={editedWeeklies}
+              setEditedWeeklies={setEditedWeeklies}
+              editWeekliesError={editWeekliesError}
+              setEditWeekliesError={setEditWeekliesError}
+              name={element}
+              index={index}
+              key={Math.random()}
+            />
+          );
+        });
+        setEditWeekliesCards(cards);
 
-      const cards = Object.keys(weekliesObj).map((element) => {
-        return <EditWeekliesCard />;
-      });
-
-      setEditWeekliesCards(cards);
+        if (!isEditingWeeklies) {
+          setIsEditingWeeklies(true);
+        }
+      }
     }
-  }, [isEditingWeeklies]);
+  }, [editedWeeklies]);
 
   // ===============
   // Fetch Functions
@@ -631,14 +683,19 @@ const DailiesWeeklies = () => {
         >
           {isEditingDailies ? (
             <>
-              <p className={styles.dailies_title}></p>
+              <p
+                className={styles.dailies_title}
+                style={{ color: "transparent", borderBottom: "none" }}
+              >
+                1
+              </p>
               <Button
                 onClick={handleDailiesBack}
                 size="medium"
                 variant="outlined"
                 color="secondary"
                 startIcon={<ArrowBackIcon />}
-                style={{ position: "absolute", top: "2%", left: "2%" }}
+                style={{ position: "absolute", left: "2%" }}
               >
                 Back
               </Button>
@@ -661,7 +718,7 @@ const DailiesWeeklies = () => {
           )}
           <div className={styles.dailies_options}>
             {isEditingDailies ? (
-              editDailiesCards
+              <>{editDailiesCards && editDailiesCards}</>
             ) : (
               <>
                 {dailiesCards && dailiesCards}
@@ -673,7 +730,7 @@ const DailiesWeeklies = () => {
             {isEditingDailies ? (
               <>
                 <Button
-                  // onClick={handleSubmit}
+                  onClick={handleAddDailies}
                   variant="contained"
                   size="large"
                   color="secondary"
@@ -712,14 +769,19 @@ const DailiesWeeklies = () => {
         >
           {isEditingWeeklies ? (
             <>
-              <p className={styles.dailies_title}></p>
+              <p
+                className={styles.dailies_title}
+                style={{ color: "transparent", borderBottom: "none" }}
+              >
+                1
+              </p>
               <Button
                 onClick={handleWeekliesBack}
                 size="medium"
                 variant="outlined"
                 color="secondary"
                 startIcon={<ArrowBackIcon />}
-                style={{ position: "absolute", top: "2%", left: "2%" }}
+                style={{ position: "absolute", left: "2%" }}
               >
                 Back
               </Button>
@@ -742,7 +804,7 @@ const DailiesWeeklies = () => {
           )}
           <div className={styles.dailies_options}>
             {isEditingWeeklies ? (
-              editWeekliesCards
+              <>{editWeekliesCards && editWeekliesCards}</>
             ) : (
               <>{weekliesCards && weekliesCards}</>
             )}
@@ -751,7 +813,7 @@ const DailiesWeeklies = () => {
             {isEditingWeeklies ? (
               <>
                 <Button
-                  // onClick={handleSubmit}
+                  onClick={handleAddWeeklies}
                   variant="contained"
                   size="large"
                   color="secondary"

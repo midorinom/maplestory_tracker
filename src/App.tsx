@@ -19,7 +19,7 @@ function App() {
         contrastText: "#def4c6",
       },
       secondary: {
-        main: "#b1cf5f",
+        main: "#b1c000",
         contrastText: "#1b512d",
       },
       info: {
