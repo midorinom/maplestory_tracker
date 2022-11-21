@@ -8,7 +8,7 @@ const WeekliesCard = (props: any) => {
         control={
           <Checkbox
             onChange={props.handleWeekliesChange}
-            checked={props.dailies}
+            // checked={props.dailies}
             id={props.name}
           />
         }

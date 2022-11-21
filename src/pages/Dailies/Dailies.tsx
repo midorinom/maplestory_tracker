@@ -17,6 +17,7 @@ import moment from "moment";
 import { Button } from "@mui/material";
 import DailiesCard from "./components/DailiesCard";
 import WeekliesCard from "./components/WeekliesCard";
+import UrsusTourCard from "./components/UrsusTourCard";
 
 const DailiesWeeklies = () => {
   // =========
@@ -38,6 +39,7 @@ const DailiesWeeklies = () => {
   const [weeklies, setWeeklies] = useState<Weeklies>();
   const [weekliesCards, setWeekliesCards] = useState<any>();
   const [ursusTour, setUrsusTour] = useState<UrsusTour>();
+  const [ursusTourCards, setUrsusTourCards] = useState<any>();
   const [dailiesPrevClicked, setDailiesPrevClicked] = useState<boolean>();
   const [weekliesPrevClicked, setWeekliesPrevClicked] = useState<boolean>();
 
@@ -127,39 +129,6 @@ const DailiesWeeklies = () => {
     }
   }, [featuredChar]);
 
-  // After Dailies has been set
-  useEffect(() => {
-    if (dailies) {
-      const cards = dailies.dailies_list.split("@").map((element: string) => {
-        return (
-          <DailiesCard
-            dailies={dailies}
-            name={element}
-            handleDailiesChange={handleDailiesChange}
-            handleUrsusTourChange={handleUrsusTourChange}
-          />
-        );
-      });
-      setDailiesCards(cards);
-    }
-  }, [dailies]);
-
-  // After Weeklies has been set
-  useEffect(() => {
-    if (weeklies) {
-      const cards = weeklies.weeklies_list.split("@").map((element: string) => {
-        return (
-          <WeekliesCard
-            weeklies={weeklies}
-            name={element}
-            handleWeekliesChange={handleWeekliesChange}
-          />
-        );
-      });
-      setWeekliesCards(cards);
-    }
-  }, [weeklies]);
-
   // ===============
   // Fetch Functions
   // ===============
@@ -218,8 +187,19 @@ const DailiesWeeklies = () => {
         }),
       });
       const response: GetDailiesRes = await res.json();
-      setDailies(response.dailies);
-      console.log("dailies", response.dailies);
+
+      const cards = response.dailies.dailies_list
+        .split("@")
+        .map((element: string) => {
+          return (
+            <DailiesCard
+              dailies={response.dailies}
+              name={element}
+              handleDailiesChange={handleDailiesChange}
+            />
+          );
+        });
+      setDailiesCards(cards);
     } catch (err: any) {
       console.log(err);
     }
@@ -236,8 +216,19 @@ const DailiesWeeklies = () => {
         }),
       });
       const response: GetWeekliesRes = await res.json();
-      setWeeklies(response.weeklies);
-      console.log("weeklies", response.weeklies);
+
+      const cards = response.weeklies.weeklies_list
+        .split("@")
+        .map((element: string) => {
+          return (
+            <WeekliesCard
+              weeklies={response.weeklies}
+              name={element}
+              handleWeekliesChange={handleWeekliesChange}
+            />
+          );
+        });
+      setWeekliesCards(cards);
     } catch (err: any) {
       console.log(err);
     }
@@ -254,8 +245,17 @@ const DailiesWeeklies = () => {
         }),
       });
       const response: GetUrsusTourRes = await res.json();
-      setUrsusTour(response.ursus_tour);
-      console.log("ursus tour", response.ursus_tour);
+
+      const cards = ["", ""].map((element: string) => {
+        return (
+          <UrsusTourCard
+            weeklies={response.ursus_tour}
+            name={element}
+            handleUrsusTourChange={handleUrsusTourChange}
+          />
+        );
+      });
+      setUrsusTourCards(cards);
     } catch (err: any) {
       console.log(err);
     }
@@ -269,7 +269,10 @@ const DailiesWeeklies = () => {
       <div className={styles.left_ctn}>
         <div className={styles.dailies_ctn}>
           <p className={styles.dailies_title}>Dailies</p>
-          <div className={styles.dailies_options}>{dailiesCards}</div>
+          <div className={styles.dailies_options}>
+            {dailiesCards}
+            {ursusTourCards}
+          </div>
           <div className={styles.dailies_btm}>
             <Button
               onClick={handleDailiesPrevBtn}

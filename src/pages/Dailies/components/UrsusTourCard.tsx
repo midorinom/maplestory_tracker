@@ -1,14 +1,14 @@
 import React from "react";
 import { FormControlLabel, Checkbox } from "@mui/material";
 
-const DailiesCard = (props: any) => {
+const UrsusTourCard = (props: any) => {
   return (
     <div>
       <FormControlLabel
         control={
           <Checkbox
-            onChange={props.handleDailiesChange}
-            checked={props.dailies.dailies_done.split("@").includes(props.name)}
+            onChange={props.handleUrsusTourChange}
+            // checked={true}
             id={props.name}
           />
         }
@@ -18,4 +18,4 @@ const DailiesCard = (props: any) => {
   );
 };
 
-export default DailiesCard;
+export default UrsusTourCard;
