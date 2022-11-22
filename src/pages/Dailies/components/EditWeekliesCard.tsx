@@ -33,11 +33,9 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   // Event Handlers
   // ==============
   function handleEditWeekliesChange() {
-    if (inputRef.current) {
-      if (props.weekliesSuccess) {
-        props.setWeekliesSuccess(false);
-      }
+    props.setWeekliesSuccess(false);
 
+    if (inputRef.current) {
       if (!lengthError) {
         if (inputRef.current.value.length > 20) {
           setLengthError(true);
@@ -61,9 +59,11 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   }
 
   function handleDelete() {
+    props.setWeekliesSuccess(false);
+    props.setMapEditWeekliesCards(true);
+
     const editedWeekliesArr = [...props.editedWeeklies];
     editedWeekliesArr.splice(props.index, 1);
-    props.setMapEditWeekliesCards(true);
     props.setEditedWeeklies(editedWeekliesArr);
   }
 

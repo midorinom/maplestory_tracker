@@ -33,9 +33,7 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   // Event Handlers
   // ==============
   function handleEditDailiesChange() {
-    if (props.dailiesSuccess) {
-      props.setDailiesSuccess(false);
-    }
+    props.setDailiesSuccess(false);
 
     if (inputRef.current) {
       if (!lengthError) {
@@ -61,9 +59,11 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   }
 
   function handleDelete() {
+    props.setDailiesSuccess(false);
+    props.setMapEditDailiesCards(true);
+
     const editedDailiesArr = [...props.editedDailies];
     editedDailiesArr.splice(props.index, 1);
-    props.setMapEditDailiesCards(true);
     props.setEditedDailies(editedDailiesArr);
   }
 
