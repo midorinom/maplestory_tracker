@@ -71,13 +71,22 @@ type of user such as different item names and tooltip instructions. This is due 
 
 #### Dashboard
 
-If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an iamge of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
+If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an image of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
 
-The dashboard page displays the currently selected character, a list of all the user's characters that can be scrolled through, and a pie chart that consolidates all the weekly mesos acquired by the user over this bossing week (which resets on Thursday) alongside a timer that shows the number of days/hours/minutes until the weekly bossing reset.
+The dashboard page displays the currently selected character, a list of all the user's characters that can be scrolled through, and a pie chart that consolidates all the weekly mesos acquired by the user over this bossing week (which resets on Thursday) alongside a timer that shows the number of days/hours/minutes until the weekly bossing reset. The user can add more characters, as well as delete or update the details of any of the existing characters, including changing the image. The user can also choose which pages they want to track for each character, by checking the respective checkboxes displayed under the currently selected character. The checkboxes are all checked by default.
 
 The component combination of a currently selected character + character list is a common one that will be repeated in most of the other pages in the app. The character list is arranged in descending order by the character's level. However, if any character is assigned to be a "Main" character, that character would always be shown first in the list, regardless of the character's level. The first character in the list is also the one that would be displayed by default upon visiting any of the pages that has a currently selected character + character list feature.
 
 <img src="/src/images/readme/dashboard_page.png" alt="Dashboard Page" title="Dashboard Page">
+
+#### Dailies/Weeklies Page
+A character list is generated upon visting the page, with the list being chosen from the characters that have "Dailies/Weeklies" checked in the dashboard page. The order of the characters is the same as described in the dashboard page. Selecting a character would show the list of dailies and weeklies for that character with checkboxes for the user to update whether a daily/weekly is done or not. 
+
+Users can edit the dailies and weeklies list, changing the names as well as add or remove any of the options. There are also timers displayed that show the amount of days or hours(if <1 day) until the next daily and weekly resets. For MSEA accounts, the time is taken from the user's local time whereas for GMS accounts, the time is based off UTC as these are the respective ingame times that each respective server follows for the daily/weekly resets. 
+
+If it is the first time today that the user has visited this page, the list of dailies with today's date will be automatically generated, with all checkboxes unchecked. The dailies list from the previous day will still be stored in the database and the user can freely view or update the list from the previous day. The weeklies list works similarly except it checks for whether it is the first time this week that the user has visited the page, instead of daily. Similarly, the previous week's record remains stored in the database. There will only ever be at most 2 entries at a time in the database (today and the previous day), with the oldest entry being automatically deleted from the database whenever a third entry is generated. 
+
+<img src="/src/images/readme/dailies_page.png" alt="Dailies/Weeklies Page" title="Dailies/Weeklies Page">
 
 ## Outstanding Features to Implement
 
@@ -86,10 +95,6 @@ Currently, I have fully developed the backend for all the following pages, all t
 #### Dashboard Page
 
 - Add pie chart to display total weekly mesos earned by the user
-
-#### Dailies/Weeklies Page
-
-<img src="/src/images/readme/dailies_spreadsheet.PNG" alt="Dailies Spreadsheet" title="Dailies Spreadsheet">
 
 #### Bossing Page
 
