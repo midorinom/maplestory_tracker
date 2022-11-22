@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { dailiesActions } from "../../../store/dailies";
 import { TextField, Button } from "@mui/material";
 
 interface EditWeekliesCardProps {
-  editedWeeklies: string[];
-  setEditedWeeklies: any;
   editWeekliesError: boolean;
   setEditWeekliesError: any;
   weekliesSuccess: boolean;
@@ -17,6 +17,10 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   // =========
   // Variables
   // =========
+  const dispatch = useAppDispatch();
+  const editedWeeklies = useAppSelector(
+    (state) => state.dailies.editedWeeklies
+  );
   const [lengthError, setLengthError] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,18 +45,18 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
           setLengthError(true);
           props.setEditWeekliesError(true);
         } else {
-          const editedWeekliesArr = [...props.editedWeeklies];
+          const editedWeekliesArr = [...editedWeeklies];
           editedWeekliesArr.splice(props.index, 1, inputRef.current.value);
-          props.setEditedWeeklies(editedWeekliesArr);
+          dispatch(dailiesActions.setEditedWeeklies(editedWeekliesArr));
         }
       } else {
         if (inputRef.current.value.length <= 20) {
           setLengthError(false);
           props.setEditWeekliesError(false);
 
-          const editedWeekliesArr = [...props.editedWeeklies];
+          const editedWeekliesArr = [...editedWeeklies];
           editedWeekliesArr.splice(props.index, 1, inputRef.current.value);
-          props.setEditedWeeklies(editedWeekliesArr);
+          dispatch(dailiesActions.setEditedWeeklies(editedWeekliesArr));
         }
       }
     }
@@ -62,9 +66,9 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
     props.setWeekliesSuccess(false);
     props.setMapEditWeekliesCards(true);
 
-    const editedWeekliesArr = [...props.editedWeeklies];
+    const editedWeekliesArr = [...editedWeeklies];
     editedWeekliesArr.splice(props.index, 1);
-    props.setEditedWeeklies(editedWeekliesArr);
+    dispatch(dailiesActions.setEditedWeeklies(editedWeekliesArr));
   }
 
   // ======

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { dailiesActions } from "../../../store/dailies";
 import { TextField, Button } from "@mui/material";
 
 interface EditDailiesCardProps {
-  editedDailies: string[];
-  setEditedDailies: any;
   editDailiesError: boolean;
   setEditDailiesError: any;
   dailiesSuccess: boolean;
@@ -17,6 +17,8 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   // =========
   // Variables
   // =========
+  const dispatch = useAppDispatch();
+  const editedDailies = useAppSelector((state) => state.dailies.editedDailies);
   const [lengthError, setLengthError] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,18 +43,18 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
           setLengthError(true);
           props.setEditDailiesError(true);
         } else {
-          const editedDailiesArr = [...props.editedDailies];
+          const editedDailiesArr = [...editedDailies];
           editedDailiesArr.splice(props.index, 1, inputRef.current.value);
-          props.setEditedDailies(editedDailiesArr);
+          dispatch(dailiesActions.setEditedDailies(editedDailiesArr));
         }
       } else {
         if (inputRef.current.value.length <= 20) {
           setLengthError(false);
           props.setEditDailiesError(false);
 
-          const editedDailiesArr = [...props.editedDailies];
+          const editedDailiesArr = [...editedDailies];
           editedDailiesArr.splice(props.index, 1, inputRef.current.value);
-          props.setEditedDailies(editedDailiesArr);
+          dispatch(dailiesActions.setEditedDailies(editedDailiesArr));
         }
       }
     }
@@ -62,9 +64,9 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
     props.setDailiesSuccess(false);
     props.setMapEditDailiesCards(true);
 
-    const editedDailiesArr = [...props.editedDailies];
+    const editedDailiesArr = [...editedDailies];
     editedDailiesArr.splice(props.index, 1);
-    props.setEditedDailies(editedDailiesArr);
+    dispatch(dailiesActions.setEditedDailies(editedDailiesArr));
   }
 
   // ======

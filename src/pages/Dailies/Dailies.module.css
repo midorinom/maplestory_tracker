@@ -168,18 +168,9 @@
   opacity: 0.5;
 }
 
-.dailies_alert {
+.alert {
   position: absolute;
-  top: -13%;
-  left: 0%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.weeklies_alert {
-  position: absolute;
-  top: -21.5%;
+  top: -3.3rem;
   left: 0%;
   width: 100%;
   display: flex;

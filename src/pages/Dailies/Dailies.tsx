@@ -33,6 +33,10 @@ const DailiesWeeklies = () => {
   const characters = useAppSelector((state) => state.dailies.characters);
   const featuredChar = useAppSelector((state) => state.dailies.featuredChar);
   const charImg = useAppSelector((state) => state.dailies.charImg);
+  const editedDailies = useAppSelector((state) => state.dailies.editedDailies);
+  const editedWeeklies = useAppSelector(
+    (state) => state.dailies.editedWeeklies
+  );
   const charCards = characters.map((element) => {
     return <CharCard character={element} key={Math.random()} />;
   });
@@ -57,8 +61,6 @@ const DailiesWeeklies = () => {
   const [isEditingWeeklies, setIsEditingWeeklies] = useState<boolean>(false);
   const [editDailiesCards, setEditDailiesCards] = useState<any>();
   const [editWeekliesCards, setEditWeekliesCards] = useState<any>();
-  const [editedDailies, setEditedDailies] = useState<string[]>([]);
-  const [editedWeeklies, setEditedWeeklies] = useState<string[]>([]);
   const [editDailiesError, setEditDailiesError] = useState<boolean>(false);
   const [editWeekliesError, setEditWeekliesError] = useState<boolean>(false);
   const [dailiesSuccess, setDailiesSuccess] = useState<boolean>(false);
@@ -156,7 +158,8 @@ const DailiesWeeklies = () => {
       const dailiesObj = { ...dailies };
       delete dailiesObj.uuid;
       const dailiesArr = Object.keys(dailiesObj);
-      setEditedDailies(dailiesArr);
+
+      dispatch(dailiesActions.setEditedDailies(dailiesArr));
     }
   }
 
@@ -165,7 +168,8 @@ const DailiesWeeklies = () => {
       const weekliesObj = { ...weeklies };
       delete weekliesObj.uuid;
       const weekliesArr = Object.keys(weekliesObj);
-      setEditedWeeklies(weekliesArr);
+
+      dispatch(dailiesActions.setEditedWeeklies(weekliesArr));
     }
   }
 
@@ -193,7 +197,9 @@ const DailiesWeeklies = () => {
     }
 
     setMapEditDailiesCards(true);
-    setEditedDailies((prevState) => [...prevState, ""]);
+    dispatch(
+      dailiesActions.setEditedDailies([...editedDailies, "Sample Daily"])
+    );
   }
 
   function handleAddWeeklies() {
@@ -202,7 +208,9 @@ const DailiesWeeklies = () => {
     }
 
     setMapEditWeekliesCards(true);
-    setEditedWeeklies((prevState) => [...prevState, ""]);
+    dispatch(
+      dailiesActions.setEditedWeeklies([...editedWeeklies, "Sample Weekly"])
+    );
   }
 
   function handleSubmitDailies(e: React.MouseEvent<HTMLButtonElement>) {
@@ -435,11 +443,10 @@ const DailiesWeeklies = () => {
     if (dailies) {
       if (!isEditingDailies || mapEditDailiesCards) {
         setMapEditDailiesCards(false);
+
         const cards = editedDailies.map((element, index) => {
           return (
             <EditDailiesCard
-              editedDailies={editedDailies}
-              setEditedDailies={setEditedDailies}
               editDailiesError={editDailiesError}
               setEditDailiesError={setEditDailiesError}
               dailiesSuccess={dailiesSuccess}
@@ -469,8 +476,6 @@ const DailiesWeeklies = () => {
         const cards = editedWeeklies.map((element, index) => {
           return (
             <EditWeekliesCard
-              editedWeeklies={editedWeeklies}
-              setEditedWeeklies={setEditedWeeklies}
               editWeekliesError={editWeekliesError}
               setEditWeekliesError={setEditWeekliesError}
               weekliesSuccess={weekliesSuccess}
@@ -737,7 +742,7 @@ const DailiesWeeklies = () => {
           className={styles.dailies_ctn}
         >
           {dailiesSuccess && (
-            <Alert severity="success" className={styles.dailies_alert}>
+            <Alert severity="success" className={styles.alert}>
               Dailies updated!
             </Alert>
           )}
@@ -828,7 +833,7 @@ const DailiesWeeklies = () => {
           className={styles.dailies_ctn}
         >
           {weekliesSuccess && (
-            <Alert severity="success" className={styles.weeklies_alert}>
+            <Alert severity="success" className={styles.alert}>
               Weeklies updated!
             </Alert>
           )}

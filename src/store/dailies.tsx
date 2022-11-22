@@ -5,6 +5,8 @@ interface dailiesState {
   characters: Character[];
   featuredChar: Character;
   charImg: string;
+  editedDailies: string[];
+  editedWeeklies: string[];
 }
 
 const initialState: dailiesState = {
@@ -19,6 +21,8 @@ const initialState: dailiesState = {
     tracking: "",
   },
   charImg: "",
+  editedDailies: [],
+  editedWeeklies: [],
 };
 
 const dailiesSlice = createSlice({
@@ -36,6 +40,12 @@ const dailiesSlice = createSlice({
     },
     setCharImg(state, action: PayloadAction<string>) {
       state.charImg = action.payload;
+    },
+    setEditedDailies(state, action: PayloadAction<string[]>) {
+      state.editedDailies = action.payload;
+    },
+    setEditedWeeklies(state, action: PayloadAction<string[]>) {
+      state.editedWeeklies = action.payload;
     },
   },
 });
