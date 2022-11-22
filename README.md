@@ -16,7 +16,7 @@ Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backen
 
 Frontend:
 
-- React, Typescript, Redux, Material UI, React-router-dom, MomentJS
+- React, Typescript, Redux, Material UI, React Router, MomentJS
 
 Backend:
 
