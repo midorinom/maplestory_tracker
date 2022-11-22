@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TextField, Button } from "@mui/material";
-import styles from "../Dailies.module.css";
 
 interface EditWeekliesCardProps {
   editedWeeklies: string[];
   setEditedWeeklies: any;
   editWeekliesError: boolean;
   setEditWeekliesError: any;
+  weekliesSuccess: boolean;
+  setWeekliesSuccess: any;
+  setMapEditWeekliesCards: any;
   name: string;
   index: number;
 }
@@ -32,6 +34,10 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   // ==============
   function handleEditWeekliesChange() {
     if (inputRef.current) {
+      if (props.weekliesSuccess) {
+        props.setWeekliesSuccess(false);
+      }
+
       if (!lengthError) {
         if (inputRef.current.value.length > 20) {
           setLengthError(true);
@@ -57,6 +63,7 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   function handleDelete() {
     const editedWeekliesArr = [...props.editedWeeklies];
     editedWeekliesArr.splice(props.index, 1);
+    props.setMapEditWeekliesCards(true);
     props.setEditedWeeklies(editedWeekliesArr);
   }
 
@@ -64,7 +71,7 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
   // Return
   // ======
   return (
-    <div className={styles.edit_dailies_card}>
+    <div>
       <TextField
         size="small"
         id={props.name}
@@ -80,6 +87,7 @@ const EditWeekliesCard: React.FC<EditWeekliesCardProps> = (props) => {
         size="small"
         variant="outlined"
         color="error"
+        style={{ position: "relative", top: "0.8rem" }}
       >
         —
       </Button>

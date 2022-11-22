@@ -11,18 +11,13 @@ const Charts = () => {
   // GMS;
   if (userData.role === "GMS") {
     dailyDate = moment.utc().endOf("day").fromNow();
-    weeklyDate = moment
-      .utc()
-      .startOf("isoWeek")
-      .day(4)
-      .add(1, "weeks")
-      .fromNow();
+    weeklyDate = moment.utc().day(4).fromNow();
   }
 
   // MSEA
   if (userData.role === "MSEA") {
     dailyDate = moment().endOf("day").fromNow();
-    weeklyDate = moment().startOf("isoWeek").day(4).add(1, "weeks").fromNow();
+    weeklyDate = moment().day(4).fromNow();
   }
 
   return (

@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TextField, Button } from "@mui/material";
-import styles from "../Dailies.module.css";
 
 interface EditDailiesCardProps {
   editedDailies: string[];
   setEditedDailies: any;
   editDailiesError: boolean;
   setEditDailiesError: any;
+  dailiesSuccess: boolean;
+  setDailiesSuccess: any;
+  setMapEditDailiesCards: any;
   name: string;
   index: number;
 }
@@ -31,6 +33,10 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   // Event Handlers
   // ==============
   function handleEditDailiesChange() {
+    if (props.dailiesSuccess) {
+      props.setDailiesSuccess(false);
+    }
+
     if (inputRef.current) {
       if (!lengthError) {
         if (inputRef.current.value.length > 20) {
@@ -57,6 +63,7 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   function handleDelete() {
     const editedDailiesArr = [...props.editedDailies];
     editedDailiesArr.splice(props.index, 1);
+    props.setMapEditDailiesCards(true);
     props.setEditedDailies(editedDailiesArr);
   }
 
@@ -64,7 +71,7 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
   // Return
   // ======
   return (
-    <div className={styles.edit_dailies_card}>
+    <div>
       <TextField
         size="small"
         id={props.name}
@@ -80,6 +87,7 @@ const EditDailiesCard: React.FC<EditDailiesCardProps> = (props) => {
         size="small"
         variant="outlined"
         color="error"
+        style={{ position: "relative", top: "0.8rem" }}
       >
         —
       </Button>

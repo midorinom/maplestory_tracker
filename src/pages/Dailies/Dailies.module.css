@@ -168,8 +168,20 @@
   opacity: 0.5;
 }
 
-.edit_dailies_card {
+.dailies_alert {
+  position: absolute;
+  top: -13%;
+  left: 0%;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+}
+
+.weeklies_alert {
+  position: absolute;
+  top: -21.5%;
+  left: 0%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

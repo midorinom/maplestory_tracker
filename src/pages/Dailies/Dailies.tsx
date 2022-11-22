@@ -19,7 +19,7 @@ import UrsusTourCard from "./components/UrsusTourCard";
 import EditDailiesCard from "./components/EditDailiesCard";
 import EditWeekliesCard from "./components/EditWeekliesCard";
 import styles from "./Dailies.module.css";
-import { Button, IconButton } from "@mui/material";
+import { Alert, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import defaultChar from "../../images/default_char.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -61,6 +61,12 @@ const DailiesWeeklies = () => {
   const [editedWeeklies, setEditedWeeklies] = useState<string[]>([]);
   const [editDailiesError, setEditDailiesError] = useState<boolean>(false);
   const [editWeekliesError, setEditWeekliesError] = useState<boolean>(false);
+  const [dailiesSuccess, setDailiesSuccess] = useState<boolean>(false);
+  const [weekliesSuccess, setWeekliesSuccess] = useState<boolean>(false);
+  const [mapEditDailiesCards, setMapEditDailiesCards] =
+    useState<boolean>(false);
+  const [mapEditWeekliesCards, setMapEditWeekliesCards] =
+    useState<boolean>(false);
 
   // =====
   // Dates
@@ -72,18 +78,14 @@ const DailiesWeeklies = () => {
     if (userData.role === "GMS") {
       today = moment.utc().toISOString();
       setDailyDate(moment.utc().endOf("day").fromNow());
-      setWeeklyDate(
-        moment.utc().startOf("isoWeek").day(0).add(1, "weeks").fromNow()
-      );
+      setWeeklyDate(moment.utc().day(8).fromNow());
     }
 
     // MSEA
     if (userData.role === "MSEA") {
       today = moment().toISOString();
       setDailyDate(moment().endOf("day").fromNow());
-      setWeeklyDate(
-        moment().startOf("isoWeek").day(0).add(1, "weeks").fromNow()
-      );
+      setWeeklyDate(moment().day(8).fromNow());
     }
 
     setTodayDate(today.slice(0, 10));
@@ -171,20 +173,64 @@ const DailiesWeeklies = () => {
     if (isEditingDailies) {
       setIsEditingDailies(false);
     }
+    if (dailiesSuccess) {
+      setDailiesSuccess(false);
+    }
   }
 
   function handleWeekliesBack() {
     if (isEditingWeeklies) {
       setIsEditingWeeklies(false);
     }
+    if (weekliesSuccess) {
+      setWeekliesSuccess(false);
+    }
   }
 
   function handleAddDailies() {
+    if (dailiesSuccess) {
+      setDailiesSuccess(false);
+    }
+
+    setMapEditDailiesCards(true);
     setEditedDailies((prevState) => [...prevState, ""]);
   }
 
   function handleAddWeeklies() {
+    if (weekliesSuccess) {
+      setWeekliesSuccess(false);
+    }
+
+    setMapEditWeekliesCards(true);
     setEditedWeeklies((prevState) => [...prevState, ""]);
+  }
+
+  function handleSubmitDailies(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setDailiesSuccess(false);
+
+    if (!editDailiesError) {
+      const newDailies: UpdateDailies = {
+        uuid: dailies.uuid,
+        dailies_list: editedDailies.join("@"),
+      };
+      updateDailies(newDailies);
+      setDailiesSuccess(true);
+    }
+  }
+
+  function handleSubmitWeeklies(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setWeekliesSuccess(false);
+
+    if (!editWeekliesError) {
+      const newWeeklies: UpdateDailies = {
+        uuid: weeklies.uuid,
+        weeklies_list: editedWeeklies.join("@"),
+      };
+      updateWeeklies(newWeeklies);
+      setWeekliesSuccess(true);
+    }
   }
 
   // ==========
@@ -373,32 +419,22 @@ const DailiesWeeklies = () => {
   // Fetch DailiesPrev
   useEffect(() => {
     if (featuredChar.uuid) {
-      if (dailiesPrevClicked) {
-        getDailies(true);
-      } else {
-        getDailies();
-      }
+      getDailies(dailiesPrevClicked);
     }
   }, [dailiesPrevClicked]);
 
   // Fetch WeekliesPrev
   useEffect(() => {
     if (featuredChar.uuid) {
-      if (weekliesPrevClicked) {
-        getWeeklies(true);
-      } else {
-        getWeeklies();
-      }
+      getWeeklies(weekliesPrevClicked);
     }
   }, [weekliesPrevClicked]);
 
   // Set EditDailies Cards
   useEffect(() => {
     if (dailies) {
-      if (
-        !isEditingDailies ||
-        editedDailies.length !== Object.keys(dailies).length - 1
-      ) {
+      if (!isEditingDailies || mapEditDailiesCards) {
+        setMapEditDailiesCards(false);
         const cards = editedDailies.map((element, index) => {
           return (
             <EditDailiesCard
@@ -406,6 +442,9 @@ const DailiesWeeklies = () => {
               setEditedDailies={setEditedDailies}
               editDailiesError={editDailiesError}
               setEditDailiesError={setEditDailiesError}
+              dailiesSuccess={dailiesSuccess}
+              setDailiesSuccess={setDailiesSuccess}
+              setMapEditDailiesCards={setMapEditDailiesCards}
               name={element}
               index={index}
               key={Math.random()}
@@ -424,10 +463,9 @@ const DailiesWeeklies = () => {
   // Set EditWeeklies Cards
   useEffect(() => {
     if (weeklies) {
-      if (
-        !isEditingWeeklies ||
-        editedWeeklies.length !== Object.keys(weeklies).length - 1
-      ) {
+      if (!isEditingWeeklies || mapEditWeekliesCards) {
+        setMapEditWeekliesCards(false);
+
         const cards = editedWeeklies.map((element, index) => {
           return (
             <EditWeekliesCard
@@ -435,6 +473,9 @@ const DailiesWeeklies = () => {
               setEditedWeeklies={setEditedWeeklies}
               editWeekliesError={editWeekliesError}
               setEditWeekliesError={setEditWeekliesError}
+              weekliesSuccess={weekliesSuccess}
+              setWeekliesSuccess={setWeekliesSuccess}
+              setMapEditWeekliesCards={setMapEditWeekliesCards}
               name={element}
               index={index}
               key={Math.random()}
@@ -449,6 +490,20 @@ const DailiesWeeklies = () => {
       }
     }
   }, [editedWeeklies]);
+
+  // Fetch Dailies after updating
+  useEffect(() => {
+    if (featuredChar.uuid && !isEditingDailies) {
+      getDailies(dailiesPrevClicked);
+    }
+  }, [isEditingDailies]);
+
+  // Fetch Weeklies after updating
+  useEffect(() => {
+    if (featuredChar.uuid && !isEditingWeeklies) {
+      getWeeklies(weekliesPrevClicked);
+    }
+  }, [isEditingWeeklies]);
 
   // ===============
   // Fetch Functions
@@ -681,6 +736,11 @@ const DailiesWeeklies = () => {
           onMouseLeave={() => setShowEditDailiesIcon(false)}
           className={styles.dailies_ctn}
         >
+          {dailiesSuccess && (
+            <Alert severity="success" className={styles.dailies_alert}>
+              Dailies updated!
+            </Alert>
+          )}
           {isEditingDailies ? (
             <>
               <p
@@ -738,7 +798,7 @@ const DailiesWeeklies = () => {
                   +
                 </Button>
                 <Button
-                  // onClick={handleSubmit}
+                  onClick={handleSubmitDailies}
                   variant="contained"
                   size="large"
                   color="info"
@@ -767,6 +827,11 @@ const DailiesWeeklies = () => {
           onMouseLeave={() => setShowEditWeekliesIcon(false)}
           className={styles.dailies_ctn}
         >
+          {weekliesSuccess && (
+            <Alert severity="success" className={styles.weeklies_alert}>
+              Weeklies updated!
+            </Alert>
+          )}
           {isEditingWeeklies ? (
             <>
               <p
@@ -821,7 +886,7 @@ const DailiesWeeklies = () => {
                   +
                 </Button>
                 <Button
-                  // onClick={handleSubmit}
+                  onClick={handleSubmitWeeklies}
                   variant="contained"
                   size="large"
                   color="info"
