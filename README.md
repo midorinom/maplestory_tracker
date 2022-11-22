@@ -60,7 +60,7 @@ Database name: maplestory_tracker
 <img src="/src/images/readme/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
 <img src="/src/images/readme/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
 
-## Brief Explanation of Each Page
+## Explanation of Each Page
 
 #### Login/Register
 
