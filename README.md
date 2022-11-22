@@ -86,7 +86,7 @@ Users can edit the dailies and weeklies list, changing the names as well as add 
 
 If it is the first time today that the user has visited this page, the list of dailies with today's date will be automatically generated, with all checkboxes unchecked. The dailies list from the previous day will still be stored in the database and the user can freely view or update the list from the previous day. The weeklies list works similarly except it checks for whether it is the first time this week that the user has visited the page, instead of daily. Similarly, the previous week's record remains stored in the database. 
 
-There will only ever be at most 2 entries at a time in the database (today and the previous day), with the oldest entry being automatically deleted from the database whenever a third entry is generated. The dailies and weeklies lists generated are copied from the ones from the previous day/week. However, if the character is new, a default set of dailies and weeklies are generated instead.
+There will only ever be at most 2 entries at a time in the database (today and the previous day), with the oldest entry being automatically deleted from the database whenever a third entry is generated. The dailies and weeklies lists generated are copied from the ones from the previous day/week. However, if the character is new, a default set of dailies and weeklies is generated instead.
 
 <img src="/src/images/readme/dailies_page.png" alt="Dailies/Weeklies Page" title="Dailies/Weeklies Page">
 
