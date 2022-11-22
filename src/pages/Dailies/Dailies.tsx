@@ -197,9 +197,7 @@ const DailiesWeeklies = () => {
     }
 
     setMapEditDailiesCards(true);
-    dispatch(
-      dailiesActions.setEditedDailies([...editedDailies, "Sample Daily"])
-    );
+    dispatch(dailiesActions.setEditedDailies([...editedDailies, ""]));
   }
 
   function handleAddWeeklies() {
@@ -208,9 +206,7 @@ const DailiesWeeklies = () => {
     }
 
     setMapEditWeekliesCards(true);
-    dispatch(
-      dailiesActions.setEditedWeeklies([...editedWeeklies, "Sample Weekly"])
-    );
+    dispatch(dailiesActions.setEditedWeeklies([...editedWeeklies, ""]));
   }
 
   function handleSubmitDailies(e: React.MouseEvent<HTMLButtonElement>) {
@@ -589,10 +585,14 @@ const DailiesWeeklies = () => {
           // Set Dailies
           const dailiesArr = response.dailies.dailies_list.split("@");
           const dailiesObjArr = dailiesArr.map((element) => {
-            return [
-              element,
-              response.dailies.dailies_done.split("@").includes(element),
-            ];
+            if (element !== "") {
+              return [
+                element,
+                response.dailies.dailies_done.split("@").includes(element),
+              ];
+            } else {
+              return [element, false];
+            }
           });
           setDailies({
             uuid: response.dailies.uuid,
@@ -647,10 +647,14 @@ const DailiesWeeklies = () => {
         if (response.weeklies.weeklies_list) {
           const weekliesArr = response.weeklies.weeklies_list.split("@");
           const weekliesObjArr = weekliesArr.map((element) => {
-            return [
-              element,
-              response.weeklies.weeklies_done.split("@").includes(element),
-            ];
+            if (element !== "") {
+              return [
+                element,
+                response.weeklies.weeklies_done.split("@").includes(element),
+              ];
+            } else {
+              return [element, false];
+            }
           });
           setWeeklies({
             uuid: response.weeklies.uuid,
