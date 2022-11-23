@@ -62,14 +62,14 @@ Database name: maplestory_tracker
 
 ## Explanation of Each Page
 
-#### Login/Register
+#### Login/Register Page
 
 When registering, users have to select either the MapleSEA or GMS server, which defines the user's account type. There will be subtle differences in the app for each
 type of user such as different item names and tooltip instructions. This is due to the game having localised differences across different regional servers.
 
 <img src="/src/images/readme/login_page.png" alt="Login Page" title="Login Page">
 
-#### Dashboard
+#### Dashboard Page
 
 If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an image of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
 
@@ -80,6 +80,7 @@ The component combination of a currently selected character + character list is 
 <img src="/src/images/readme/dashboard_page.png" alt="Dashboard Page" title="Dashboard Page">
 
 #### Dailies/Weeklies Page
+
 A character list is generated upon visting the page, with the list being chosen from the characters that have "Dailies/Weeklies" checked in the dashboard page. The order of the characters is the same as described in the dashboard page. Selecting a character would show the list of dailies and weeklies for that character with checkboxes for the user to update whether a daily/weekly is done or not. 
 
 Users can edit the dailies and weeklies list, changing the names as well as add or remove any of the options. There are also timers displayed that show the amount of days or hours(if <1 day) until the next daily and weekly resets. For MSEA accounts, the time is taken from the user's local time whereas for GMS accounts, the time is based off UTC as these are the respective ingame times that each respective server follows for the daily/weekly resets. 
