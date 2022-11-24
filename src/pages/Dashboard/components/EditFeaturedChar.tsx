@@ -18,6 +18,7 @@ const EditFeaturedChar = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
@@ -319,7 +320,7 @@ const EditFeaturedChar = () => {
   // ===============
   const getClasses = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/enums/classes/get", {
+      const res = await fetch(`${url}/enums/classes/get`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -367,7 +368,7 @@ const EditFeaturedChar = () => {
           };
 
           // Update the character
-          const res = await fetch("http://127.0.0.1:5000/characters/update", {
+          const res = await fetch(`${url}/characters/update`, {
             method: "PATCH",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(newChar),
@@ -386,13 +387,10 @@ const EditFeaturedChar = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch(
-        `http://127.0.0.1:5000/characters/upload/${featuredChar.uuid}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const res = await fetch(`${url}/characters/upload/${featuredChar.uuid}`, {
+        method: "POST",
+        body: formData,
+      });
       const response: DefaultRes = await res.json();
     }
   };
@@ -404,7 +402,7 @@ const EditFeaturedChar = () => {
         is_main: false,
       };
 
-      const res = await fetch("http://127.0.0.1:5000/characters/update", {
+      const res = await fetch(`${url}/characters/update`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...update }),
@@ -415,7 +413,7 @@ const EditFeaturedChar = () => {
 
   const deleteChar = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/characters/delete", {
+      const res = await fetch(`${url}/characters/delete`, {
         method: "DELETE",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({

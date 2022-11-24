@@ -28,6 +28,7 @@ const DailiesWeeklies = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
   const characters = useAppSelector((state) => state.dailies.characters);
@@ -511,7 +512,7 @@ const DailiesWeeklies = () => {
   // ===============
   const getCharactersTracking = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/characters/get/tracking", {
+      const res = await fetch(`${url}/characters/get/tracking`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -534,7 +535,7 @@ const DailiesWeeklies = () => {
   const getImage = async () => {
     try {
       const res = await fetch(
-        `http://127.0.0.1:5000/characters/get-image/${featuredChar.uuid}`,
+        `${url}/characters/get-image/${featuredChar.uuid}`,
         {
           method: "GET",
         }
@@ -566,14 +567,11 @@ const DailiesWeeklies = () => {
         body.date = todayDate;
       }
 
-      const res = await fetch(
-        `http://127.0.0.1:5000/dailies/${isPrev ? "get-prev" : "get"}`,
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      const res = await fetch(`${url}/dailies/${isPrev ? "get-prev" : "get"}`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
       const response: GetDailiesRes = await res.json();
 
       // Set Dailies
@@ -631,7 +629,7 @@ const DailiesWeeklies = () => {
       }
 
       const res = await fetch(
-        `http://127.0.0.1:5000/weeklies/${isPrev ? "get-prev" : "get"}`,
+        `${url}/weeklies/${isPrev ? "get-prev" : "get"}`,
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -674,7 +672,7 @@ const DailiesWeeklies = () => {
   const getUrsusTour = async (date: string) => {
     try {
       // Fetch
-      const res = await fetch("http://127.0.0.1:5000/ursus-tour/get", {
+      const res = await fetch(`${url}/ursus-tour/get`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -697,7 +695,7 @@ const DailiesWeeklies = () => {
 
   const updateDailies = async (newDailies: UpdateDailies) => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/dailies/update", {
+      const res = await fetch(`${url}/dailies/update`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(newDailies),
@@ -710,7 +708,7 @@ const DailiesWeeklies = () => {
 
   const updateWeeklies = async (newWeeklies: UpdateDailies) => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/weeklies/update", {
+      const res = await fetch(`${url}/weeklies/update`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(newWeeklies),
@@ -723,7 +721,7 @@ const DailiesWeeklies = () => {
 
   const updateUrsusTour = async (newUrsusTour: UpdateUrsusTour) => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/ursus-tour/update", {
+      const res = await fetch(`${url}/ursus-tour/update`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(newUrsusTour),

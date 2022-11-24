@@ -15,6 +15,7 @@ const AddCharacters = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const userData = useAppSelector((state) => state.user.userData);
 
   const ignRef = useRef<HTMLInputElement>(null);
@@ -153,7 +154,7 @@ const AddCharacters = () => {
   // ===============
   const getClasses = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/enums/classes/get", {
+      const res = await fetch(`${url}/enums/classes/get`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -171,7 +172,7 @@ const AddCharacters = () => {
   const createCharacter = async () => {
     try {
       if (ignRef.current && levelRef.current) {
-        const res = await fetch("http://127.0.0.1:5000/characters/create", {
+        const res = await fetch(`${url}/characters/create`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
@@ -203,7 +204,7 @@ const AddCharacters = () => {
         formData.append("file", file);
 
         const res = await fetch(
-          `http://127.0.0.1:5000/characters/upload/${createdChar.uuid}`,
+          `${url}/characters/upload/${createdChar.uuid}`,
           {
             method: "POST",
             body: formData,

@@ -10,6 +10,7 @@ const LoginComp = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -43,7 +44,7 @@ const LoginComp = () => {
   const login = async () => {
     try {
       if (usernameRef.current && passwordRef.current) {
-        const res = await fetch("http://127.0.0.1:5000/users/login", {
+        const res = await fetch(`${url}/users/login`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({

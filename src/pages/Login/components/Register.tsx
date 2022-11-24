@@ -9,6 +9,7 @@ const Register = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -64,7 +65,7 @@ const Register = () => {
   const createUser = async () => {
     try {
       if (usernameRef.current && passwordRef.current) {
-        const res = await fetch("http://127.0.0.1:5000/users/register", {
+        const res = await fetch(`${url}/users/register`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({

@@ -11,6 +11,7 @@ const FeaturedChar = () => {
   // =========
   // Variables
   // =========
+  const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
   const [charImg, setCharImg] = useState<string>("");
@@ -123,7 +124,7 @@ const FeaturedChar = () => {
   const getImage = async () => {
     try {
       const res = await fetch(
-        `http://127.0.0.1:5000/characters/get-image/${featuredChar.uuid}`,
+        `${url}/characters/get-image/${featuredChar.uuid}`,
         {
           method: "GET",
         }
@@ -144,7 +145,7 @@ const FeaturedChar = () => {
 
   const updateCharacter = async (newChar: Character) => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/characters/update", {
+      const res = await fetch(`${url}/characters/update`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
