@@ -89,6 +89,7 @@ When registering, users have to select either the MapleSEA or GMS server, which 
 type of user such as different item names and tooltip instructions. This is due to the game having localised differences across different regional servers.
 
 <img src="/src/images/readme/login_page.png" alt="Login Page" title="Login Page">
+<img src="/src/images/readme/register_page.png" alt="Register Page" title="Register Page">
 
 <a name="Dashboard"></a>
 #### Dashboard Page
@@ -122,19 +123,20 @@ There will only ever be at most 2 entries at a time in the database (today and t
 <a name="Outstanding"></a>
 ## Outstanding Features to Implement
 
-Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages.
-
 #### JWT, Local Storage & Logout
 - Implement JWT authentication to protect all endpoints from being accessed by users that are not logged in
 - Make use of the local storage to preserve the user's status of being logged in so that the user does not have to always log in again upon re-visiting or refreshing the page
 - Implement a logout feature
 
 #### Chatbot
-- Add a page where the user can interact with a chatbot. The chatbot will be developed using machine learning to be able to answer maplestory-related questions.
+- Add a chatbot that the user can interact with through text. The chatbot will be developed using machine learning to be able to answer maplestory-related questions.
+
+#### Pages
+Currently, I have fully developed the backend for all the following pages (API endpoints and database models + schemas), all that remains is to do up the frontend. To show a rough idea of how each page will look like, I have included the images of the spreadsheets I made from back when I played the game actively. I will be using these spreadsheets as an inspiration and reference to design the pages.
 
 #### Dashboard Page
 
-- Add pie chart to display total weekly mesos earned by the user
+- Add pie chart to display total weekly mesos earned by the user, totalled up from Ursus and Maple Tour, Bossing, Farming. 
 
 #### Bossing Page
 
