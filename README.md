@@ -1,16 +1,16 @@
 # Maplestory Tracker
 
 ## Table of Contents
-1. [Introduction](#Introduction)
-2. [Technologies Used](#Technologies)
-3. [Component Hierarchy](#Component)
-4. [Endpoints](#Endpoints)
-5. [Data Model](#Data)
-6. [Explanation of Each Page](#Explanation)
+* [Introduction](#Introduction)
+* [Technologies Used](#Technologies)
+* [Component Hierarchy](#Component)
+* [Endpoints](#Endpoints)
+* [Data Model](#Data)
+* [Explanation of Each Page](#Explanation)
     * [Login/Register Page](#Login)
     * [Dashboard Page](#Dashboard)
     * [Dailies/Weeklies Page](#Dailies)
-7. [Outstanding Features to Implement](#Outstanding)
+* [Outstanding Features to Implement](#Outstanding)
 
 <a name="Introduction"></a>
 ## Introduction
