@@ -1,5 +1,18 @@
 # Maplestory Tracker
 
+## Table of Contents
+1. [Introduction](#Introduction)
+2. [Technologies Used](#Technologies)
+3. [Component Hierarchy](#Component)
+4. [Endpoints](#Endpoints)
+5. [Data Model](#Data)
+6. [Explanation of Each Page](#Explanation)
+    * [Login/Register Page](#Login)
+    * [Dashboard Page](#Dashboard)
+    * [Dailies/Weeklies Page](#Dailies)
+7. [Outstanding Features to Implement](#Outstanding)
+
+<a name="Introduction"></a>
 ## Introduction
 
 As a maplestory player, I used to make numerous spreadsheets to keep track of various information such as dailies, bosses and gear progression for each of my characters.
@@ -10,10 +23,11 @@ representations of raw data of words and numbers.
 This was my inspiration for making this tracker app, to provide a convenient platform for players to keep track of their information in an interface that is simple to use and visually appealing. I catered this app for players in both the MapleSEA (Southeast Asia) and GMS (Global) servers, as I have played extensively in both regions
 and also have friends in both regions who would potentially be using this app.
 
-The app is deployed <a href="http://13.229.106.234">here</a>, using AWS EC2 and ElephantSQL.
+The app is deployed <a href="http://13.229.106.234">here</a>, on AWS EC2 and ElephantSQL.
 
 Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backend</a>.
 
+<a name="Technologies"></a>
 ## Technologies Used
 
 Frontend:
@@ -24,6 +38,7 @@ Backend:
 
 - PostgreSQL, Flask, Python, Flask-SQLAlchemy, Marshmallow, Psycopg2-binary, Flask-Migrate, Flask-Cors, Flask-Bcrypt, Uuid, Python-dotenv
 
+<a name="Component"></a>
 ## Component Hierarchy
 
 ```
@@ -51,10 +66,12 @@ App
   Events
 ```
 
+<a name="Endpoints"></a>
 ## Endpoints
 
 Link to <a href="https://docs.google.com/spreadsheets/d/1johWJthKgyvEfgcKUEl9HcQtabtmud5npe-F2_jlQRM/edit#gid=0">API dictionary</a>
 
+<a name="Data"></a>
 ## Data Model
 
 Database name: maplestory_tracker
@@ -62,8 +79,10 @@ Database name: maplestory_tracker
 <img src="/src/images/readme/data_model_1.PNG" alt="Data Model 1" title="Data Model (1)">
 <img src="/src/images/readme/data_model_2.PNG" alt="Data Model 1" title="Data Model (2)">
 
+<a name="Explanation"></a>
 ## Explanation of Each Page
 
+<a name="Login"></a>
 #### Login/Register Page
 
 When registering, users have to select either the MapleSEA or GMS server, which defines the user's account type. There will be subtle differences in the app for each
@@ -71,6 +90,7 @@ type of user such as different item names and tooltip instructions. This is due 
 
 <img src="/src/images/readme/login_page.png" alt="Login Page" title="Login Page">
 
+<a name="Dashboard"></a>
 #### Dashboard Page
 
 If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an image of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
@@ -80,7 +100,10 @@ The dashboard page displays the currently selected character, a list of all the 
 The component combination of a currently selected character + character list is a common one that will be repeated in most of the other pages in the app. The character list is arranged in descending order by the character's level. However, if any character is assigned to be a "Main" character, that character would always be shown first in the list, regardless of the character's level. The first character in the list is also the one that would be displayed by default upon visiting any of the pages that has a currently selected character + character list feature.
 
 <img src="/src/images/readme/dashboard_page.png" alt="Dashboard Page" title="Dashboard Page">
+<img src="/src/images/readme/edit_character.png" alt="Edit Character Page" title="Edit Character Page">
+<img src="/src/images/readme/add_character.png" alt="Add Character Page" title="Add Character Page">
 
+<a name="Dailies"></a>
 #### Dailies/Weeklies Page
 
 A character list is generated upon visting the page, with the list being chosen from the characters that have "Dailies/Weeklies" checked in the dashboard page. The order of the characters is the same as described in the dashboard page. Selecting a character would show the list of dailies and weeklies for that character with checkboxes for the user to update whether a daily/weekly is done or not. 
@@ -92,7 +115,9 @@ If it is the first time today that the user has visited this page, the list of d
 There will only ever be at most 2 entries at a time in the database (today and the previous day), with the oldest entry being automatically deleted from the database whenever a third entry is generated. The dailies and weeklies lists generated are copied from the ones from the previous day/week. However, if the character is new, a default set of dailies and weeklies is generated instead.
 
 <img src="/src/images/readme/dailies_page.png" alt="Dailies/Weeklies Page" title="Dailies/Weeklies Page">
+<img src="/src/images/readme/edit_dailies.png" alt="Edit Dailies Page" title="Edit Dailies Page">
 
+<a name="Outstanding"></a>
 ## Outstanding Features to Implement
 
 Currently, I have fully developed the backend for all the following pages, all that remains is to do up the frontend. Below I have included the images of the spreadsheets I made previously which I am using as a reference to design the pages.
