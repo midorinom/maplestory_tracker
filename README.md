@@ -93,7 +93,7 @@ type of user such as different item names and tooltip instructions. This is due 
 <a name="Dashboard"></a>
 #### Dashboard Page
 
-Clicking the rock spirit picture on the far left side of the navigation bar will bring the user back to this page. Clicking the other icons on the right side of the navigation bar would bring the user to the respective pages of Dailies/Weeklies, Bossing, Progression, Legion, Farming and Events.
+Clicking the rock spirit icon on the far left side of the navigation bar will bring the user back to this page. Clicking the other icons on the right side of the navigation bar would bring the user to the respective pages of Dailies/Weeklies, Bossing, Progression, Legion, Farming and Events.
 
 If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an image of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
 
