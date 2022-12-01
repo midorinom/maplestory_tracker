@@ -93,6 +93,8 @@ type of user such as different item names and tooltip instructions. This is due 
 <a name="Dashboard"></a>
 #### Dashboard Page
 
+Clicking the rock spirit picture on the far left side of the navigation bar will bring the user back to this page. Clicking the other icons on the right side of the navigation bar would bring the user to the respective pages of Dailies/Weeklies, Bossing, Progression, Legion, Farming and Events.
+
 If the user does not have characters, they would be shown a page that links to the character creation form where they would be able to fill in their IGN, Class, Level and an option to upload an image of their character. Class names vary slightly for MapleSEA and GMS and if no image is uploaded, the default image displayed throughout the app would be that of a faceless naked maplestory character.
 
 The dashboard page displays the currently selected character, a list of all the user's characters that can be scrolled through, and a pie chart that consolidates all the weekly mesos acquired by the user over this bossing week (which resets on Thursday) alongside a timer that shows the number of days/hours/minutes until the weekly bossing reset. The user can add more characters, as well as delete or update the details of any of the existing characters, including changing the image. The user can also choose which pages they want to track for each character, by checking the respective checkboxes displayed under the currently selected character. The checkboxes are all checked by default.
