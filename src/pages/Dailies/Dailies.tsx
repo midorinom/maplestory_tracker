@@ -74,6 +74,12 @@ const DailiesWeeklies = () => {
     useState<boolean>(false);
   const [mapEditWeekliesCards, setMapEditWeekliesCards] =
     useState<boolean>(false);
+  const [allDailiesChecked, setAllDailiesChecked] = useState<boolean>(false);
+  const [allDailiesPrevChecked, setAllDailiesPrevChecked] =
+    useState<boolean>(false);
+  const [allWeekliesChecked, setAllWeekliesChecked] = useState<boolean>(false);
+  const [allWeekliesPrevChecked, setAllWeekliesPrevChecked] =
+    useState<boolean>(false);
 
   // =====
   // Dates
@@ -239,6 +245,30 @@ const DailiesWeeklies = () => {
       };
       updateWeeklies(newWeeklies);
       setWeekliesSuccess(true);
+    }
+  }
+
+  function handleCheckAllDailies() {
+    if (dailiesPrevClicked) {
+      allDailiesPrevChecked
+        ? setAllDailiesPrevChecked(false)
+        : setAllDailiesPrevChecked(true);
+    } else {
+      allDailiesChecked
+        ? setAllDailiesChecked(false)
+        : setAllDailiesChecked(true);
+    }
+  }
+
+  function handleCheckAllWeeklies() {
+    if (weekliesPrevClicked) {
+      allWeekliesPrevChecked
+        ? setAllWeekliesPrevChecked(false)
+        : setAllWeekliesPrevChecked(true);
+    } else {
+      allWeekliesChecked
+        ? setAllWeekliesChecked(false)
+        : setAllWeekliesChecked(true);
     }
   }
 
@@ -793,9 +823,12 @@ const DailiesWeeklies = () => {
                     padding: "0",
                     paddingTop: "0.1rem",
                   }}
-                  // onChange={props.handleDailiesChange}
-                  // checked={props.dailies[props.name]}
-                  id="checkAll"
+                  onChange={handleCheckAllDailies}
+                  checked={
+                    dailiesPrevClicked
+                      ? allDailiesPrevChecked
+                      : allDailiesChecked
+                  }
                 />
               </div>
             </>
@@ -897,9 +930,12 @@ const DailiesWeeklies = () => {
                     padding: "0",
                     paddingTop: "0.1rem",
                   }}
-                  // onChange={props.handleDailiesChange}
-                  // checked={props.dailies[props.name]}
-                  id="checkAll"
+                  onChange={handleCheckAllWeeklies}
+                  checked={
+                    weekliesPrevClicked
+                      ? allWeekliesPrevChecked
+                      : allWeekliesChecked
+                  }
                 />
               </div>
             </>
