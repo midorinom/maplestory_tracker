@@ -250,26 +250,76 @@ const DailiesWeeklies = () => {
 
   function handleCheckAllDailies() {
     if (dailiesPrevClicked) {
-      allDailiesPrevChecked
-        ? setAllDailiesPrevChecked(false)
-        : setAllDailiesPrevChecked(true);
+      if (allDailiesPrevChecked) {
+        checkAllDailies(false);
+        setAllDailiesPrevChecked(false);
+      } else {
+        checkAllDailies(true);
+        setAllDailiesPrevChecked(true);
+      }
     } else {
-      allDailiesChecked
-        ? setAllDailiesChecked(false)
-        : setAllDailiesChecked(true);
+      if (allDailiesChecked) {
+        checkAllDailies(false);
+        setAllDailiesChecked(false);
+      } else {
+        checkAllDailies(true);
+        setAllDailiesChecked(true);
+      }
     }
   }
 
-  function handleCheckAllWeeklies() {
-    if (weekliesPrevClicked) {
-      allWeekliesPrevChecked
-        ? setAllWeekliesPrevChecked(false)
-        : setAllWeekliesPrevChecked(true);
-    } else {
-      allWeekliesChecked
-        ? setAllWeekliesChecked(false)
-        : setAllWeekliesChecked(true);
+  function checkAllDailies(bool: boolean) {
+    const dailiesObj = { ...dailies };
+    delete dailiesObj.uuid;
+
+    for (const key of Object.keys(dailiesObj)) {
+      dailiesObj[key] = bool;
     }
+
+    setCheckboxClicked(true);
+    setDailies((prevState: any) => {
+      return { ...prevState, ...dailiesObj };
+    });
+    setCheckboxClicked(true);
+    setUrsusTour((prevState: any) => {
+      return { ...prevState, ursus: bool, tour: bool };
+    });
+  }
+
+  function handleCheckAllWeeklies() {
+    // console.log(weeklies);
+
+    if (weekliesPrevClicked) {
+      if (allWeekliesPrevChecked) {
+        checkAllWeeklies(false);
+        setAllWeekliesPrevChecked(false);
+      } else {
+        checkAllWeeklies(true);
+        setAllWeekliesPrevChecked(true);
+      }
+    } else {
+      if (allWeekliesChecked) {
+        checkAllWeeklies(false);
+        setAllWeekliesChecked(false);
+      } else {
+        checkAllWeeklies(true);
+        setAllWeekliesChecked(true);
+      }
+    }
+  }
+
+  function checkAllWeeklies(bool: boolean) {
+    const weekliesObj = { ...weeklies };
+    delete weekliesObj.uuid;
+
+    for (const key of Object.keys(weekliesObj)) {
+      weekliesObj[key] = bool;
+    }
+
+    setCheckboxClicked(true);
+    setWeeklies((prevState: any) => {
+      return { ...prevState, ...weekliesObj };
+    });
   }
 
   // ==========
