@@ -179,8 +179,6 @@ const EditFeaturedChar = () => {
       (element) => element.uuid !== featuredChar.uuid
     );
 
-    console.log("newChars", newChars);
-
     if (newChars.length > 0) {
       dispatch(dashboardActions.setFeaturedChar(newChars[0]));
     } else {

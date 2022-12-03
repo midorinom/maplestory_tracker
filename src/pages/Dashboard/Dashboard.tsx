@@ -17,6 +17,7 @@ const Dashboard = () => {
   const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
   const [firstRenderDone, setFirstRenderDone] = useState<boolean>(false);
+  const [triggerRender, setTriggerRender] = useState<boolean>(false);
   const userData = useAppSelector((state) => state.user.userData);
   const featuredChar = useAppSelector((state) => state.dashboard.featuredChar);
   const isEditing = useAppSelector((state) => state.dashboard.isEditing);
@@ -108,6 +109,7 @@ const Dashboard = () => {
             characters: response.characters,
           })
         );
+        triggerRender ? setTriggerRender(false) : setTriggerRender(true);
       }
     } catch (err: any) {
       console.log(err);
