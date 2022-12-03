@@ -19,7 +19,7 @@ import UrsusTourCard from "./components/UrsusTourCard";
 import EditDailiesCard from "./components/EditDailiesCard";
 import EditWeekliesCard from "./components/EditWeekliesCard";
 import styles from "./Dailies.module.css";
-import { Alert, Button, IconButton } from "@mui/material";
+import { Alert, Button, IconButton, Checkbox } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import defaultChar from "../../images/default_char.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -758,7 +758,7 @@ const DailiesWeeklies = () => {
                 className={styles.dailies_title}
                 style={{ color: "transparent", borderBottom: "none" }}
               >
-                s
+                Placeholder
               </p>
               <Button
                 onClick={handleDailiesBack}
@@ -782,9 +782,22 @@ const DailiesWeeklies = () => {
                   <EditIcon fontSize="large" />
                 </IconButton>
               )}
-              <p className={styles.dailies_title}>
-                {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
-              </p>
+              <div className={styles.dailies_title_ctn}>
+                <div>
+                  <p className={styles.dailies_title}>
+                    {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
+                  </p>
+                </div>
+                <Checkbox
+                  style={{
+                    padding: "0",
+                    paddingTop: "0.1rem",
+                  }}
+                  // onChange={props.handleDailiesChange}
+                  // checked={props.dailies[props.name]}
+                  id="checkAll"
+                />
+              </div>
             </>
           )}
           <div className={styles.dailies_options}>
@@ -849,7 +862,7 @@ const DailiesWeeklies = () => {
                 className={styles.dailies_title}
                 style={{ color: "transparent", borderBottom: "none" }}
               >
-                1
+                Placeholder
               </p>
               <Button
                 onClick={handleWeekliesBack}
@@ -873,9 +886,22 @@ const DailiesWeeklies = () => {
                   <EditIcon fontSize="large" />
                 </IconButton>
               )}
-              <p className={styles.dailies_title}>
-                {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
-              </p>
+              <div className={styles.dailies_title_ctn}>
+                <div>
+                  <p className={styles.dailies_title}>
+                    {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
+                  </p>
+                </div>
+                <Checkbox
+                  style={{
+                    padding: "0",
+                    paddingTop: "0.1rem",
+                  }}
+                  // onChange={props.handleDailiesChange}
+                  // checked={props.dailies[props.name]}
+                  id="checkAll"
+                />
+              </div>
             </>
           )}
           <div className={styles.dailies_options}>

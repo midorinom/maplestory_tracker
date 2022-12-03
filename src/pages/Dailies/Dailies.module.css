@@ -37,6 +37,11 @@
   position: relative;
 }
 
+.dailies_title_ctn {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .dailies_title {
   font-size: 1.3rem;
   margin: 0;
