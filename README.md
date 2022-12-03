@@ -109,7 +109,7 @@ The component combination of a currently selected character + character list is 
 <a name="Dailies"></a>
 #### Dailies/Weeklies Page
 
-A character list is generated upon visting the page, with the list being chosen from the characters that have "Dailies/Weeklies" checked in the dashboard page. The order of the characters is the same as described in the dashboard page. Selecting a character would show the list of dailies and weeklies for that character with checkboxes for the user to update whether a daily/weekly is done or not. 
+A character list is generated upon visting the page, with the list being chosen from the characters that have "Dailies/Weeklies" checked in the dashboard page. The order of the characters is the same as described in the dashboard page. Selecting a character would show the list of dailies and weeklies for that character with checkboxes for the user to update whether a daily/weekly is done or not. The checkbox beside the Dailies/Weeklies title is a "Check All" button that will check/uncheck everything in the list when clicked.
 
 Users can edit the dailies and weeklies list, changing the names as well as add or remove any of the options. There are also timers displayed that show the amount of days or hours(if <1 day) until the next daily and weekly resets. For MSEA accounts, the time is taken from the user's local time whereas for GMS accounts, the time is based off UTC as these are the respective ingame times that each respective server follows for the daily/weekly resets. 
 
