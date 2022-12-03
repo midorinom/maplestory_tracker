@@ -22,6 +22,14 @@ const NavBar = () => {
   }
   const legionLocalisation = localiseLegion();
 
+  function checkCharacters(url: string) {
+    if (userData.characters.length > 0) {
+      return url;
+    } else {
+      return "/";
+    }
+  }
+
   return (
     <div className={styles.parent_ctn}>
       <div className={styles.left_ctn}>
@@ -32,32 +40,50 @@ const NavBar = () => {
       </div>
       <div className={styles.right_ctn}>
         <Tooltip title="Dailies & Weeklies" arrow>
-          <Link to="/dailies-weeklies" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/dailies-weeklies")}
+            className={styles.right_ctn_link}
+          >
             <img src={dailiesWeeklies} alt="Dailies Weeklies" />
           </Link>
         </Tooltip>
         <Tooltip title="Weekly Bosses" arrow>
-          <Link to="/bossing" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/bossing")}
+            className={styles.right_ctn_link}
+          >
             <img src={bossing} alt="Bossing" />
           </Link>
         </Tooltip>
         <Tooltip title="Progression" arrow>
-          <Link to="/progression" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/progression")}
+            className={styles.right_ctn_link}
+          >
             <img src={progression} alt="Progression" />
           </Link>
         </Tooltip>
         <Tooltip title={legionLocalisation} arrow>
-          <Link to="/legion" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/legion")}
+            className={styles.right_ctn_link}
+          >
             <img src={legion} alt="Legion" />
           </Link>
         </Tooltip>
         <Tooltip title="Farming" arrow>
-          <Link to="/farming" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/farming")}
+            className={styles.right_ctn_link}
+          >
             <img src={farming} alt="Farming" />
           </Link>
         </Tooltip>
         <Tooltip title="Events" arrow>
-          <Link to="/events" className={styles.right_ctn_link}>
+          <Link
+            to={checkCharacters("/events")}
+            className={styles.right_ctn_link}
+          >
             <img src={events} alt="Events" />
           </Link>
         </Tooltip>
