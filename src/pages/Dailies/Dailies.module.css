@@ -43,6 +43,9 @@
   font-weight: bold;
   width: max-content;
   border-bottom: 0.2rem solid #fbc3bc;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .dailies_options {

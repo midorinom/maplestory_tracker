@@ -11,7 +11,7 @@ import farming from "./images/farming.png";
 import events from "./images/events.png";
 
 const NavBar = () => {
-  const userData = useAppSelector((state) => state.user.userData);
+  const userData = useAppSelector((state: any) => state.user.userData);
 
   function localiseLegion() {
     if (userData.role === "GMS") {

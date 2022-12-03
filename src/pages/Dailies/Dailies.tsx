@@ -30,15 +30,19 @@ const DailiesWeeklies = () => {
   // =========
   const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
-  const userData = useAppSelector((state) => state.user.userData);
-  const characters = useAppSelector((state) => state.dailies.characters);
-  const featuredChar = useAppSelector((state) => state.dailies.featuredChar);
-  const charImg = useAppSelector((state) => state.dailies.charImg);
-  const editedDailies = useAppSelector((state) => state.dailies.editedDailies);
-  const editedWeeklies = useAppSelector(
-    (state) => state.dailies.editedWeeklies
+  const userData = useAppSelector((state: any) => state.user.userData);
+  const characters = useAppSelector((state: any) => state.dailies.characters);
+  const featuredChar = useAppSelector(
+    (state: any) => state.dailies.featuredChar
   );
-  const charCards = characters.map((element) => {
+  const charImg = useAppSelector((state: any) => state.dailies.charImg);
+  const editedDailies = useAppSelector(
+    (state: any) => state.dailies.editedDailies
+  );
+  const editedWeeklies = useAppSelector(
+    (state: any) => state.dailies.editedWeeklies
+  );
+  const charCards = characters.map((element: any) => {
     return <CharCard character={element} key={Math.random()} />;
   });
   const [todayDate, setTodayDate] = useState<string>();
@@ -210,7 +214,7 @@ const DailiesWeeklies = () => {
     dispatch(dailiesActions.setEditedWeeklies([...editedWeeklies, ""]));
   }
 
-  function handleSubmitDailies(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleSubmitDailies(e: any) {
     e.preventDefault();
     setDailiesSuccess(false);
 
@@ -224,7 +228,7 @@ const DailiesWeeklies = () => {
     }
   }
 
-  function handleSubmitWeeklies(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleSubmitWeeklies(e: any) {
     e.preventDefault();
     setWeekliesSuccess(false);
 
@@ -441,7 +445,7 @@ const DailiesWeeklies = () => {
       if (!isEditingDailies || mapEditDailiesCards) {
         setMapEditDailiesCards(false);
 
-        const cards = editedDailies.map((element, index) => {
+        const cards = editedDailies.map((element: any, index: number) => {
           return (
             <EditDailiesCard
               editDailiesError={editDailiesError}
@@ -470,7 +474,7 @@ const DailiesWeeklies = () => {
       if (!isEditingWeeklies || mapEditWeekliesCards) {
         setMapEditWeekliesCards(false);
 
-        const cards = editedWeeklies.map((element, index) => {
+        const cards = editedWeeklies.map((element: any, index: number) => {
           return (
             <EditWeekliesCard
               editWeekliesError={editWeekliesError}
@@ -754,7 +758,7 @@ const DailiesWeeklies = () => {
                 className={styles.dailies_title}
                 style={{ color: "transparent", borderBottom: "none" }}
               >
-                1
+                s
               </p>
               <Button
                 onClick={handleDailiesBack}

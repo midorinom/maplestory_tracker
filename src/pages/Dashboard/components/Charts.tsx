@@ -4,7 +4,7 @@ import moment from "moment";
 import styles from "../Dashboard.module.css";
 
 const Charts = () => {
-  const userData = useAppSelector((state) => state.user.userData);
+  const userData = useAppSelector((state: any) => state.user.userData);
   let dailyDate: string = "";
   let weeklyDate: string = "";
 
