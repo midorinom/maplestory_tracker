@@ -168,6 +168,7 @@ const DailiesWeeklies = () => {
     if (!isEditingDailies) {
       const dailiesObj = { ...dailies };
       delete dailiesObj.uuid;
+      delete dailiesObj.date;
       const dailiesArr = Object.keys(dailiesObj);
 
       dispatch(dailiesActions.setEditedDailies(dailiesArr));
@@ -178,6 +179,7 @@ const DailiesWeeklies = () => {
     if (!isEditingWeeklies) {
       const weekliesObj = { ...weeklies };
       delete weekliesObj.uuid;
+      delete weekliesObj.date;
       const weekliesArr = Object.keys(weekliesObj);
 
       dispatch(dailiesActions.setEditedWeeklies(weekliesArr));
@@ -271,6 +273,7 @@ const DailiesWeeklies = () => {
   function checkAllDailies(bool: boolean) {
     const dailiesObj = { ...dailies };
     delete dailiesObj.uuid;
+    delete dailiesObj.date;
 
     for (const key of Object.keys(dailiesObj)) {
       dailiesObj[key] = bool;
@@ -311,6 +314,7 @@ const DailiesWeeklies = () => {
   function checkAllWeeklies(bool: boolean) {
     const weekliesObj = { ...weeklies };
     delete weekliesObj.uuid;
+    delete weekliesObj.date;
 
     for (const key of Object.keys(weekliesObj)) {
       weekliesObj[key] = bool;
@@ -350,6 +354,12 @@ const DailiesWeeklies = () => {
   // After featuredChar has been set
   useEffect(() => {
     if (featuredChar.uuid) {
+      if (dailiesPrevClicked) {
+        setDailiesPrevClicked(false);
+      }
+      if (weekliesPrevClicked) {
+        setWeekliesPrevClicked(false);
+      }
       setIsEditingDailies(false);
       setIsEditingWeeklies(false);
       getImage();
@@ -365,6 +375,7 @@ const DailiesWeeklies = () => {
       // Delete the uuid key before mapping
       const dailiesObj = { ...dailies };
       delete dailiesObj.uuid;
+      delete dailiesObj.date;
 
       const cards = Object.keys(dailiesObj).map((element: string) => {
         return (
@@ -387,6 +398,7 @@ const DailiesWeeklies = () => {
 
       const dailiesObj = { ...dailies };
       delete dailiesObj.uuid;
+      delete dailiesObj.date;
 
       const dailiesDoneArr: string[] = [];
 
@@ -413,6 +425,7 @@ const DailiesWeeklies = () => {
       // Delete the uuid key before mapping
       const weekliesObj = { ...weeklies };
       delete weekliesObj.uuid;
+      delete weekliesObj.date;
 
       const cards = Object.keys(weekliesObj).map((element: string) => {
         return (
@@ -435,6 +448,7 @@ const DailiesWeeklies = () => {
 
       const weekliesObj = { ...weeklies };
       delete weekliesObj.uuid;
+      delete weekliesObj.date;
 
       const weekliesDoneArr: string[] = [];
 
@@ -678,11 +692,13 @@ const DailiesWeeklies = () => {
           });
           setDailies({
             uuid: response.dailies.uuid,
+            date: response.dailies.date,
             ...Object.fromEntries(dailiesObjArr),
           });
         } else {
           setDailies({
             uuid: response.dailies.uuid,
+            date: response.dailies.date,
           });
         }
         // Get UrsusTour
@@ -740,11 +756,13 @@ const DailiesWeeklies = () => {
           });
           setWeeklies({
             uuid: response.weeklies.uuid,
+            date: response.weeklies.first_day_of_week,
             ...Object.fromEntries(weekliesObjArr),
           });
         } else {
           setWeeklies({
             uuid: response.weeklies.uuid,
+            date: response.weeklies.first_day_of_week,
           });
         }
       }
@@ -865,7 +883,11 @@ const DailiesWeeklies = () => {
               <div className={styles.dailies_title_ctn}>
                 <div>
                   <p className={styles.dailies_title}>
-                    {dailiesPrevClicked ? "Dailies (Prev)" : "Dailies"}
+                    {dailiesPrevClicked
+                      ? `Dailies ${
+                          "(" + moment(dailies.date).format("D MMM") + ")"
+                        }`
+                      : "Dailies"}
                   </p>
                 </div>
                 <Checkbox
@@ -972,7 +994,11 @@ const DailiesWeeklies = () => {
               <div className={styles.dailies_title_ctn}>
                 <div>
                   <p className={styles.dailies_title}>
-                    {weekliesPrevClicked ? "Weeklies (Prev)" : "Weeklies"}
+                    {weekliesPrevClicked
+                      ? `Weeklies ${
+                          "(" + moment(weeklies.date).format("D MMM") + ")"
+                        }`
+                      : "Weeklies"}
                   </p>
                 </div>
                 <Checkbox
