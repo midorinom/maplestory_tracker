@@ -6,7 +6,7 @@ const UnderConstruction = () => {
   return (
     <div className={styles.parent_ctn}>
       <div className={styles.main_ctn}>
-        <img src={cryingSpirit} />
+        <img src={cryingSpirit} alt="crying spirit" />
         <div className={styles.text}>Under Construction</div>
       </div>
     </div>
