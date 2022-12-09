@@ -1,11 +1,22 @@
 .parent_ctn {
-  height: 100%;
-  width: 100%;
-  flex: 1;
+  min-height: 93%;
   background-image: url("../../images/lucid.png");
   background-size: cover;
   background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: scroll;
+}
+
+.top_ctn {
+  height: 20vh;
+  border: 1px solid red;
+}
+
+.main_ctn {
+  height: 100vh;
+  border: 1px solid blue;
+}
+
+.btm_ctn {
+  border: 1px solid green;
+  height: 10vh;
 }
