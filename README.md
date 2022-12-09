@@ -123,10 +123,8 @@ There will only ever be at most 2 entries at a time in the database (today and t
 <a name="Outstanding"></a>
 ## Outstanding Features to Implement
 
-#### JWT, Local Storage & Logout
+#### JWT
 - Implement JWT authentication to protect all endpoints from being accessed by users that are not logged in
-- Make use of the local storage to preserve the user's status of being logged in so that the user does not have to always log in again upon re-visiting or refreshing the page
-- Implement a logout feature
 
 #### Chatbot
 - Add a chatbot that the user can interact with through text. The chatbot will be developed using machine learning to be able to answer maplestory-related questions.
