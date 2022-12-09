@@ -56,8 +56,8 @@ function App() {
   // =========
   const dispatch = useAppDispatch();
   const [triggerRender, setTriggerRender] = useState<boolean>(false);
-
   let userData: UserData = useAppSelector((state) => state.user.userData);
+  const savedUser = localStorage.getItem("user");
 
   function getIndex() {
     if (userData && userData.username) {
@@ -73,7 +73,6 @@ function App() {
   // ==========
   // onMount
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
     if (savedUser) {
       const retrievedUser: UserData = JSON.parse(savedUser);
 
@@ -85,7 +84,7 @@ function App() {
 
   // When userData changes
   useEffect(() => {
-    if (userData) {
+    if (userData.username) {
       localStorage.setItem("user", JSON.stringify(userData));
     }
   }, [userData]);
@@ -96,49 +95,39 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {userData.username && <NavBar />}
+        {savedUser && <NavBar />}
         <Routes>
           <Route path="/" element={index} />
           <Route
             path="/add-characters"
-            element={
-              userData.username ? <AddCharacters /> : <Navigate to="/" />
-            }
+            element={savedUser ? <AddCharacters /> : <Navigate to="/" />}
           />
           <Route
             path="/dailies-weeklies"
-            element={userData.username ? <Dailies /> : <Navigate to="/" />}
+            element={savedUser ? <Dailies /> : <Navigate to="/" />}
           />
           <Route
             path="/bossing"
-            element={userData.username ? <Bossing /> : <Navigate to="/" />}
+            element={savedUser ? <Bossing /> : <Navigate to="/" />}
           />
           <Route
             path="/progression"
-            element={
-              userData.username ? <UnderConstruction /> : <Navigate to="/" />
-            }
+            element={savedUser ? <UnderConstruction /> : <Navigate to="/" />}
           />
           <Route
             path="/legion"
-            element={
-              userData.username ? <UnderConstruction /> : <Navigate to="/" />
-            }
+            element={savedUser ? <UnderConstruction /> : <Navigate to="/" />}
           />
           <Route
             path="/farming"
-            element={
-              userData.username ? <UnderConstruction /> : <Navigate to="/" />
-            }
+            element={savedUser ? <UnderConstruction /> : <Navigate to="/" />}
           />
           <Route
             path="/events"
-            element={
-              userData.username ? <UnderConstruction /> : <Navigate to="/" />
-            }
+            element={savedUser ? <UnderConstruction /> : <Navigate to="/" />}
           />
         </Routes>
-        {userData.username && <LogOutBtn />}
+        {savedUser && <LogOutBtn />}
       </ThemeProvider>
     </>
   );
