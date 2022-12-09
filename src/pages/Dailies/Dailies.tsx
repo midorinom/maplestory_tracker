@@ -124,6 +124,9 @@ const DailiesWeeklies = () => {
 
   function handleDailiesChange(e: any) {
     setCheckboxClicked(true);
+    if (allDailiesChecked) {
+      setAllDailiesChecked(false);
+    }
 
     if (dailies && dailies[e.target.id] === true) {
       setDailies((prevState: Dailies) => {
@@ -138,6 +141,9 @@ const DailiesWeeklies = () => {
 
   function handleWeekliesChange(e: any) {
     setCheckboxClicked(true);
+    if (allWeekliesChecked) {
+      setAllWeekliesChecked(false);
+    }
 
     if (weeklies && weeklies[e.target.id] === true) {
       setWeeklies((prevState: Dailies) => {
@@ -359,6 +365,12 @@ const DailiesWeeklies = () => {
       }
       if (weekliesPrevClicked) {
         setWeekliesPrevClicked(false);
+      }
+      if (allDailiesChecked) {
+        setAllDailiesChecked(false);
+      }
+      if (allWeekliesChecked) {
+        setAllWeekliesChecked(false);
       }
       setIsEditingDailies(false);
       setIsEditingWeeklies(false);
@@ -1054,7 +1066,7 @@ const DailiesWeeklies = () => {
                 >
                   {weekliesPrevClicked ? " This Week" : "View Prev"}
                 </Button>
-                <p>Reset {weeklyDate}</p>
+                {!weekliesPrevClicked && <p>Reset {weeklyDate}</p>}
               </>
             )}
           </div>
