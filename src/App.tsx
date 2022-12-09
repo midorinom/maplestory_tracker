@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "./store/hooks";
 import { userActions } from "./store/user";
-import { Route, Routes } from "react-router-dom";
+import { UserData } from "./types/types";
 import NavBar from "./pages/NavBar/NavBar";
+import LogOutBtn from "./pages/LogOutBtn/LogOutBtn";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddCharacters from "./pages/AddCharacters/AddCharacters";
 import Dailies from "./pages/Dailies/Dailies";
 import Bossing from "./pages/Bossing/Bossing";
-import LogOutBtn from "./pages/LogOutBtn/LogOutBtn";
-import { UserData } from "./types/types";
+import UnderConstruction from "./pages/UnderConstruction/UnderConstruction";
 
 function App() {
   // ==============================
@@ -98,13 +99,44 @@ function App() {
         {userData.username && <NavBar />}
         <Routes>
           <Route path="/" element={index} />
-          <Route path="/add-characters" element={<AddCharacters />} />
-          <Route path="/dailies-weeklies" element={<Dailies />} />
-          <Route path="/bossing" element={<Bossing />} />
-          <Route path="/progression" element={<Bossing />} />
-          <Route path="/legion" element={<Bossing />} />
-          <Route path="/farming" element={<Bossing />} />
-          <Route path="/events" element={<Bossing />} />
+          <Route
+            path="/add-characters"
+            element={
+              userData.username ? <AddCharacters /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/dailies-weeklies"
+            element={userData.username ? <Dailies /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/bossing"
+            element={userData.username ? <Bossing /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/progression"
+            element={
+              userData.username ? <UnderConstruction /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/legion"
+            element={
+              userData.username ? <UnderConstruction /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/farming"
+            element={
+              userData.username ? <UnderConstruction /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              userData.username ? <UnderConstruction /> : <Navigate to="/" />
+            }
+          />
         </Routes>
         {userData.username && <LogOutBtn />}
       </ThemeProvider>

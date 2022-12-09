@@ -23,7 +23,7 @@ const LogOutBtn = () => {
   return (
     <Button
       style={{
-        fontSize: "1.5vw",
+        fontSize: "2.5vh",
         position: "absolute",
         bottom: "0",
         left: "0.5rem",
