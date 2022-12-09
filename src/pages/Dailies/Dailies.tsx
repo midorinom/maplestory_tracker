@@ -952,8 +952,8 @@ const DailiesWeeklies = () => {
                 <Button
                   onClick={handleDailiesPrevBtn}
                   style={{ width: "40%" }}
-                  variant="contained"
-                  color="info"
+                  variant={dailiesPrevClicked ? "outlined" : "contained"}
+                  color={dailiesPrevClicked ? "secondary" : "info"}
                   size="medium"
                 >
                   {dailiesPrevClicked ? " Back" : "Prev"}
@@ -1060,8 +1060,8 @@ const DailiesWeeklies = () => {
                 <Button
                   onClick={handleWeekliesPrevBtn}
                   style={{ width: "40%" }}
-                  variant="contained"
-                  color="info"
+                  variant={weekliesPrevClicked ? "outlined" : "contained"}
+                  color={weekliesPrevClicked ? "secondary" : "info"}
                   size="medium"
                 >
                   {weekliesPrevClicked ? " Back" : "Prev"}
