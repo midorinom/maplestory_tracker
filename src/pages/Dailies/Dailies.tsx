@@ -355,7 +355,7 @@ const DailiesWeeklies = () => {
         })
       );
     };
-  }, []);
+  }, [userData]);
 
   // After featuredChar has been set
   useEffect(() => {

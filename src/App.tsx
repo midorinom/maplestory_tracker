@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { useAppSelector } from "./store/hooks";
+import { useAppSelector, useAppDispatch } from "./store/hooks";
+import { userActions } from "./store/user";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./pages/NavBar/NavBar";
 import Login from "./pages/Login/Login";
@@ -7,6 +9,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AddCharacters from "./pages/AddCharacters/AddCharacters";
 import Dailies from "./pages/Dailies/Dailies";
 import Bossing from "./pages/Bossing/Bossing";
+import LogOutBtn from "./pages/LogOutBtn/LogOutBtn";
+import { UserData } from "./types/types";
 
 function App() {
   // ==============================
@@ -49,16 +53,41 @@ function App() {
   // =========
   // Variables
   // =========
-  const userData = useAppSelector((state) => state.user.userData);
+  const dispatch = useAppDispatch();
+  const [triggerRender, setTriggerRender] = useState<boolean>(false);
+
+  let userData: UserData = useAppSelector((state) => state.user.userData);
 
   function getIndex() {
-    if (userData.role) {
+    if (userData && userData.username) {
       return <Dashboard />;
     } else {
       return <Login />;
     }
   }
   const index = getIndex();
+
+  // ==========
+  // useEffects
+  // ==========
+  // onMount
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      const retrievedUser: UserData = JSON.parse(savedUser);
+
+      dispatch(userActions.setUserData(retrievedUser));
+      userData = retrievedUser;
+      triggerRender ? setTriggerRender(false) : setTriggerRender(true);
+    }
+  }, []);
+
+  // When userData changes
+  useEffect(() => {
+    if (userData) {
+      localStorage.setItem("user", JSON.stringify(userData));
+    }
+  }, [userData]);
 
   // ======
   // Return
@@ -77,6 +106,7 @@ function App() {
           <Route path="/farming" element={<Bossing />} />
           <Route path="/events" element={<Bossing />} />
         </Routes>
+        {userData.username && <LogOutBtn />}
       </ThemeProvider>
     </>
   );
