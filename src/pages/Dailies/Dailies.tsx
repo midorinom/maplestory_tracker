@@ -902,18 +902,20 @@ const DailiesWeeklies = () => {
                       : "Dailies"}
                   </p>
                 </div>
-                <Checkbox
-                  style={{
-                    padding: "0",
-                    paddingTop: "0.1rem",
-                  }}
-                  onChange={handleCheckAllDailies}
-                  checked={
-                    dailiesPrevClicked
-                      ? allDailiesPrevChecked
-                      : allDailiesChecked
-                  }
-                />
+                {showEditDailiesIcon && (
+                  <Checkbox
+                    style={{
+                      padding: "0",
+                      paddingTop: "0.1rem",
+                    }}
+                    onChange={handleCheckAllDailies}
+                    checked={
+                      dailiesPrevClicked
+                        ? allDailiesPrevChecked
+                        : allDailiesChecked
+                    }
+                  />
+                )}
               </div>
             </>
           )}
@@ -1013,18 +1015,20 @@ const DailiesWeeklies = () => {
                       : "Weeklies"}
                   </p>
                 </div>
-                <Checkbox
-                  style={{
-                    padding: "0",
-                    paddingTop: "0.1rem",
-                  }}
-                  onChange={handleCheckAllWeeklies}
-                  checked={
-                    weekliesPrevClicked
-                      ? allWeekliesPrevChecked
-                      : allWeekliesChecked
-                  }
-                />
+                {showEditWeekliesIcon && (
+                  <Checkbox
+                    style={{
+                      padding: "0",
+                      paddingTop: "0.1rem",
+                    }}
+                    onChange={handleCheckAllWeeklies}
+                    checked={
+                      weekliesPrevClicked
+                        ? allWeekliesPrevChecked
+                        : allWeekliesChecked
+                    }
+                  />
+                )}
               </div>
             </>
           )}
