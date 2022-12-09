@@ -956,9 +956,9 @@ const DailiesWeeklies = () => {
                   color="info"
                   size="medium"
                 >
-                  {dailiesPrevClicked ? " View Today" : "View Prev"}
+                  {dailiesPrevClicked ? " Back" : "Prev"}
                 </Button>
-                <p>Reset {dailyDate}</p>{" "}
+                <div style={{ whiteSpace: "nowrap" }}>Reset {dailyDate}</div>
               </>
             )}
           </div>
@@ -1064,9 +1064,9 @@ const DailiesWeeklies = () => {
                   color="info"
                   size="medium"
                 >
-                  {weekliesPrevClicked ? " This Week" : "View Prev"}
+                  {weekliesPrevClicked ? " Back" : "Prev"}
                 </Button>
-                {!weekliesPrevClicked && <p>Reset {weeklyDate}</p>}
+                <div style={{ whiteSpace: "nowrap" }}>Reset {weeklyDate}</div>
               </>
             )}
           </div>
