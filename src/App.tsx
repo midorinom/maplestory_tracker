@@ -108,7 +108,7 @@ function App() {
           />
           <Route
             path="/bossing"
-            element={savedUser ? <UnderConstruction /> : <Navigate to="/" />}
+            element={savedUser ? <Bossing /> : <Navigate to="/" />}
           />
           <Route
             path="/progression"
