@@ -81,9 +81,9 @@ const DailiesWeeklies = () => {
   const [allWeekliesPrevChecked, setAllWeekliesPrevChecked] =
     useState<boolean>(false);
 
-  // =====
-  // Dates
-  // =====
+  // =========
+  // Functions
+  // =========
   function getDates() {
     let today: string = "";
 
@@ -296,8 +296,6 @@ const DailiesWeeklies = () => {
   }
 
   function handleCheckAllWeeklies() {
-    // console.log(weeklies);
-
     if (weekliesPrevClicked) {
       if (allWeekliesPrevChecked) {
         checkAllWeeklies(false);

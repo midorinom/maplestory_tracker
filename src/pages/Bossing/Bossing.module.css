@@ -3,16 +3,29 @@
   background-image: url("../../images/lucid.png");
   background-size: cover;
   background-repeat: no-repeat;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .top_ctn {
   height: 20vh;
   border: 1px solid red;
+  display: grid;
+  grid-template-columns: 14% 86%;
+}
+
+.top_left_ctn {
+  background-color: rgb(233, 203, 203);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top_right_ctn {
+  background-color: rgb(197, 197, 239);
 }
 
 .main_ctn {
-  height: 100vh;
+  height: max-content;
   border: 1px solid blue;
 }
 
