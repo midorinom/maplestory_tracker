@@ -4,6 +4,7 @@ import userReducer from "./user";
 import loginReducer from "./login";
 import dashboardReducer from "./dashboard";
 import dailiesReducer from "./dailies";
+import bossingReducer from "./bossing";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     login: loginReducer,
     dashboard: dashboardReducer,
     dailies: dailiesReducer,
+    bossing: bossingReducer,
   },
 });
 
