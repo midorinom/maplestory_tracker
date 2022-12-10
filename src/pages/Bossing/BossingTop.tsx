@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { bossingActions } from "../../store/bossing";
+import { Character, GetCharactersRes } from "../../types/types";
+import CharacterCard from "./components/CharacterCard";
 import moment from "moment";
 import styles from "./Bossing.module.css";
-import { Character, GetCharactersRes } from "../../types/types";
+import { IconButton } from "@mui/material";
+import LeftArrowIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
+import RightArrowIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
 const BossingTop = () => {
   // =========
@@ -15,6 +19,11 @@ const BossingTop = () => {
   const [weeklyDate, setWeeklyDate] = useState<string>();
   const [characters, setCharacters] = useState<Character[]>();
   const [page, setPage] = useState<number>(0);
+  const [showPageArrows, setShowPageArrows] = useState<boolean>(false);
+  const charactersCurrentPage = useAppSelector(
+    (state) => state.bossing.charactersCurrentPage
+  );
+  const [characterCards, setCharacterCards] = useState<any>();
 
   // =========
   // Functions
@@ -51,11 +60,21 @@ const BossingTop = () => {
     if (page > 0 && characters) {
       dispatch(
         bossingActions.setCharactersCurrentPage(
-          characters.slice(page * 5 - 5, page * 5)
+          characters.slice(page * 4 - 4, page * 4)
         )
       );
     }
   }, [page]);
+
+  useEffect(() => {
+    if (charactersCurrentPage.length > 0) {
+      setCharacterCards(
+        charactersCurrentPage.map((element) => {
+          return <CharacterCard character={element} />;
+        })
+      );
+    }
+  }, [charactersCurrentPage]);
 
   // ===============
   // Fetch Functions
@@ -82,21 +101,47 @@ const BossingTop = () => {
     }
   };
 
-  const charsCurrentPg = useAppSelector(
-    (state) => state.bossing.charactersCurrentPage
-  );
-
   // ======
   // Return
   // ======
   return (
     <div className={styles.top_ctn}>
       <div className={styles.top_left_ctn}>Reset {weeklyDate}</div>
-      <div className={styles.top_right_ctn}>
-        {page > 1 && <button onClick={prevPage}>Prev</button>}
-        <div>{JSON.stringify(charsCurrentPg)}</div>
-        {characters && characters.length / 5 > page && (
-          <button onClick={nextPage}>Next</button>
+      <div
+        onMouseEnter={() => setShowPageArrows(true)}
+        onMouseLeave={() => setShowPageArrows(false)}
+        className={styles.top_right_ctn}
+      >
+        {showPageArrows && page > 1 && (
+          <IconButton
+            style={{
+              position: "absolute",
+              top: "40%",
+              left: "0%",
+              zIndex: "1",
+              backgroundColor: "#def4c6",
+            }}
+            onClick={prevPage}
+            size="small"
+          >
+            <LeftArrowIcon fontSize="large" />
+          </IconButton>
+        )}
+        {characterCards && characterCards}
+        {showPageArrows && characters && characters.length / 4 > page && (
+          <IconButton
+            style={{
+              position: "absolute",
+              top: "40%",
+              right: "0%",
+              zIndex: "1",
+              backgroundColor: "#def4c6",
+            }}
+            onClick={nextPage}
+            size="small"
+          >
+            <RightArrowIcon fontSize="large" />
+          </IconButton>
         )}
       </div>
     </div>

@@ -12,6 +12,9 @@
   margin-top: 2rem;
 }
 
+/* =======
+/  Dailies
+/  ======*/
 .left_ctn {
   max-height: 80vh;
   width: fit-content;
@@ -74,6 +77,9 @@
   justify-content: space-between;
 }
 
+/* ==========
+/  Characters
+/  =========*/
 .right_ctn {
   height: max-content;
   max-height: 80vh;
@@ -94,7 +100,7 @@
   grid-template-columns: 50% 50%;
   grid-template-rows: 1fr;
   align-items: center;
-  border-bottom: thin dotted #fbc3bc;
+  border-bottom: dotted #fbc3bc;
   justify-items: center;
   position: relative;
 }
@@ -114,7 +120,6 @@
 }
 
 .featured_ign_class {
-  max-height: 50%;
   width: max-content;
   max-width: 100%;
   display: flex;

@@ -130,7 +130,7 @@
   grid-template-columns: 50% 50%;
   grid-template-rows: 1fr;
   align-items: center;
-  border-bottom: thin dotted #fbc3bc;
+  border-bottom: dotted #fbc3bc;
   justify-items: center;
   position: relative;
 }
@@ -150,7 +150,6 @@
 }
 
 .featured_ign_class {
-  max-height: 50%;
   width: max-content;
   max-width: 100%;
   display: flex;
@@ -198,7 +197,7 @@
   justify-content: center;
   align-items: center;
   padding: 1em;
-  border-top: thin dotted #fbc3bc;
+  border-top: dotted #fbc3bc;
 }
 
 .featured_tracking {
@@ -237,7 +236,7 @@
   grid-template-rows: 1fr;
   justify-content: center;
   align-items: center;
-  border-bottom: thin dotted #fbc3bc;
+  border-bottom: dotted #fbc3bc;
 }
 
 .edit_image_ctn {
@@ -275,7 +274,7 @@
   align-items: center;
   padding: 1em;
   margin-left: 1rem;
-  border-bottom: thin dotted #fbc3bc;
+  border-bottom: dotted #fbc3bc;
   gap: 1rem;
 }
 
