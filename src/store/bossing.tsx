@@ -2,19 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Character } from "../types/types";
 
 interface bossingState {
-  characters: Character[];
+  charactersCurrentPage: Character[];
 }
 
 const initialState: bossingState = {
-  characters: [],
+  charactersCurrentPage: [],
 };
 
 const bossingSlice = createSlice({
   name: "bossing",
   initialState,
   reducers: {
-    setCharacters(state, action: PayloadAction<Character[]>) {
-      state.characters = [...action.payload];
+    setCharactersCurrentPage(state, action: PayloadAction<Character[]>) {
+      state.charactersCurrentPage = [...action.payload];
     },
   },
 });

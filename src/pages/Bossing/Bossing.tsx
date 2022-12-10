@@ -1,6 +1,6 @@
 import styles from "./Bossing.module.css";
-import BossingTop from "./components/BossingTop";
-import BossingMain from "./components/BossingMain";
+import BossingMain from "./BossingMain";
+import BossingTop from "./BossingTop";
 
 const Bossing = () => {
   return (

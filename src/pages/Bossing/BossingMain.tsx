@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../Bossing.module.css";
+import styles from "./Bossing.module.css";
 
 const BossingMain = () => {
   // =========
