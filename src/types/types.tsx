@@ -102,3 +102,18 @@ export interface UpdateUrsusTour {
   ursus: number;
   tour: number;
 }
+
+// ============
+// Bossing Page
+// ============
+export interface GetBossingRes {
+  message: string;
+  bossing: {
+    uuid: string;
+    character: string;
+    first_day_of_bossing_week: string;
+    is_current_week: boolean;
+    bossing_list: string;
+    bossing_done: string;
+  };
+}

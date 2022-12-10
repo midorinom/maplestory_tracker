@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Character } from "../../../types/types";
+import { useAppSelector } from "../../../store/hooks";
+import { Character, GetBossingRes } from "../../../types/types";
+import moment from "moment";
 import defaultChar from "../../../images/default_char.png";
 import EditCharacter from "./EditCharacter";
 import styles from "../Bossing.module.css";
@@ -8,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 interface CharacterCardProps {
   character: Character;
+  todayDate: string;
 }
 
 const CharacterCard: React.FC<CharacterCardProps> = (props) => {
@@ -18,6 +21,7 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
   const [charImg, setCharImg] = useState<any>();
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const userData = useAppSelector((state) => state.user.userData);
 
   // ==============
   // Event Handlers
@@ -31,6 +35,7 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
   // ==========
   useEffect(() => {
     getImage();
+    getBossing();
 
     if (isEditing) {
       setIsEditing(false);
@@ -56,6 +61,28 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
         setCharImg(image);
       } else {
         setCharImg(defaultChar);
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const getBossing = async () => {
+    try {
+      const res = await fetch(`${url}/bossing/get`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          character: props.character.uuid,
+          date: props.todayDate,
+          role: userData.role,
+          level: props.character.level,
+        }),
+      });
+      const response: GetBossingRes = await res.json();
+
+      if (res.ok) {
+        console.log("got bossing");
       }
     } catch (err: any) {
       console.log(err);

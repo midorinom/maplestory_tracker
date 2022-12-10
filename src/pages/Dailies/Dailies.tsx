@@ -337,6 +337,22 @@ const DailiesWeeklies = () => {
   useEffect(() => {
     getCharactersTracking();
     getDates();
+
+    return () => {
+      dispatch(dailiesActions.setCharacters([]));
+      dispatch(
+        dailiesActions.setFeaturedChar({
+          uuid: "",
+          username: "",
+          class_name: "",
+          ign: "",
+          level: 0,
+          is_main: false,
+          tracking: "",
+        })
+      );
+      dispatch(dailiesActions.setCharImg(""));
+    };
   }, [userData]);
 
   // After featuredChar has been set

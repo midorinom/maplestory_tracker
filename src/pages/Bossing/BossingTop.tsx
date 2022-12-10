@@ -24,17 +24,24 @@ const BossingTop = () => {
     (state) => state.bossing.charactersCurrentPage
   );
   const [characterCards, setCharacterCards] = useState<any>();
+  const [todayDate, setTodayDate] = useState<string>("");
 
   // =========
   // Functions
   // =========
   function getDate() {
+    let today: string = "";
+
     if (userData.role === "GMS") {
+      today = moment.utc().toISOString();
       setWeeklyDate(moment.utc().day(11).fromNow());
     }
     if (userData.role === "MSEA") {
+      today = moment().toISOString();
       setWeeklyDate(moment().day(11).fromNow());
     }
+
+    setTodayDate(today.slice(0, 10));
   }
 
   // ==============
@@ -70,7 +77,7 @@ const BossingTop = () => {
     if (charactersCurrentPage.length > 0) {
       setCharacterCards(
         charactersCurrentPage.map((element) => {
-          return <CharacterCard character={element} />;
+          return <CharacterCard character={element} todayDate={todayDate} />;
         })
       );
     }
@@ -112,6 +119,7 @@ const BossingTop = () => {
         onMouseLeave={() => setShowPageArrows(false)}
         className={styles.top_right_ctn}
       >
+        {characterCards && characterCards}
         {showPageArrows && page > 1 && (
           <IconButton
             style={{
@@ -127,7 +135,6 @@ const BossingTop = () => {
             <LeftArrowIcon fontSize="large" />
           </IconButton>
         )}
-        {characterCards && characterCards}
         {showPageArrows && characters && characters.length / 4 > page && (
           <IconButton
             style={{
