@@ -90,6 +90,21 @@
 }
 
 /* ==============
+/  Edit Container
+/  =============*/
+.edit_ctn {
+  height: 100%;
+  position: relative;
+  border-left: solid #fbc3bc;
+  border-bottom: thin dotted #fbc3bc;
+  /* display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+  align-items: center; 
+ justify-items: center; */
+}
+
+/* ==============
 /  Main Container
 /  =============*/
 .main_ctn {
