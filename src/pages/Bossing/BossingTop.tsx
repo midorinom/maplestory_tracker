@@ -64,6 +64,7 @@ const BossingTop = () => {
 
     return () => {
       dispatch(bossingActions.setCharactersCurrentPage([]));
+      dispatch(bossingActions.setBossingCurrentPage([]));
     };
   }, [userData]);
 

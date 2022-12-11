@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character } from "../types/types";
+import { Character, Bossing } from "../types/types";
 
 interface bossingState {
   charactersCurrentPage: Character[];
+  bossingCurrentPage: Bossing[];
 }
 
 const initialState: bossingState = {
   charactersCurrentPage: [],
+  bossingCurrentPage: [],
 };
 
 const bossingSlice = createSlice({
@@ -15,6 +17,12 @@ const bossingSlice = createSlice({
   reducers: {
     setCharactersCurrentPage(state, action: PayloadAction<Character[]>) {
       state.charactersCurrentPage = [...action.payload];
+    },
+    setBossingCurrentPage(state, action: PayloadAction<Bossing[]>) {
+      state.bossingCurrentPage = [...action.payload];
+    },
+    pushBossingCurrentPage(state, action: PayloadAction<Bossing>) {
+      state.bossingCurrentPage = [...state.bossingCurrentPage, action.payload];
     },
   },
 });

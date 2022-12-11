@@ -130,7 +130,7 @@
 }
 
 .main_right_ctn {
-  background-color: blue;
+  background-color: rgba(245, 245, 245, 0.8);
   display: grid;
   grid-template-columns: repeat(4, 25%);
 }

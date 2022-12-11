@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { bossingActions } from "../../../store/bossing";
 import { Character, GetBossingRes } from "../../../types/types";
-import moment from "moment";
 import defaultChar from "../../../images/default_char.png";
 import EditCharacter from "./EditCharacter";
 import styles from "../Bossing.module.css";
@@ -18,6 +18,7 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
   // Variables
   // =========
   const url = process.env.REACT_APP_API_ENDPOINT;
+  const dispatch = useAppDispatch();
   const [charImg, setCharImg] = useState<any>();
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -82,7 +83,7 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
       const response: GetBossingRes = await res.json();
 
       if (res.ok) {
-        console.log("got bossing");
+        dispatch(bossingActions.pushBossingCurrentPage(response.bossing));
       }
     } catch (err: any) {
       console.log(err);
