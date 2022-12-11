@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { Bosses, GetBossesRes } from "../../types/types";
 import styles from "./Bossing.module.css";
+import CheckboxCard from "./components/CheckboxCard";
 
 const BossingMain = () => {
   // =========
@@ -40,7 +41,7 @@ const BossingMain = () => {
         }
 
         // Wrap the checkboxes in a div
-        return <div className={styles.checkbox_ctn}>{checkboxes}</div>;
+        return <CheckboxCard checkboxes={checkboxes} />;
       });
 
       setCheckboxCards(allCheckboxes);
@@ -97,14 +98,6 @@ const BossingMain = () => {
     <div className={styles.main_ctn}>
       <div className={styles.main_left_ctn}>{bossCards && bossCards}</div>
       <div className={styles.main_right_ctn}>
-        {/* <div>
-          <div>Checkbox 1</div>
-          <div>Checkbox 2</div>
-          <div>Checkbox 3</div>
-        </div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div> */}
         {checkboxCards && checkboxCards}
       </div>
     </div>
