@@ -18,6 +18,9 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
   const url = process.env.REACT_APP_API_ENDPOINT;
   const [checked, setChecked] = useState<boolean>(props.checked);
   const [initialRender, setInitialRender] = useState<boolean>(false);
+  const [localBossingDone, setLocalBossingDone] = useState<string>(
+    props.bossing_done
+  );
 
   // ==============
   // Event Handlers
@@ -49,8 +52,11 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
   const updateBossing = async () => {
     try {
       let arrBossingDone: string[] = [];
-      if (props.bossing_done) {
-        arrBossingDone = props.bossing_done.split("@");
+
+      console.log("localBossingDone", localBossingDone);
+
+      if (localBossingDone) {
+        arrBossingDone = localBossingDone.split("@");
       }
 
       if (checked) {
@@ -63,8 +69,15 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
 
       let bossing_done: string = "";
       if (arrBossingDone.length > 0) {
-        bossing_done = arrBossingDone.join("@");
+        if (arrBossingDone.length > 1) {
+          bossing_done = arrBossingDone.join("@");
+        } else {
+          bossing_done = arrBossingDone[0];
+        }
       }
+
+      console.log("bossing_done", bossing_done);
+      setLocalBossingDone(bossing_done);
 
       const res = await fetch(`${url}/bossing/update`, {
         method: "PATCH",
@@ -75,10 +88,6 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
         }),
       });
       const response: DefaultRes = await res.json();
-
-      if (res.ok) {
-        console.log("ok");
-      }
     } catch (err: any) {
       console.log(err);
     }
@@ -99,7 +108,6 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
         }
         label={props.boss}
       />
-      <p>{props.uuid}</p>
     </div>
   );
 };
