@@ -5,6 +5,7 @@ import { FormControlLabel, Checkbox } from "@mui/material";
 
 interface CheckboxCardProps {
   boss: string;
+  crystal: bigint;
   index: number;
   uuid: string;
   bossing_done: string;
@@ -105,6 +106,7 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
         }
         label={props.boss}
       />
+      {/* <div>{props.crystal}</div> */}
     </div>
   );
 };

@@ -15,26 +15,22 @@ const BossingMain = () => {
   const userData = useAppSelector((state) => state.user.userData);
   const [checkboxCards, setCheckboxCards] = useState<any>();
   const [bosses, setBosses] = useState<Bosses[]>([]);
-  const [bossCards, setBossCards] = useState<any>();
 
   // ==========
   // useEffects
   // ==========
   useEffect(() => {
-    if (bossingCurrentPage.length > 0) {
-      let longestList: string[] = [];
+    getBosses();
+  }, [bossingCurrentPage]);
 
+  useEffect(() => {
+    if (bossingCurrentPage.length > 0) {
       // Set the Checkbox Cards
       const allCheckboxes = bossingCurrentPage.map((element, index) => {
         // Map out checkboxes based on bossing list
         let checkboxes;
         if (element.bossing_list) {
           const bossingList = element.bossing_list.split("@");
-
-          // Update longestList if appropriate
-          if (bossingList.length > longestList.length) {
-            longestList = [...bossingList];
-          }
 
           checkboxes = bossingList.map((bossName) => {
             let checked = false;
@@ -44,9 +40,17 @@ const BossingMain = () => {
               }
             }
 
+            let crystal: bigint = BigInt(0);
+            const boss = bosses.find((element) => element.name === bossName);
+            if (boss) {
+              crystal = boss.crystal;
+            }
+            console.log("crystal", crystal);
+
             return (
               <CheckboxCard
                 boss={bossName}
+                crystal={crystal}
                 index={index}
                 checked={checked}
                 bossing_done={element.bossing_done}
@@ -66,40 +70,19 @@ const BossingMain = () => {
       });
 
       setCheckboxCards(allCheckboxes);
-
-      // Fetch Bosses
-      if (longestList.length > 0) {
-        getBosses(longestList.length);
-      }
-    }
-  }, [bossingCurrentPage]);
-
-  useEffect(() => {
-    if (bosses.length > 0) {
-      const allBossCards = bosses.map((element) => {
-        return (
-          <div className={styles.boss_card_ctn}>
-            <div>{element.crystal}</div>
-            <div>{element.name}</div>
-          </div>
-        );
-      });
-
-      setBossCards(allBossCards);
     }
   }, [bosses]);
 
   // ===============
   // Fetch Functions
   // ===============
-  const getBosses = async (id: number) => {
+  const getBosses = async () => {
     try {
       const res = await fetch(`${url}/bosses/get`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           role: userData.role,
-          id: id,
         }),
       });
       const response: GetBossesRes = await res.json();
@@ -117,7 +100,6 @@ const BossingMain = () => {
   // ======
   return (
     <div className={styles.main_ctn}>
-      <div className={styles.main_left_ctn}>{bossCards && bossCards}</div>
       <div className={styles.main_right_ctn}>
         {checkboxCards && checkboxCards}
       </div>

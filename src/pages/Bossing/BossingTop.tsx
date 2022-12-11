@@ -41,11 +41,9 @@ const BossingTop = () => {
 
     if (userData.role === "GMS") {
       today = moment.utc().toISOString();
-      setWeeklyDate(moment.utc().day(4).fromNow());
     }
     if (userData.role === "MSEA") {
       today = moment().toISOString();
-      setWeeklyDate(moment().day(4).fromNow());
     }
 
     setTodayDate(today.slice(0, 10));
@@ -184,45 +182,42 @@ const BossingTop = () => {
   // Return
   // ======
   return (
-    <div className={styles.top_ctn}>
-      <div className={styles.top_left_ctn}>Reset {weeklyDate}</div>
-      <div
-        onMouseEnter={() => setShowPageArrows(true)}
-        onMouseLeave={() => setShowPageArrows(false)}
-        className={styles.top_right_ctn}
-      >
-        {characterCards && characterCards}
-        {showPageArrows && page > 1 && (
-          <IconButton
-            style={{
-              position: "absolute",
-              top: "40%",
-              left: "0%",
-              zIndex: "1",
-              backgroundColor: "#def4c6",
-            }}
-            onClick={prevPage}
-            size="small"
-          >
-            <LeftArrowIcon fontSize="large" />
-          </IconButton>
-        )}
-        {showPageArrows && characters && characters.length / 4 > page && (
-          <IconButton
-            style={{
-              position: "absolute",
-              top: "40%",
-              right: "0%",
-              zIndex: "1",
-              backgroundColor: "#def4c6",
-            }}
-            onClick={nextPage}
-            size="small"
-          >
-            <RightArrowIcon fontSize="large" />
-          </IconButton>
-        )}
-      </div>
+    <div
+      className={styles.top_ctn}
+      onMouseEnter={() => setShowPageArrows(true)}
+      onMouseLeave={() => setShowPageArrows(false)}
+    >
+      {characterCards && characterCards}
+      {showPageArrows && page > 1 && (
+        <IconButton
+          style={{
+            position: "absolute",
+            top: "40%",
+            left: "0%",
+            zIndex: "1",
+            backgroundColor: "#def4c6",
+          }}
+          onClick={prevPage}
+          size="small"
+        >
+          <LeftArrowIcon fontSize="large" />
+        </IconButton>
+      )}
+      {showPageArrows && characters && characters.length / 4 > page && (
+        <IconButton
+          style={{
+            position: "absolute",
+            top: "40%",
+            right: "0%",
+            zIndex: "1",
+            backgroundColor: "#def4c6",
+          }}
+          onClick={nextPage}
+          size="small"
+        >
+          <RightArrowIcon fontSize="large" />
+        </IconButton>
+      )}
     </div>
   );
 };

@@ -4,6 +4,26 @@
   background-size: cover;
   background-repeat: no-repeat;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.timer_ctn {
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10;
+  left: 0;
+}
+
+.bossing_ctn {
+  width: 75%;
+  position: relative;
+  top: 7.5%;
+  border-radius: 1rem;
 }
 
 /* =============
@@ -11,34 +31,20 @@
 /  ============*/
 .top_ctn {
   height: 20vh;
-  display: grid;
-  grid-template-columns: 30% 70%;
-}
-
-.top_left_ctn {
-  font-size: 1.5rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.top_right_ctn {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, 25%);
 }
 
-.top_right_ctn > :nth-child(1) {
-  border-left: solid #fbc3bc;
+.top_ctn > :nth-child(1) {
   border-right: solid #fbc3bc;
 }
 
-.top_right_ctn > :nth-child(2) {
+.top_ctn > :nth-child(2) {
   border-right: solid #fbc3bc;
 }
 
-.top_right_ctn > :nth-child(3) {
+.top_ctn > :nth-child(3) {
   border-right: solid #fbc3bc;
 }
 
@@ -121,12 +127,6 @@
 /  =============*/
 .main_ctn {
   height: max-content;
-  display: grid;
-  grid-template-columns: 30% 70%;
-}
-
-.main_left_ctn {
-  background-color: #eff4d8;
 }
 
 .boss_card_ctn {
@@ -140,7 +140,6 @@
 }
 
 .main_right_ctn > :nth-child(1) {
-  border-left: solid #fbc3bc;
   border-right: solid #fbc3bc;
 }
 
