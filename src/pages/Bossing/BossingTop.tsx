@@ -17,7 +17,7 @@ const BossingTop = () => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state: any) => state.user.userData);
   const [weeklyDate, setWeeklyDate] = useState<string>();
-  const [characters, setCharacters] = useState<Character[]>();
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState<number>(0);
   const [showPageArrows, setShowPageArrows] = useState<boolean>(false);
   const charactersCurrentPage = useAppSelector(
@@ -61,10 +61,20 @@ const BossingTop = () => {
   useEffect(() => {
     getCharactersTracking();
     getDate();
+
+    return () => {
+      dispatch(bossingActions.setCharactersCurrentPage([]));
+    };
   }, [userData]);
 
   useEffect(() => {
-    if (page > 0 && characters) {
+    if (characters.length > 0) {
+      setPage(1);
+    }
+  }, [characters]);
+
+  useEffect(() => {
+    if (page > 0 && characters.length > 0) {
       dispatch(
         bossingActions.setCharactersCurrentPage(
           characters.slice(page * 4 - 4, page * 4)
@@ -77,7 +87,13 @@ const BossingTop = () => {
     if (charactersCurrentPage.length > 0) {
       setCharacterCards(
         charactersCurrentPage.map((element) => {
-          return <CharacterCard character={element} todayDate={todayDate} />;
+          return (
+            <CharacterCard
+              character={element}
+              todayDate={todayDate}
+              key={Math.random()}
+            />
+          );
         })
       );
     }
@@ -101,7 +117,6 @@ const BossingTop = () => {
       if (res.ok) {
         // Set Characters and Page
         setCharacters(response.characters);
-        setPage(1);
       }
     } catch (err: any) {
       console.log(err);
