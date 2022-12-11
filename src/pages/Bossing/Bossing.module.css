@@ -153,8 +153,9 @@
 }
 
 .checkbox_ctn {
-  background-color: rgba(245, 245, 245, 0.8);
+  width: 100%;
   height: max-content;
+  background-color: rgba(245, 245, 245, 0.8);
 }
 
 /* =============

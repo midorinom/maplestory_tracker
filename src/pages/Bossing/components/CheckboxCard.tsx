@@ -53,8 +53,6 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
     try {
       let arrBossingDone: string[] = [];
 
-      console.log("localBossingDone", localBossingDone);
-
       if (localBossingDone) {
         arrBossingDone = localBossingDone.split("@");
       }
@@ -76,7 +74,6 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
         }
       }
 
-      console.log("bossing_done", bossing_done);
       setLocalBossingDone(bossing_done);
 
       const res = await fetch(`${url}/bossing/update`, {
@@ -103,7 +100,7 @@ const CheckboxCard: React.FC<CheckboxCardProps> = (props) => {
           <Checkbox
             onChange={handleChange}
             checked={checked}
-            //   id={props.name}
+            style={{ marginLeft: "1rem" }}
           />
         }
         label={props.boss}
