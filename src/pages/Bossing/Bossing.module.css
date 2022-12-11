@@ -126,7 +126,7 @@
 }
 
 .main_left_ctn {
-  background-color: #fbc3bc;
+  background-color: #eff4d8;
 }
 
 .boss_card_ctn {
@@ -154,6 +154,7 @@
 
 .checkbox_ctn {
   background-color: rgba(245, 245, 245, 0.8);
+  height: max-content;
 }
 
 /* =============
