@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { bossingActions } from "../../store/bossing";
-import { Character, GetCharactersRes } from "../../types/types";
+import {
+  Bossing,
+  Character,
+  GetBossingRes,
+  GetCharactersRes,
+} from "../../types/types";
 import CharacterCard from "./components/CharacterCard";
 import moment from "moment";
 import styles from "./Bossing.module.css";
@@ -25,6 +30,8 @@ const BossingTop = () => {
   );
   const [characterCards, setCharacterCards] = useState<any>();
   const [todayDate, setTodayDate] = useState<string>("");
+  const [allBossing, setAllBossing] = useState<Bossing[]>([]);
+  const [getBossingDone, setGetBossingDone] = useState<boolean>(false);
 
   // =========
   // Functions
@@ -86,6 +93,7 @@ const BossingTop = () => {
 
   useEffect(() => {
     if (charactersCurrentPage.length > 0) {
+      // Set Character Cards
       setCharacterCards(
         charactersCurrentPage.map((element) => {
           return (
@@ -99,10 +107,23 @@ const BossingTop = () => {
       );
     }
 
+    // Get Bossing
+    for (const character of charactersCurrentPage) {
+      getBossing(character);
+    }
+
     return () => {
       dispatch(bossingActions.setBossingCurrentPage([]));
+      setAllBossing([]);
     };
   }, [charactersCurrentPage]);
+
+  useEffect(() => {
+    if (getBossingDone) {
+      dispatch(bossingActions.setBossingCurrentPage(allBossing));
+      setGetBossingDone(false);
+    }
+  }, [getBossingDone]);
 
   // ===============
   // Fetch Functions
@@ -120,8 +141,39 @@ const BossingTop = () => {
       const response: GetCharactersRes = await res.json();
 
       if (res.ok) {
-        // Set Characters and Page
         setCharacters(response.characters);
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const getBossing = async (character: Character) => {
+    try {
+      const res = await fetch(`${url}/bossing/get`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          character: character.uuid,
+          date: todayDate,
+          role: userData.role,
+          level: character.level,
+        }),
+      });
+      const response: GetBossingRes = await res.json();
+
+      if (res.ok) {
+        setAllBossing((prevState) => {
+          return [...prevState, response.bossing];
+        });
+
+        // Finished fetching for all characters
+        if (
+          charactersCurrentPage[charactersCurrentPage.length - 1].uuid ===
+          character.uuid
+        ) {
+          setGetBossingDone(true);
+        }
       }
     } catch (err: any) {
       console.log(err);

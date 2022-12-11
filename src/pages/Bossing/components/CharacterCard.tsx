@@ -36,7 +36,6 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
   // ==========
   useEffect(() => {
     getImage();
-    getBossing();
 
     if (isEditing) {
       setIsEditing(false);
@@ -62,28 +61,6 @@ const CharacterCard: React.FC<CharacterCardProps> = (props) => {
         setCharImg(image);
       } else {
         setCharImg(defaultChar);
-      }
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
-
-  const getBossing = async () => {
-    try {
-      const res = await fetch(`${url}/bossing/get`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          character: props.character.uuid,
-          date: props.todayDate,
-          role: userData.role,
-          level: props.character.level,
-        }),
-      });
-      const response: GetBossingRes = await res.json();
-
-      if (res.ok) {
-        dispatch(bossingActions.pushBossingCurrentPage(response.bossing));
       }
     } catch (err: any) {
       console.log(err);

@@ -49,6 +49,8 @@ const BossingMain = () => {
                 boss={bossName}
                 index={index}
                 checked={checked}
+                bossing_done={element.bossing_done}
+                uuid={element.uuid}
                 key={Math.random()}
               />
             );

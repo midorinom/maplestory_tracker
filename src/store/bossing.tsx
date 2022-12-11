@@ -21,9 +21,6 @@ const bossingSlice = createSlice({
     setBossingCurrentPage(state, action: PayloadAction<Bossing[]>) {
       state.bossingCurrentPage = [...action.payload];
     },
-    pushBossingCurrentPage(state, action: PayloadAction<Bossing>) {
-      state.bossingCurrentPage = [...state.bossingCurrentPage, action.payload];
-    },
   },
 });
 
