@@ -34,11 +34,11 @@ const BossingTop = () => {
 
     if (userData.role === "GMS") {
       today = moment.utc().toISOString();
-      setWeeklyDate(moment.utc().day(11).fromNow());
+      setWeeklyDate(moment.utc().day(4).fromNow());
     }
     if (userData.role === "MSEA") {
       today = moment().toISOString();
-      setWeeklyDate(moment().day(11).fromNow());
+      setWeeklyDate(moment().day(4).fromNow());
     }
 
     setTodayDate(today.slice(0, 10));
@@ -98,6 +98,10 @@ const BossingTop = () => {
         })
       );
     }
+
+    return () => {
+      dispatch(bossingActions.setBossingCurrentPage([]));
+    };
   }, [charactersCurrentPage]);
 
   // ===============

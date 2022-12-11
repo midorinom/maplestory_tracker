@@ -130,9 +130,25 @@
 }
 
 .main_right_ctn {
-  background-color: rgba(245, 245, 245, 0.8);
   display: grid;
   grid-template-columns: repeat(4, 25%);
+}
+
+.main_right_ctn > :nth-child(1) {
+  border-left: solid #fbc3bc;
+  border-right: solid #fbc3bc;
+}
+
+.main_right_ctn > :nth-child(2) {
+  border-right: solid #fbc3bc;
+}
+
+.main_right_ctn > :nth-child(3) {
+  border-right: solid #fbc3bc;
+}
+
+.checkbox_ctn {
+  background-color: rgba(245, 245, 245, 0.8);
 }
 
 /* =============

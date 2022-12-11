@@ -91,14 +91,14 @@ const DailiesWeeklies = () => {
     if (userData.role === "GMS") {
       today = moment.utc().toISOString();
       setDailyDate(moment.utc().endOf("day").fromNow());
-      setWeeklyDate(moment.utc().day(8).fromNow());
+      setWeeklyDate(moment.utc().day(1).fromNow());
     }
 
     // MSEA
     if (userData.role === "MSEA") {
       today = moment().toISOString();
       setDailyDate(moment().endOf("day").fromNow());
-      setWeeklyDate(moment().day(8).fromNow());
+      setWeeklyDate(moment().day(1).fromNow());
     }
 
     setTodayDate(today.slice(0, 10));

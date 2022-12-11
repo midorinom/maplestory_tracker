@@ -1,4 +1,6 @@
+import { style } from "@mui/system";
 import { useState, useEffect } from "react";
+import { bossingActions } from "../../store/bossing";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import styles from "./Bossing.module.css";
 
@@ -8,6 +10,9 @@ const BossingMain = () => {
   // =========
   const url = process.env.REACT_APP_API_ENDPOINT;
   const dispatch = useAppDispatch();
+  const charactersCurrentPage = useAppSelector(
+    (state) => state.bossing.charactersCurrentPage
+  );
   const bossingCurrentPage = useAppSelector(
     (state) => state.bossing.bossingCurrentPage
   );
@@ -28,7 +33,7 @@ const BossingMain = () => {
         }
 
         // Wrap the checkboxes in a div
-        return <div>{checkboxes}</div>;
+        return <div className={styles.checkbox_ctn}>{checkboxes}</div>;
       });
 
       setCheckboxCards(allCheckboxes);
