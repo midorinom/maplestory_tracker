@@ -126,3 +126,13 @@ export interface Bossing {
   bossing_list: string;
   bossing_done: string;
 }
+
+export interface GetBossesRes {
+  message: string;
+  bosses: Bosses[];
+}
+
+export interface Bosses {
+  name: string;
+  crystal: bigint;
+}

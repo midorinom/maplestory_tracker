@@ -129,6 +129,11 @@
   background-color: #fbc3bc;
 }
 
+.boss_card_ctn {
+  display: flex;
+  gap: 2rem;
+}
+
 .main_right_ctn {
   display: grid;
   grid-template-columns: repeat(4, 25%);
