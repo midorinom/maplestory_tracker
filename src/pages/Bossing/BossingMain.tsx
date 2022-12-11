@@ -35,13 +35,13 @@ const BossingMain = () => {
             longestList = [...bossingList];
           }
 
-          checkboxes = bossingList.map((element) => {
-            return <div>{element}</div>;
+          checkboxes = bossingList.map((element, index) => {
+            return <CheckboxCard boss={element} index={index} />;
           });
         }
 
         // Wrap the checkboxes in a div
-        return <CheckboxCard checkboxes={checkboxes} />;
+        return <div className={styles.checkbox_ctn}>{checkboxes}</div>;
       });
 
       setCheckboxCards(allCheckboxes);
