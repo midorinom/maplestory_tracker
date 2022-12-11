@@ -25,23 +25,42 @@ const BossingMain = () => {
       let longestList: string[] = [];
 
       // Set the Checkbox Cards
-      const allCheckboxes = bossingCurrentPage.map((element) => {
+      const allCheckboxes = bossingCurrentPage.map((element, index) => {
         // Map out checkboxes based on bossing list
         let checkboxes;
         if (element.bossing_list) {
           const bossingList = element.bossing_list.split("@");
+
           // Update longestList if appropriate
           if (bossingList.length > longestList.length) {
             longestList = [...bossingList];
           }
 
-          checkboxes = bossingList.map((element, index) => {
-            return <CheckboxCard boss={element} index={index} />;
+          checkboxes = bossingList.map((bossName) => {
+            let checked = false;
+            if (element.bossing_done) {
+              if (element.bossing_done.includes(bossName)) {
+                checked = true;
+              }
+            }
+
+            return (
+              <CheckboxCard
+                boss={bossName}
+                index={index}
+                checked={checked}
+                key={Math.random()}
+              />
+            );
           });
         }
 
         // Wrap the checkboxes in a div
-        return <div className={styles.checkbox_ctn}>{checkboxes}</div>;
+        return (
+          <div className={styles.checkbox_ctn} key={Math.random()}>
+            {checkboxes}
+          </div>
+        );
       });
 
       setCheckboxCards(allCheckboxes);
