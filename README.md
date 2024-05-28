@@ -23,8 +23,6 @@ representations of raw data of words and numbers.
 This was my inspiration for making this tracker app, to provide a convenient platform for players to keep track of their information in an interface that is simple to use and visually appealing. I catered this app for players in both the MapleSEA (Southeast Asia) and GMS (Global) servers, as I have played extensively in both regions
 and also have friends in both regions who would potentially be using this app.
 
-The app is deployed <a href="http://13.229.106.234">here</a>, on AWS EC2 and ElephantSQL.
-
 Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backend</a>.
 
 <a name="Technologies"></a>
