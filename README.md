@@ -124,9 +124,6 @@ There will only ever be at most 2 entries at a time in the database (today and t
 #### JWT
 - Implement JWT authentication to protect all endpoints from being accessed by users that are not logged in
 
-#### Chatbot
-- Add a chatbot that the user can interact with through text. The chatbot will be developed using machine learning to be able to answer maplestory-related questions.
-
 #### Pages
 Currently, I have fully developed the backend for all the following pages (API endpoints and database models + schemas), all that remains is to do up the frontend. To show a rough idea of how each page will look like, I have included the images of the spreadsheets I made from back when I played the game actively. I will be using these spreadsheets as an inspiration and reference to design the pages.
 
