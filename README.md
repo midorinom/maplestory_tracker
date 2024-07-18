@@ -25,6 +25,10 @@ and also have friends in both regions who would potentially be using this app.
 
 Link to <a href="https://github.com/midorinom/maplestory_tracker_backend">backend</a>.
 
+The website is hosted on AWS EC2 and can be accessed <a href="http://13.229.106.234/">here</a>, with the database being hosted on AWS RDS.
+
+UPDATE: I have taken down the servers as my 1-year Free Tier has expired
+
 <a name="Technologies"></a>
 ## Technologies Used
 
