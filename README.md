@@ -31,6 +31,22 @@ UPDATE: I have taken down the servers as my 1-year Free Tier has expired
 
 <a name="Technologies"></a>
 ## Technologies Used
+<div style="display:flex">
+<img src="/public/readme/Typescript.png" alt="Typescript" title="Typescript">
+<img src="/public/readme/React.png" alt="React" title="React">
+<img src="/public/readme/Redux.png" alt="Redux" title="Redux">
+<img src="/public/readme/MaterialUI.png" alt="MaterialUI" title="MaterialUI">
+<img src="/public/readme/AWS EC2.png" alt="AWS EC2" title="AWS EC2">
+<img src="/public/readme/AWS RDS.png" alt="AWS RDS" title="AWS RDS">
+</div>
+
+<div style="display:flex">
+<img src="/public/readme/Python.png" alt="Python" title="Python">
+<img src="/public/readme/PostgreSQL.png" alt="PostgreSQL" title="PostgreSQL">
+<img src="/public/readme/Marshmallow.png" alt="Marshmallow" title="Marshmallow">
+<img src="/public/readme/SQLAlchemy.png" alt="SQLAlchemy" title="SQLAlchemy">
+<img src="/public/readme/Psycopg.png" alt="Psycopg" title="Psycopg">
+</div>
 
 Frontend:
 
