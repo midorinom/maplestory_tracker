@@ -42,6 +42,7 @@ UPDATE: I have taken down the servers as my 1-year Free Tier has expired
 
 <div style="display:flex">
 <img src="/public/readme/Python.png" alt="Python" title="Python">
+<img src="/public/readme/Flask.png" alt="Flask" title="Flask">
 <img src="/public/readme/PostgreSQL.png" alt="PostgreSQL" title="PostgreSQL">
 <img src="/public/readme/Marshmallow.png" alt="Marshmallow" title="Marshmallow">
 <img src="/public/readme/SQLAlchemy.png" alt="SQLAlchemy" title="SQLAlchemy">
